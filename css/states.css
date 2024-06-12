@@ -1,0 +1,327 @@
+:root {
+    --white: #fff;
+    --light: #ECECEC;
+	--black: #000;
+    --d_grey: #333;
+    --grey: #666;
+    --l_grey: #999;
+    --pink: #D1A9F0;
+    --primary_light: #C283F3;
+    --primary: #9D5CD0;
+    --primary_shade: #7943A4;
+    --green: #30BF39;
+    --aqua: #26A5E4;
+    --red: #D11616;
+}
+
+/* Header */
+.header__logo-info {
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.header__logo-info:hover {
+    cursor: pointer;
+    background-color: var(--primary_light);
+    border-color: var(--primary);
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.header__logo-info:focus {
+    background-color: none;
+    outline: none;
+    border: none;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.header__logo-info:active {
+    background-color: none;
+    border-color: var(--primary_shade);
+    color: var(--primary_shade);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.header__logo-info:focus:hover {
+    outline: none;
+    background-color: none;
+    border-color: var(--primary);
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.header__logo-info>.header-download>svg>path {
+    transition: fill 0.3s ease-in-out;
+}
+
+.header__logo-info:hover>.header-download>svg>path {
+    fill: var(--white);
+    transition: fill 0.3s ease-in-out;
+}
+
+.header__logo-info:focus>.header-download>svg>path {
+    background-color: none;
+    outline: none;
+    border: none;
+    fill: var(--primary);
+    transition: fill 0.3s ease-in-out;
+}
+
+.header__logo-info:active>.header-download>svg>path {
+    fill: var(--primary_shade);
+    transition: fill 0.3s ease-in-out;
+}
+
+.header__logo-info:focus:hover>.header-download>svg>path {
+    fill: var(--white);
+    transition: fill 0.3s ease-in-out;
+}
+
+.header__link {
+    color: var(--black);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.header__link:hover {
+    color: var(--white);
+    background-color: var(--primary_light);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.header__link:focus {
+    border: none;
+    outline: none;
+    background-color: none;
+    color: var(--primary);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.header__link:active {
+    background-color: none;
+    color: var(--primary_shade);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.header__link:focus:hover {
+    border: none;
+    outline: none;
+    background-color: none;
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.about-swiper-btn {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.about-swiper-btn:hover {
+    background: rgba(0, 0, 0, 0.50);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.about-swiper-btn:active {
+    background: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.about-swiper-btn:active::after {
+    content: "";
+    display: block;
+    position: relative;
+    height: 25%;
+    background: none;
+    visibility: visible;
+    background-size: contain;
+    left: 44%;
+    transition: visibily 0.3s ease-in-out;
+}
+
+.about-swiper-btn:focus {
+    border: none;
+    outline: none;
+    background: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.about-swiper-btn:focus::after {
+    content: "";
+    display: block;
+    position: relative;
+    height: 25%;
+    background: none;
+    visibility: visible;
+    background-size: contain;
+    left: 44%;
+    transition: visibily 0.3s ease-in-out;
+}
+
+.about-swiper-btn:focus {
+    background: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.about-swiper-btn:focus:hover {
+    background: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.about-swiper-btn:focus:hover::after {
+    content: "";
+    display: block;
+    position: relative;
+    height: 25%;
+    background: none;
+    visibility: visible;
+    background-size: contain;
+    left: 44%;
+    transition: visibily 0.3s ease-in-out;
+}
+
+.about-swiper-btn::after {
+    transition: visibily 0.3s ease-in-out;
+}
+
+.about-swiper-btn:hover::after {
+    content: "";
+    display: block;
+    position: relative;
+    height: 25%;
+    background: url(../img/about-info.svg) no-repeat;
+    visibility: visible;
+    background-size: contain;
+    left: 44%;
+    transition: visibily 0.3s ease-in-out;
+}
+
+.choices__item {
+    transition: color 0.3s ease-in-out;
+}
+
+.choices__item:hover {
+    color: var(--primary_light);
+    transition: color 0.3s ease-in-out;
+}
+
+.choices__item:focus {
+    color: var(--primary);
+    transition: color 0.3s ease-in-out;
+}
+
+.choices__item:active {
+    color: var(--primary_shade);
+    transition: color 0.3s ease-in-out;
+}
+
+.active, .skills__accordeon-btn:hover {
+    background-color: var(--light);
+}
+
+.reference__link {
+    transition: outline 0.3s ease-in-out;
+}
+
+.reference__link:hover {
+    outline: 1px solid var(--primary_light);
+    transition: outline 0.3s ease-in-out;
+}
+
+.reference__link:focus {
+    border: none;
+    outline: 1px solid var(--primary);
+    transition: outline 0.3s ease-in-out;
+}
+
+.reference__link:active {
+    border: none;
+    outline: 1px solid var(--primary_shade);
+    transition: outline 0.3s ease-in-out;
+}
+
+.reference-copy {
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.reference-copy:hover {
+    cursor: pointer;
+    background-color: var(--primary_light);
+    border-color: var(--primary);
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.reference-copy:focus {
+    background-color: none;
+    outline: none;
+    border: none;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.reference-copy:active {
+    background-color: none;
+    border-color: var(--primary_shade);
+    color: var(--primary_shade);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.reference-copy:focus:hover {
+    outline: none;
+    background-color: none;
+    border-color: var(--primary);
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.skills__accordeon-btn {
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.skills__accordeon-btn:hover {
+    background-color: var(--primary_light);
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.skills__accordeon-btn:focus {
+    background-color: none;
+    outline: none;
+    border: none;
+    color: var(--primary);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.skills__accordeon-btn:active {
+    background-color: none;
+    color: var(--primary_shade);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.skills__accordeon-btn:focus:hover {
+    outline: none;
+    background-color: none;
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.footer__link {
+    transition: outline 0.3s ease-in-out;
+}
+
+.footer__link:hover {
+    outline: 1px solid var(--primary_light);
+    transition: outline 0.3s ease-in-out;
+}
+
+.footer__link:focus {
+    border: none;
+    outline: 1px solid var(--primary);
+    transition: outline 0.3s ease-in-out;
+}
+
+.footer__link:active {
+    border: none;
+    outline: 1px solid var(--primary_shade);
+    transition: outline 0.3s ease-in-out;
+}
