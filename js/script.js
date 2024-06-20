@@ -161,4 +161,53 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    // comic
+
+    const form = document.getElementById('email-form');
+    const emailInput = document.getElementById('comic-email');
+    const comicContainer = document.getElementById('comic-container');
+    const comicTitle = document.getElementById('comic-title');
+    const comicImage = document.getElementById('comic-image');
+    const comicDate = document.getElementById('comic-date');
+    const validation = new window.JustValidate('#email-form');
+
+    validation
+        .addField('#comic-email', [
+            {
+                rule: 'required',
+                errorMessage: 'Email is required',
+            },
+            {
+                rule: 'email',
+                errorMessage: 'Write correct email',
+            },
+        ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const email = emailInput.value;
+
+            fetch(`https://fwd.innopolis.university/api/hw2?email=${encodeURIComponent(email)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const comicId = data;
+                    return fetch(`https://fwd.innopolis.university/api/comic?id=${comicId}`);
+            })
+                .then(response => response.json())
+                .then(comic => {
+                    comicTitle.textContent = comic.safe_title;
+                    comicImage.src = comic.img;
+                    comicImage.alt = comic.alt;
+
+                    const date = new Date(`${comic.year}-${comic.month}-${comic.day}`);
+                    comicDate.textContent = `Date of publication: ${date.toLocaleDateString()}`;
+
+                    comicContainer.style.display = 'block';
+            })
+                .catch(error => {
+                    console.error('Error fetching comic:', error);
+                    comicContainer.innerHTML = '<p>Failed to load comic. Please try again later.</p>';
+                    comicContainer.style.display = 'block';
+            });
+    });
 });

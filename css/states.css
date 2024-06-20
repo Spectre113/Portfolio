@@ -289,6 +289,41 @@
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
+.comic__form>div>button {
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.comic__form>div>button:hover {
+    background-color: var(--primary_light);
+    border-color: var(--primary);
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.comic__form>div>button:focus {
+    background-color: none;
+    outline: none;
+    border: none;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.comic__form>div>button:active {
+    background-color: none;
+    border-color: var(--primary_shade);
+    color: var(--primary_shade);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.comic__form>div>button:focus:hover {
+    outline: none;
+    background-color: none;
+    border-color: var(--primary);
+    color: var(--white);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
 .footer__link {
     transition: outline 0.3s ease-in-out;
 }

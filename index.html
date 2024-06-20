@@ -11,6 +11,7 @@
     <link rel="icon" href="img/ico.ico" type="image/x-icon">
     <script defer src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script defer src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
     <script defer src="js/script.js"></script>
     <title>Portfolio</title>
 </head>
@@ -50,6 +51,11 @@
                     <li class="header__item">
                         <a href="#skills" class="header__link">
                             SKILLS
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="#comic" class="header__link">
+                            COMIC
                         </a>
                     </li>
                 </ul>
@@ -263,7 +269,7 @@
                         You can contact with me&nbsp;through various platforms to&nbsp;stay updated on&nbsp;my&nbsp;latest projects and get in&nbsp;touch for any inquiries. Feel free to&nbsp;reach out to&nbsp;me&nbsp;on&nbsp;VKontakte for social interactions and updates, or&nbsp;send me&nbsp;an&nbsp;email via Mail for more formal communication. If&nbsp;you prefer instant messaging, I&rsquo;m also available on&nbsp;Telegram where we&nbsp;can discuss potential collaborations or&nbsp;just have a&nbsp;chat. Additionally, you can check out my&nbsp;GitHub profile to&nbsp;see my&nbsp;code repositories and contributions to&nbsp;various projects. Each platform offers a&nbsp;unique way to&nbsp;connect and stay engaged, so&nbsp;choose the one that suits you best!
                     </p>
                 </div>
-                <div class="reference__right-block">
+                <div class="reference__right-block flex">
                     <ul class="reference__list list-reset flex">
                         <li class="reference__item">
                             <a href="https://vk.com/id384534054" id="vk-link" class="reference__link">
@@ -360,6 +366,25 @@
                     <div class="skills__accordeon-panel">
                         <p>I have a keen understanding of responsive design principles, ensuring that websites I create are fully adaptable to different devices and screen sizes. This includes using media queries and flexible grid layouts to provide a seamless user experience across desktops, tablets, and mobile phones.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+        <section class="comic" id="comic">
+            <div class="container">
+                <h2 class="comic__title">
+                    Comic
+                </h2>
+                <form id="email-form" class="comic__form flex">
+                    <label for="email">Enter your Innopolis email:</label>
+                    <div>
+                        <input type="email" id="comic-email" name="email" placeholder="Ex: v.toporkov@innopolis.university" required>
+                        <button type="submit" class="btn-reset">Get comic</button>
+                    </div>
+                </form>
+                <div id="comic-container" class="comic__container none">
+                    <h3 id="comic-title" class="comic__container-title"></h3>
+                    <img id="comic-image" class="comic__container-image" src="" alt="wait">
+                    <p id="comic-date" class="comic__container-date"></p>
                 </div>
             </div>
         </section>

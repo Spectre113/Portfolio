@@ -71,6 +71,10 @@ img, svg {
     margin: 0 auto;
 }
 
+.none {
+    display: none;
+}
+
 /* Header */
 
 .header {
@@ -588,6 +592,11 @@ img, svg {
     margin-bottom: 30px;
 }
 
+.reference__right-block {
+    flex-direction: column;
+    align-items: center;
+}
+
 /* Skills */
 
 .skills {
@@ -644,6 +653,88 @@ img, svg {
 .skills__accordeon-panel>p {
     width: 50%;
     margin-bottom: 20px;
+}
+
+/* comic */
+
+.comic {
+    min-height: 300px;
+    padding: 50px 0;
+}
+
+.comic__title {
+    margin-bottom: 30px;
+	font-weight: 400;
+	font-size: 48px;
+	line-height: 100%;
+    color: var(--black);
+}
+
+.comic__form {
+    margin-bottom: 30px;
+    flex-direction: column;
+}
+
+.comic__form>label {
+    margin-bottom: 15px;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 20px;
+    color: var(--black)
+}
+
+.comic__form>div>input {
+    width: 400px;
+    margin-right: 30px;
+    padding-left: 20px;
+    background: none;
+    vertical-align: -webkit-baseline-middle;
+    font-size: 18px;
+    line-height: 22px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--black) !important;
+    color: var(--primary_shade);
+}
+
+.comic__form>div>input:focus {
+    border: none;
+}
+
+.comic__form>div>button {
+    width: 130px;
+    min-height: 35px;
+    padding: 5px 5px;
+    border: 1px solid var(--black);
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 25px;
+    color: var(--black);
+}
+
+.comic__container-title {
+    margin-bottom: 30px;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 100%;
+	letter-spacing: -0.05px;
+    color: var(--black);
+}
+
+.comic__container-image {
+    margin-bottom: 30px;
+}
+
+.comic__container-date {
+    width: 275px;
+    margin: 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--black);
+    font-weight: 500;
+	font-size: 18px;
+	line-height: 150%;
+    color: var(--black);
 }
 
 /* footer */
