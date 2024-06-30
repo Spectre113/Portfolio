@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/states.css">
+        <link rel="icon" href="img/ico.ico" type="image/x-icon">
+        <script defer src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script defer src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+        <script defer src="dist/bundle.js"></script>
+        <title>Portfolio</title>
+    </head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <button class="header__logo-info flex">
+                    <span class="header-name">
+                        Vladimir Toporkov
+                    </span>
+                    <span class="header-download">
+                        <svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            width="20px" height="20px" viewBox="0 0 260 205" enable-background="new 0 0 260 205" xml:space="preserve">
+                        <path d="M184.588,75l-54.683,72.879L75.412,75H112V2h36v73H184.588z M258,75h-36v92H38V75H2v128h256V75z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            <nav class="header__nav">
+                <ul class="header__list list-reset flex">
+                    <li class="header__item">
+                        <a href="#about" class="header__link">
+                            ABOUT
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="#projects" class="header__link">
+                            PROJECTS
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="#reference" class="header__link">
+                            REFERENCE
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="#skills" class="header__link">
+                            SKILLS
+                        </a>
+                    </li>
+                    <li class="header__item">
+                        <a href="#comic" class="header__link">
+                            COMIC
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <section class="hero">
+            <div class="container flex">
+                <div class="hero__info-block">
+                    <h1 class="hero__title">
+                        Vladimir Toporkov <span> Frontend developer </span>
+                    </h1>
+                    <p class="hero__info">
+                        With a&nbsp;passion for creating interactive and dynamic web applications, I&nbsp;specialize in&nbsp;building responsive, user-friendly interfaces using modern technologies. My&nbsp;focus is&nbsp;on&nbsp;delivering high-quality code and exceptional user experiences. 
+                    </p>
+
+                    <p class="hero__info">
+                        Dedicated to&nbsp;continuous learning and staying updated with the latest industry trends, I&nbsp;strive to&nbsp;implement best practices in&nbsp;every project. Whether it&rsquo;s developing new features or&nbsp;optimizing existing ones, my&nbsp;goal is&nbsp;to&nbsp;provide innovative solutions that meet client needs. 
+                    </p>
+
+                    <p class="hero__info">
+                        Let&rsquo;s build something amazing together! 
+                    </p>
+                </div>
+                <div class="hero__back">
+
+                </div>
+            </div>
+        </section>
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="about__title">
+                    About me
+                </h2>
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="about__swiper-content swiper-slide">
+                            <div class="about__experience-btn btn-reset">
+                            </div>
+                            <button class="btn-reset about-swiper-btn"></button>
+                            <div class="about__swiper-click">
+                                <div>
+                                    <p class="about__swiper-info about__swiper-first">
+                                        Over the course of my career, I have successfully completed four projects, each showcasing my ability to deliver high-quality web applications. Almost all of these websites are fully responsive, ensuring optimal performance and user experience across different screen sizes.
+                                    </p>
+                                    <p class="about__swiper-info">
+                                        For more detailed information about each project, please refer to the dedicated section on this site.
+                                    </p>
+                                </div>
+                                <button class="btn-reset about__swiper-click-close">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666641 15.3043L15.3333 3.17761e-05L16 0.695679L1.33331 15.9999L0.666641 15.3043Z" fill="black"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666725 -2.96187e-06L15.3334 15.3042L14.6667 15.9999L5.76143e-05 0.695644L0.666725 -2.96187e-06Z" fill="black"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="about__swiper-content swiper-slide">
+                            <div class="about__skills-btn btn-reset">
+                            </div>
+                            <button class="btn-reset about-swiper-btn"></button>
+                            <div class="about__swiper-click">
+                                <div>
+                                    <p class="about__swiper-info">
+                                        I have developed a strong set of skills in frontend development, which includes:
+                                    </p>
+                                    <ul class="about__swiper-list list-reset">
+                                        <li class="about__swiper-item">
+                                            <span class="about__swiper-title">
+                                                BEM Methodology:
+                                            </span>
+                                            <span class="about__swiper-info about__swiper-first">
+                                                Proficient in using the Block Element Modifier (BEM) methodology to create modular and maintainable code.
+                                            </span>
+                                        </li>
+                                        <li class="about__swiper-item">
+                                            <span class="about__swiper-title">
+                                                HTML Semantics:
+                                            </span>
+                                            <span class="about__swiper-info about__swiper-first">
+                                                Understanding and applying HTML semantics to ensure that web pages are accessible and optimized for search engines.
+                                            </span>
+                                        </li>
+                                        <li class="about__swiper-item">
+                                            <span class="about__swiper-title">
+                                                JavaScript:
+                                            </span>
+                                            <span class="about__swiper-info about__swiper-first">
+                                                Skilled in using JavaScript to create interactive and dynamic web applications. This includes experience with ES6+ features and various libraries and frameworks.
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <p class="about__swiper-info">
+
+                                    </p>
+                                </div>
+                                <button class="btn-reset about__swiper-click-close">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666641 15.3043L15.3333 3.17761e-05L16 0.695679L1.33331 15.9999L0.666641 15.3043Z" fill="black"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666725 -2.96187e-06L15.3334 15.3042L14.6667 15.9999L5.76143e-05 0.695644L0.666725 -2.96187e-06Z" fill="black"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="about__swiper-content swiper-slide">
+                            <div class="about__education-btn btn-reset">
+                            </div>
+                            <button class="btn-reset about-swiper-btn"></button>
+                            <div class="about__swiper-click">
+                                <div>
+                                    <p class="about__swiper-info about__swiper-first">
+                                        I am currently studying at Innopolis University, where I am furthering my knowledge and skills in the field of technology. Additionally, I have completed various frontend development courses that have provided me with a solid foundation in creating dynamic and responsive web applications.
+                                    </p>
+                                    <p class="about__swiper-info">
+                                        My dedication to learning extends beyond just my university studies. I have also successfully passed Cambridge English exams, which have significantly improved my proficiency in English. Prior to my university education, I completed 11 years of schooling, laying a strong educational groundwork.
+                                    </p>
+                                </div>
+                                <button class="btn-reset about__swiper-click-close">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666641 15.3043L15.3333 3.17761e-05L16 0.695679L1.33331 15.9999L0.666641 15.3043Z" fill="black"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666725 -2.96187e-06L15.3334 15.3042L14.6667 15.9999L5.76143e-05 0.695644L0.666725 -2.96187e-06Z" fill="black"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="about__swiper-content swiper-slide">
+                            <div class="about__hobbies-btn btn-reset">
+                            </div>
+                            <button class="btn-reset about-swiper-btn"></button>
+                            <div class="about__swiper-click">
+                                <div>
+                                    <p class="about__swiper-info">In my free time, I enjoy engaging in activities that stimulate both creativity and teamwork. One of my favorite hobbies is building complex LEGO structures. It's a fantastic way to unwind and exercise my problem-solving skills. Additionally, I love playing computer games with friends. Whether it's a cooperative game or a competitive one, gaming provides a great opportunity to connect, strategize, and have fun together.</p>
+                                </div>
+                                <button class="btn-reset about__swiper-click-close">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666641 15.3043L15.3333 3.17761e-05L16 0.695679L1.33331 15.9999L0.666641 15.3043Z" fill="black"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666725 -2.96187e-06L15.3334 15.3042L14.6667 15.9999L5.76143e-05 0.695644L0.666725 -2.96187e-06Z" fill="black"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="about__swiper-content swiper-slide">
+                            <div class="about__life-btn btn-reset">
+                            </div>
+                            <button class="btn-reset about-swiper-btn"></button>
+                            <div class="about__swiper-click">
+                                <div>
+                                    <p class="about__swiper-info">
+                                        I was born and raised in Chelyabinsk, where I spent most of my life. During the summer, I often traveled to another city, which gave me a broader perspective and new experiences. My interest in frontend development began in the 7th grade, and I started learning it with great enthusiasm. As I delved deeper into frontend development, I enrolled in a specialized course to enhance my skills. This foundational experience played a crucial role in my acceptance into Innopolis University, where I am currently continuing my education and expanding my expertise in technology.
+                                    </p>
+                                </div>
+                                <button class="btn-reset about__swiper-click-close">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666641 15.3043L15.3333 3.17761e-05L16 0.695679L1.33331 15.9999L0.666641 15.3043Z" fill="black"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666725 -2.96187e-06L15.3334 15.3042L14.6667 15.9999L5.76143e-05 0.695644L0.666725 -2.96187e-06Z" fill="black"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-content">
+                        <div class="swiper-button-next"></div>
+                        <p class="swiper-text">1 / 2</p>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="projects" class="projects">
+            <div class="container">
+                <div class="projects__select-block">
+                    <h2 class="projects__title">
+                        Projects
+                    </h2>
+                    <div class="projects__select">
+                        <select id="my-select" class="my-select">
+                            <option class="gallery-select" value="Euclid" selected>Euclid</option>
+                            <option class="gallery-select" value="W-wave">W-wave</option>
+                            <option class="gallery-select" value="Lagoona">Lagoona</option>
+                            <option class="gallery-select" value="Blanchard">Blanchard (still in progress)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="projects__info-block" id="project-info">
+                    <h2>
+                        Project Title
+                    </h2>
+                    <p>
+                        <strong>Description:</strong> Project description will appear here.
+                    </p>
+                    <p>
+                        <strong>Technologies:</strong> List of technologies used.
+                    </p>
+                    <p>
+                        <strong>Link:</strong> 
+                        <a href="#" target="_blank">
+                            Visit project
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section id="reference" class="reference">
+            <div class="container flex">
+                <div class="reference__info-block">
+                    <h2 class="reference__title">
+                        References
+                    </h2>
+                    <p class="reference__info">
+                        You can contact with me&nbsp;through various platforms to&nbsp;stay updated on&nbsp;my&nbsp;latest projects and get in&nbsp;touch for any inquiries. Feel free to&nbsp;reach out to&nbsp;me&nbsp;on&nbsp;VKontakte for social interactions and updates, or&nbsp;send me&nbsp;an&nbsp;email via Mail for more formal communication. If&nbsp;you prefer instant messaging, I&rsquo;m also available on&nbsp;Telegram where we&nbsp;can discuss potential collaborations or&nbsp;just have a&nbsp;chat. Additionally, you can check out my&nbsp;GitHub profile to&nbsp;see my&nbsp;code repositories and contributions to&nbsp;various projects. Each platform offers a&nbsp;unique way to&nbsp;connect and stay engaged, so&nbsp;choose the one that suits you best!
+                    </p>
+                </div>
+                <div class="reference__right-block flex">
+                    <ul class="reference__list list-reset flex">
+                        <li class="reference__item">
+                            <a href="https://vk.com/id384534054" id="vk-link" class="reference__link">
+                                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="80px" height="80px">
+                                    <path fill="#1976d2" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5 V37z"/>
+                                    <path fill="#fff" d="M35.937,18.041c0.046-0.151,0.068-0.291,0.062-0.416C35.984,17.263,35.735,17,35.149,17h-2.618 c-0.661,0-0.966,0.4-1.144,0.801c0,0-1.632,3.359-3.513,5.574c-0.61,0.641-0.92,0.625-1.25,0.625C26.447,24,26,23.786,26,23.199 v-5.185C26,17.32,25.827,17,25.268,17h-4.649C20.212,17,20,17.32,20,17.641c0,0.667,0.898,0.827,1,2.696v3.623 C21,24.84,20.847,25,20.517,25c-0.89,0-2.642-3-3.815-6.932C16.448,17.294,16.194,17,15.533,17h-2.643 C12.127,17,12,17.374,12,17.774c0,0.721,0.6,4.619,3.875,9.101C18.25,30.125,21.379,32,24.149,32c1.678,0,1.85-0.427,1.85-1.094 v-2.972C26,27.133,26.183,27,26.717,27c0.381,0,1.158,0.25,2.658,2c1.73,2.018,2.044,3,3.036,3h2.618 c0.608,0,0.957-0.255,0.971-0.75c0.003-0.126-0.015-0.267-0.056-0.424c-0.194-0.576-1.084-1.984-2.194-3.326 c-0.615-0.743-1.222-1.479-1.501-1.879C32.062,25.36,31.991,25.176,32,25c0.009-0.185,0.105-0.361,0.249-0.607 C32.223,24.393,35.607,19.642,35.937,18.041z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="reference__item">
+                            <a href="https://github.com/Spectre113" id="gh-link" class="reference__link">
+                                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 96 96" width="80px" height="80px">
+                                    <path fill="#0fd2ff" d="M56.999,83.827c-0.885,0-1.694-0.592-1.932-1.488c-0.283-1.067,0.353-2.162,1.42-2.445 C70.92,76.062,81,62.947,81,48c0-18.196-14.804-33-33-33S15,29.804,15,48c0,14.063,8.924,26.505,22,31.118v-5.567 c-3.012,0.376-6.001-0.297-8.465-1.92c-1.856-1.227-3.278-2.929-4.006-4.793c-0.084-0.202-0.18-0.455-0.275-0.71 c-0.143-0.38-0.277-0.739-0.422-1.018c-0.533-1.106-1.543-1.962-2.667-2.292c-0.034-0.01-0.067-0.021-0.101-0.032 c-1.344-0.474-2.138-1.803-1.931-3.231c0.207-1.43,1.343-2.479,2.764-2.552c3.775-0.278,7.491,2.055,9.422,5.927 c0.018,0.035,0.034,0.071,0.05,0.107c0.446,1.046,1.533,1.77,2.769,1.844c0.044,0.002,0.089,0.007,0.133,0.012 c0.955,0.126,1.991-0.119,2.886-0.653c0.086-0.483,0.208-0.958,0.362-1.42C29.317,61.615,23,54.531,23,46v-2 c0-4.172,1.268-8.138,3.675-11.529c-0.445-2.235-0.636-5.389,0.402-9.021c0.217-0.762,0.864-1.322,1.648-1.432 c0.201-0.027,4.646-0.595,8.843,2.747C39.354,24.257,41.176,24,43,24c1.104,0,2,0.896,2,2s-0.896,2-2,2 c-1.76,0-3.524,0.303-5.243,0.898c-0.709,0.243-1.493,0.074-2.034-0.44c-1.871-1.78-3.871-2.309-5.144-2.45 c-0.5,2.679-0.197,4.925,0.187,6.422c0.155,0.602,0.021,1.24-0.362,1.729C28.177,37.005,27,40.408,27,44v2c0,7.168,5.832,13,13,13 h0.76c0.77,0,1.47,0.441,1.803,1.135c0.333,0.693,0.238,1.517-0.243,2.117c-0.755,0.94-1.204,2.071-1.299,3.27 c-0.043,0.543-0.305,1.044-0.727,1.39c-1.851,1.515-4.201,2.223-6.462,1.958c-2.031-0.14-3.843-1.064-5.072-2.523 c0.486,0.741,1.162,1.407,1.978,1.947c1.76,1.159,3.942,1.601,6.135,1.234c0.048-0.008,0.096-0.014,0.144-0.018 c0.15-0.015,0.579-0.074,1.308-0.336c0.612-0.217,1.294-0.127,1.826,0.247C40.683,69.796,41,70.406,41,71.057v10.77 c0,0.621-0.289,1.207-0.781,1.585c-0.492,0.379-1.131,0.507-1.732,0.348C22.303,79.464,11,64.759,11,48c0-20.402,16.598-37,37-37 s37,16.598,37,37c0,16.759-11.303,31.464-27.487,35.759C57.341,83.805,57.168,83.827,56.999,83.827z M22.172,60.993 c-0.01,0-0.02,0.001-0.03,0.002C22.152,60.994,22.163,60.994,22.172,60.993z" opacity=".3"/><path fill="#0fd2ff" d="M56.998,84.827c-1.327,0-2.541-0.888-2.897-2.231c-0.425-1.602,0.528-3.244,2.13-3.669 C70.226,75.212,80,62.494,80,48c0-17.645-14.355-32-32-32c-6.313,0-12.206,1.838-17.17,5.007c1.976,0.184,4.541,0.892,6.951,2.664 C39.5,23.226,41.249,23,43,23c1.657,0,3,1.343,3,3s-1.343,3-3,3c-1.648,0-3.302,0.283-4.916,0.843 c-1.061,0.367-2.238,0.113-3.051-0.66c-1.253-1.193-2.571-1.753-3.621-2.011c-0.241,2.068,0.012,3.801,0.322,5.009 c0.231,0.902,0.031,1.861-0.543,2.595C29.104,37.444,28,40.634,28,44v2c0,6.617,5.383,12,12,12h0.76 c1.154,0,2.206,0.662,2.705,1.702c0.5,1.041,0.357,2.275-0.365,3.175c-0.628,0.784-1.002,1.726-1.082,2.724 c-0.064,0.813-0.458,1.566-1.09,2.084c-0.259,0.211-0.526,0.409-0.801,0.592c0.209,0.085,0.41,0.194,0.599,0.327 C41.525,69.165,42,70.08,42,71.057v10.77c0,0.932-0.433,1.81-1.171,2.378c-0.739,0.569-1.699,0.76-2.599,0.521 C21.609,80.314,10,65.212,10,48c0-20.953,17.047-38,38-38s38,17.047,38,38c0,17.212-11.609,32.314-28.23,36.726 C57.512,84.794,57.253,84.827,56.998,84.827z M19.917,63.335C23.412,69.729,29.046,74.862,36,77.671v-3.032 c-2.863,0.117-5.659-0.622-8.015-2.172c-2.029-1.342-3.585-3.21-4.388-5.266c-0.081-0.192-0.18-0.456-0.28-0.722 c-0.132-0.352-0.256-0.683-0.373-0.906c-0.429-0.889-1.202-1.543-2.062-1.796c-0.051-0.015-0.101-0.031-0.151-0.049 C20.44,63.626,20.168,63.493,19.917,63.335z M32.038,62.142c0.061,0.112,0.119,0.227,0.177,0.341 c0.026,0.054,0.051,0.107,0.075,0.162c0.299,0.7,1.048,1.187,1.909,1.238c0.067,0.004,0.133,0.01,0.2,0.019 c0.595,0.077,1.231-0.035,1.825-0.3C34.754,63.286,33.351,62.792,32.038,62.142z M22.263,61.989 c-0.016,0.001-0.033,0.002-0.049,0.003C22.23,61.991,22.247,61.99,22.263,61.989z M25.661,25.108C19.704,30.924,16,39.037,16,48 c0,4.017,0.75,7.896,2.133,11.486c0.003-0.025,0.007-0.05,0.01-0.075c0.276-1.908,1.799-3.31,3.703-3.407 c1.176-0.082,2.352,0.06,3.476,0.404C23.231,53.468,22,49.875,22,46v-2c0-4.237,1.245-8.272,3.615-11.756 C25.203,29.912,25.219,27.493,25.661,25.108z" opacity=".3"/><path fill="#0fd2ff" d="M57,82.826c-0.442,0-0.847-0.296-0.966-0.743c-0.142-0.534,0.176-1.082,0.71-1.224 C71.614,76.913,82,63.4,82,48c0-18.748-15.252-34-34-34S14,29.252,14,48c0,14.962,9.805,28.143,24,32.5v-8.114 c-0.252,0.054-0.49,0.091-0.709,0.111c-2.871,0.479-5.81-0.124-8.206-1.701c-1.685-1.113-2.971-2.647-3.625-4.322 c-0.088-0.212-0.179-0.453-0.271-0.696c-0.154-0.41-0.299-0.798-0.472-1.13c-0.646-1.344-1.864-2.375-3.271-2.789 c-0.938-0.328-1.462-1.211-1.324-2.161c0.137-0.95,0.888-1.647,1.826-1.696c3.394-0.246,6.727,1.868,8.477,5.375 c0.627,1.467,2.018,2.404,3.654,2.503c1.38,0.172,2.832-0.217,4-1.048c0.13-1.003,0.427-1.969,0.878-2.864 C30.619,61.427,24,54.472,24,46v-2c0-4.106,1.293-8.003,3.746-11.302c-0.48-2.131-0.759-5.291,0.293-8.973 c0.109-0.381,0.432-0.662,0.824-0.716c0.187-0.03,4.504-0.576,8.479,2.867C39.198,25.295,41.099,25,43,25c0.552,0,1,0.447,1,1 s-0.448,1-1,1c-1.872,0-3.746,0.321-5.571,0.953c-0.352,0.123-0.746,0.039-1.017-0.22c-2.583-2.457-5.39-2.771-6.631-2.773 c-0.782,3.235-0.435,5.959,0.017,7.718c0.077,0.301,0.01,0.621-0.181,0.865C27.25,36.566,26,40.183,26,44v2c0,7.72,6.28,14,14,14 h0.76c0.385,0,0.735,0.221,0.901,0.567c0.167,0.347,0.119,0.759-0.122,1.059c-0.88,1.098-1.404,2.417-1.515,3.816 c-0.021,0.271-0.153,0.522-0.363,0.694c-1.658,1.357-3.762,1.986-5.769,1.732c-2.331-0.138-4.38-1.54-5.282-3.654 c-1.028-2.057-3.379-4.437-6.539-4.218c1.881,0.514,3.562,1.938,4.435,3.754c0.215,0.412,0.389,0.876,0.558,1.324 c0.083,0.221,0.165,0.439,0.252,0.65c0.513,1.314,1.529,2.515,2.871,3.401c1.973,1.299,4.407,1.792,6.85,1.388 c0.476-0.047,1.028-0.185,1.626-0.399c0.305-0.109,0.646-0.063,0.913,0.124C39.842,70.426,40,70.731,40,71.057v10.77 c0,0.311-0.144,0.604-0.39,0.793s-0.567,0.254-0.866,0.174C22.997,78.613,12,64.307,12,48c0-19.851,16.149-36,36-36 s36,16.149,36,36c0,16.307-10.997,30.613-26.744,34.793C57.17,82.815,57.084,82.826,57,82.826z"/>
+                                <g>
+                                    <path fill="#0fd2ff" d="M57,83.826c-1.104,0-2-0.896-2-2V66c0-1.376-0.457-2.672-1.32-3.748 c-0.481-0.601-0.576-1.424-0.243-2.117C53.77,59.441,54.47,59,55.24,59H56c7.168,0,13-5.832,13-13v-2 c0-3.463-1.106-6.771-3.198-9.565c-0.372-0.496-0.492-1.137-0.326-1.734c0.432-1.552,0.783-3.89,0.257-6.694 c-1.285,0.144-3.323,0.683-5.217,2.521c-0.549,0.534-1.354,0.708-2.075,0.445C56.664,28.327,54.833,28,53,28h-2.5 c-1.104,0-2-0.896-2-2s0.896-2,2-2H53c1.905,0,3.803,0.279,5.659,0.833c4.22-3.418,8.726-2.839,8.929-2.814 c0.784,0.109,1.431,0.671,1.648,1.432c1.083,3.793,0.837,7.067,0.33,9.375C71.815,36.145,73,39.987,73,44v2 c0,8.533-6.319,15.617-14.523,16.82C58.82,63.84,59,64.915,59,66v15.826C59,82.931,58.104,83.826,57,83.826z" opacity=".3"/><path fill="#0fd2ff" d="M57,84.826c-1.657,0-3-1.343-3-3V66c0-1.146-0.38-2.226-1.1-3.123 c-0.722-0.899-0.864-2.135-0.365-3.175C53.034,58.662,54.086,58,55.24,58H56c6.617,0,12-5.383,12-12v-2 c0-3.245-1.037-6.346-2.999-8.966c-0.558-0.744-0.738-1.705-0.489-2.602c0.351-1.262,0.644-3.081,0.387-5.264 c-1.063,0.263-2.411,0.837-3.687,2.075c-0.825,0.8-2.033,1.06-3.113,0.668C56.432,29.307,54.716,29,53,29h-2.5 c-1.657,0-3-1.343-3-3s1.343-3,3-3H53c1.832,0,3.656,0.246,5.445,0.732c4.436-3.326,9.064-2.732,9.28-2.704 c1.177,0.163,2.146,1.006,2.473,2.147c1.075,3.763,0.903,7.044,0.432,9.444C72.839,36.022,74,39.928,74,44v2 c0,8.646-6.126,15.887-14.265,17.61C59.91,64.392,60,65.193,60,66v15.826C60,83.483,58.657,84.826,57,84.826z" opacity=".3"/><path fill="#0fd2ff" d="M57,82.826c-0.552,0-1-0.447-1-1V66c0-1.605-0.533-3.118-1.54-4.374 c-0.241-0.3-0.288-0.712-0.122-1.059C54.504,60.221,54.855,60,55.24,60H56c7.72,0,14-6.28,14-14v-2 c0-3.681-1.175-7.195-3.397-10.164c-0.186-0.248-0.246-0.568-0.163-0.867c0.505-1.817,0.908-4.638,0.092-8.01 c-1.251,0.003-4.105,0.32-6.711,2.851c-0.275,0.266-0.679,0.353-1.038,0.223C56.895,27.347,54.95,27,53,27h-2.5 c-0.552,0-1-0.447-1-1s0.448-1,1-1H53c1.983,0,3.959,0.319,5.884,0.951c3.998-3.526,8.375-2.97,8.566-2.941 c0.393,0.054,0.715,0.335,0.824,0.716c1.096,3.836,0.758,7.107,0.216,9.305C70.788,36.264,72,40.045,72,44v2 c0,8.473-6.62,15.429-14.959,15.967C57.666,63.213,58,64.598,58,66v15.826C58,82.379,57.552,82.826,57,82.826z"/>
+                                </g>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="reference__item">
+                            <a href="https://mail.ru/" id="email" class="reference__link">
+                                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="80px" height="80px">
+                                    <linearGradient id="SVGID_1_" x1="38.631" x2="9.369" y1="9.619" y2="38.881" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0" stop-color="#60e8fe"/>
+                                        <stop offset=".033" stop-color="#6ae9fe"/><stop offset=".197" stop-color="#97f0fe"/>
+                                        <stop offset=".362" stop-color="#bdf5ff"/><stop offset=".525" stop-color="#dafaff"/>
+                                        <stop offset=".687" stop-color="#eefdff"/><stop offset=".846" stop-color="#fbfeff"/>
+                                        <stop offset="1" stop-color="#fff"/>
+                                    </linearGradient><path fill="url(#SVGID_1_)" d="M34.5,40.5h-21c-3.314,0-6-2.646-6-5.909V13.909C7.5,10.646,10.186,8,13.5,8h21c3.314,0,6,2.646,6,5.909v20.682	C40.5,37.854,37.814,40.5,34.5,40.5z"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M27.532,40.5H13.5c-3.314,0-6-2.686-6-6V21.809"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M7.5,16.064V13.5c0-3.314,2.686-6,6-6h21c3.314,0,6,2.686,6,6v21c0,3.314-2.686,6-6,6"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M23.383,31.516H13.5c-0.552,0-1-0.448-1-1V17.484c0-0.552,0.448-1,1-1h21c0.552,0,1,0.448,1,1v13.032	c0,0.552-0.448,1-1,1h-4.862H23.383z"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M34.856,17.319l-9.022,7.347c-1.073,0.874-2.613,0.873-3.685-0.001l-4.381-3.573"/><line x1="19.824" x2="13.144" y1="24" y2="30.681" fill="none" stroke="#10cfe3" stroke-miterlimit="10" stroke-width="3"/>
+                                    <line x1="34.856" x2="28.166" y1="30.681" y2="24" fill="none" stroke="#10cfe3" stroke-miterlimit="10" stroke-width="3"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="reference__item">
+                            <a href="https://web.telegram.org/k/" id="tg-link" class="reference__link">
+                                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="80px" height="80px">
+                                    <path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"/>
+                                    <path fill="#fff" d="M33.95,15l-3.746,19.126c0,0-0.161,0.874-1.245,0.874c-0.576,0-0.873-0.274-0.873-0.274l-8.114-6.733 l-3.97-2.001l-5.095-1.355c0,0-0.907-0.262-0.907-1.012c0-0.625,0.933-0.923,0.933-0.923l21.316-8.468 c-0.001-0.001,0.651-0.235,1.126-0.234C33.667,14,34,14.125,34,14.5C34,14.75,33.95,15,33.95,15z"/><path fill="#b0bec5" d="M23,30.505l-3.426,3.374c0,0-0.149,0.115-0.348,0.12c-0.069,0.002-0.143-0.009-0.219-0.043 l0.964-5.965L23,30.505z"/><path fill="#cfd8dc" d="M29.897,18.196c-0.169-0.22-0.481-0.26-0.701-0.093L16,26c0,0,2.106,5.892,2.427,6.912 c0.322,1.021,0.58,1.045,0.58,1.045l0.964-5.965l9.832-9.096C30.023,18.729,30.064,18.416,29.897,18.196z"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="reference__contact flex">
+                        <div class="reference__contact-item">
+                            <p class="reference__contact-info">
+                                Phone: +79193585809
+                            </p>
+                            <button class="reference-copy btn-reset" data-copy-text="+79193585809">
+                                Copy Phone
+                            </button>
+                        </div>
+                        <div class="reference__contact-item">
+                            <p class="reference__contact-info">
+                                Email: VTvolody626@mail.ru
+                            </p>
+                            <button class="reference-copy btn-reset" data-copy-text="VTvolody626@mail.ru">
+                                Copy Email
+                            </button>
+                        </div>
+                        <div class="reference__contact-item">
+                            <p class="reference__contact-info">
+                                Tg id: Spectre113
+                            </p>
+                            <button class="reference-copy btn-reset" data-copy-text="VTvolody626@mail.ru">
+                                Copy Tg
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="skills" id="skills">
+            <div class="container">
+                <h2 class="skills__title">
+                    Skills
+                </h2>
+                <div class="skills__accordeon">
+                    <button class="skills__accordeon-btn btn-reset">JavaScript</button>
+                    <div class="skills__accordeon-panel">
+                        <p>I have a solid understanding of JavaScript, which allows me to create dynamic and interactive web applications. I am familiar with ES6+ features and have experience with various JavaScript libraries and frameworks.</p>
+                    </div>
+                
+                    <button class="skills__accordeon-btn btn-reset">HTML & CSS</button>
+                    <div class="skills__accordeon-panel">
+                        <p>I am proficient in HTML and CSS, including advanced concepts such as semantic markup and CSS grid/flexbox layouts. This knowledge helps me create well-structured and visually appealing web pages that are both accessible and SEO-friendly.</p>
+                    </div>
+                
+                    <button class="skills__accordeon-btn btn-reset">BEM Methodology</button>
+                    <div class="skills__accordeon-panel">
+                        <p>I follow the Block Element Modifier (BEM) methodology, which helps in writing clean and maintainable code by organizing CSS classes in a modular fashion. This approach improves code reusability and scalability, making it easier to manage larger projects.</p>
+                    </div>
+                
+                    <button class="skills__accordeon-btn btn-reset">Responsive Design</button>
+                    <div class="skills__accordeon-panel">
+                        <p>I have a keen understanding of responsive design principles, ensuring that websites I create are fully adaptable to different devices and screen sizes. This includes using media queries and flexible grid layouts to provide a seamless user experience across desktops, tablets, and mobile phones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="comic" id="comic">
+            <div class="container">
+                <h2 class="comic__title">
+                    Comic
+                </h2>
+                <form id="email-form" class="comic__form flex">
+                    <label>Enter your Innopolis email:</label>
+                    <div>
+                        <input type="email" id="comic-email" name="email" placeholder="Ex: v.toporkov@innopolis.university" required>
+                        <button type="submit" class="btn-reset">Get comic</button>
+                    </div>
+                </form>
+                <div id="comic-container" class="comic__container none">
+                    <h3 id="comic-title" class="comic__container-title">Title</h3>
+                    <img id="comic-image" class="comic__container-image" src="..." alt="wait">
+                    <p id="comic-date" class="comic__container-date"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container flex">
+            <div class="footer__left-section">
+                <h2 class="footer__title">
+                    Contact information
+                </h2>
+                <p class="footer__info">
+                    Address: Universitetskaya str. 1k4, Innopolis, Russia
+                </p>
+                <p class="footer__info">
+                    Phone: +79193585809
+                </p>
+                <p class="footer__info">
+                    Email: VTvolody626@mail.ru
+                </p>
+                <p class="footer__info">
+                    Gmail: VTvolody626@gmail.com
+                </p>
+            </div>
+            <div class="footer__right-section">
+                <ul class="footer__list list-reset flex">
+                    <li class="footer__item">
+                        <a href="https://vk.com/id384534054" id="footer-vk-link" class="reference__link">
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="80px" height="80px">
+                                <path fill="#1976d2" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5 V37z"/>
+                                <path fill="#fff" d="M35.937,18.041c0.046-0.151,0.068-0.291,0.062-0.416C35.984,17.263,35.735,17,35.149,17h-2.618 c-0.661,0-0.966,0.4-1.144,0.801c0,0-1.632,3.359-3.513,5.574c-0.61,0.641-0.92,0.625-1.25,0.625C26.447,24,26,23.786,26,23.199 v-5.185C26,17.32,25.827,17,25.268,17h-4.649C20.212,17,20,17.32,20,17.641c0,0.667,0.898,0.827,1,2.696v3.623 C21,24.84,20.847,25,20.517,25c-0.89,0-2.642-3-3.815-6.932C16.448,17.294,16.194,17,15.533,17h-2.643 C12.127,17,12,17.374,12,17.774c0,0.721,0.6,4.619,3.875,9.101C18.25,30.125,21.379,32,24.149,32c1.678,0,1.85-0.427,1.85-1.094 v-2.972C26,27.133,26.183,27,26.717,27c0.381,0,1.158,0.25,2.658,2c1.73,2.018,2.044,3,3.036,3h2.618 c0.608,0,0.957-0.255,0.971-0.75c0.003-0.126-0.015-0.267-0.056-0.424c-0.194-0.576-1.084-1.984-2.194-3.326 c-0.615-0.743-1.222-1.479-1.501-1.879C32.062,25.36,31.991,25.176,32,25c0.009-0.185,0.105-0.361,0.249-0.607 C32.223,24.393,35.607,19.642,35.937,18.041z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="https://github.com/Spectre113" id="footer-gh-link" class="footer__link">
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 96 96" width="80px" height="80px">
+                                <path fill="#0fd2ff" d="M56.999,83.827c-0.885,0-1.694-0.592-1.932-1.488c-0.283-1.067,0.353-2.162,1.42-2.445 C70.92,76.062,81,62.947,81,48c0-18.196-14.804-33-33-33S15,29.804,15,48c0,14.063,8.924,26.505,22,31.118v-5.567 c-3.012,0.376-6.001-0.297-8.465-1.92c-1.856-1.227-3.278-2.929-4.006-4.793c-0.084-0.202-0.18-0.455-0.275-0.71 c-0.143-0.38-0.277-0.739-0.422-1.018c-0.533-1.106-1.543-1.962-2.667-2.292c-0.034-0.01-0.067-0.021-0.101-0.032 c-1.344-0.474-2.138-1.803-1.931-3.231c0.207-1.43,1.343-2.479,2.764-2.552c3.775-0.278,7.491,2.055,9.422,5.927 c0.018,0.035,0.034,0.071,0.05,0.107c0.446,1.046,1.533,1.77,2.769,1.844c0.044,0.002,0.089,0.007,0.133,0.012 c0.955,0.126,1.991-0.119,2.886-0.653c0.086-0.483,0.208-0.958,0.362-1.42C29.317,61.615,23,54.531,23,46v-2 c0-4.172,1.268-8.138,3.675-11.529c-0.445-2.235-0.636-5.389,0.402-9.021c0.217-0.762,0.864-1.322,1.648-1.432 c0.201-0.027,4.646-0.595,8.843,2.747C39.354,24.257,41.176,24,43,24c1.104,0,2,0.896,2,2s-0.896,2-2,2 c-1.76,0-3.524,0.303-5.243,0.898c-0.709,0.243-1.493,0.074-2.034-0.44c-1.871-1.78-3.871-2.309-5.144-2.45 c-0.5,2.679-0.197,4.925,0.187,6.422c0.155,0.602,0.021,1.24-0.362,1.729C28.177,37.005,27,40.408,27,44v2c0,7.168,5.832,13,13,13 h0.76c0.77,0,1.47,0.441,1.803,1.135c0.333,0.693,0.238,1.517-0.243,2.117c-0.755,0.94-1.204,2.071-1.299,3.27 c-0.043,0.543-0.305,1.044-0.727,1.39c-1.851,1.515-4.201,2.223-6.462,1.958c-2.031-0.14-3.843-1.064-5.072-2.523 c0.486,0.741,1.162,1.407,1.978,1.947c1.76,1.159,3.942,1.601,6.135,1.234c0.048-0.008,0.096-0.014,0.144-0.018 c0.15-0.015,0.579-0.074,1.308-0.336c0.612-0.217,1.294-0.127,1.826,0.247C40.683,69.796,41,70.406,41,71.057v10.77 c0,0.621-0.289,1.207-0.781,1.585c-0.492,0.379-1.131,0.507-1.732,0.348C22.303,79.464,11,64.759,11,48c0-20.402,16.598-37,37-37 s37,16.598,37,37c0,16.759-11.303,31.464-27.487,35.759C57.341,83.805,57.168,83.827,56.999,83.827z M22.172,60.993 c-0.01,0-0.02,0.001-0.03,0.002C22.152,60.994,22.163,60.994,22.172,60.993z" opacity=".3"/><path fill="#0fd2ff" d="M56.998,84.827c-1.327,0-2.541-0.888-2.897-2.231c-0.425-1.602,0.528-3.244,2.13-3.669 C70.226,75.212,80,62.494,80,48c0-17.645-14.355-32-32-32c-6.313,0-12.206,1.838-17.17,5.007c1.976,0.184,4.541,0.892,6.951,2.664 C39.5,23.226,41.249,23,43,23c1.657,0,3,1.343,3,3s-1.343,3-3,3c-1.648,0-3.302,0.283-4.916,0.843 c-1.061,0.367-2.238,0.113-3.051-0.66c-1.253-1.193-2.571-1.753-3.621-2.011c-0.241,2.068,0.012,3.801,0.322,5.009 c0.231,0.902,0.031,1.861-0.543,2.595C29.104,37.444,28,40.634,28,44v2c0,6.617,5.383,12,12,12h0.76 c1.154,0,2.206,0.662,2.705,1.702c0.5,1.041,0.357,2.275-0.365,3.175c-0.628,0.784-1.002,1.726-1.082,2.724 c-0.064,0.813-0.458,1.566-1.09,2.084c-0.259,0.211-0.526,0.409-0.801,0.592c0.209,0.085,0.41,0.194,0.599,0.327 C41.525,69.165,42,70.08,42,71.057v10.77c0,0.932-0.433,1.81-1.171,2.378c-0.739,0.569-1.699,0.76-2.599,0.521 C21.609,80.314,10,65.212,10,48c0-20.953,17.047-38,38-38s38,17.047,38,38c0,17.212-11.609,32.314-28.23,36.726 C57.512,84.794,57.253,84.827,56.998,84.827z M19.917,63.335C23.412,69.729,29.046,74.862,36,77.671v-3.032 c-2.863,0.117-5.659-0.622-8.015-2.172c-2.029-1.342-3.585-3.21-4.388-5.266c-0.081-0.192-0.18-0.456-0.28-0.722 c-0.132-0.352-0.256-0.683-0.373-0.906c-0.429-0.889-1.202-1.543-2.062-1.796c-0.051-0.015-0.101-0.031-0.151-0.049 C20.44,63.626,20.168,63.493,19.917,63.335z M32.038,62.142c0.061,0.112,0.119,0.227,0.177,0.341 c0.026,0.054,0.051,0.107,0.075,0.162c0.299,0.7,1.048,1.187,1.909,1.238c0.067,0.004,0.133,0.01,0.2,0.019 c0.595,0.077,1.231-0.035,1.825-0.3C34.754,63.286,33.351,62.792,32.038,62.142z M22.263,61.989 c-0.016,0.001-0.033,0.002-0.049,0.003C22.23,61.991,22.247,61.99,22.263,61.989z M25.661,25.108C19.704,30.924,16,39.037,16,48 c0,4.017,0.75,7.896,2.133,11.486c0.003-0.025,0.007-0.05,0.01-0.075c0.276-1.908,1.799-3.31,3.703-3.407 c1.176-0.082,2.352,0.06,3.476,0.404C23.231,53.468,22,49.875,22,46v-2c0-4.237,1.245-8.272,3.615-11.756 C25.203,29.912,25.219,27.493,25.661,25.108z" opacity=".3"/><path fill="#0fd2ff" d="M57,82.826c-0.442,0-0.847-0.296-0.966-0.743c-0.142-0.534,0.176-1.082,0.71-1.224 C71.614,76.913,82,63.4,82,48c0-18.748-15.252-34-34-34S14,29.252,14,48c0,14.962,9.805,28.143,24,32.5v-8.114 c-0.252,0.054-0.49,0.091-0.709,0.111c-2.871,0.479-5.81-0.124-8.206-1.701c-1.685-1.113-2.971-2.647-3.625-4.322 c-0.088-0.212-0.179-0.453-0.271-0.696c-0.154-0.41-0.299-0.798-0.472-1.13c-0.646-1.344-1.864-2.375-3.271-2.789 c-0.938-0.328-1.462-1.211-1.324-2.161c0.137-0.95,0.888-1.647,1.826-1.696c3.394-0.246,6.727,1.868,8.477,5.375 c0.627,1.467,2.018,2.404,3.654,2.503c1.38,0.172,2.832-0.217,4-1.048c0.13-1.003,0.427-1.969,0.878-2.864 C30.619,61.427,24,54.472,24,46v-2c0-4.106,1.293-8.003,3.746-11.302c-0.48-2.131-0.759-5.291,0.293-8.973 c0.109-0.381,0.432-0.662,0.824-0.716c0.187-0.03,4.504-0.576,8.479,2.867C39.198,25.295,41.099,25,43,25c0.552,0,1,0.447,1,1 s-0.448,1-1,1c-1.872,0-3.746,0.321-5.571,0.953c-0.352,0.123-0.746,0.039-1.017-0.22c-2.583-2.457-5.39-2.771-6.631-2.773 c-0.782,3.235-0.435,5.959,0.017,7.718c0.077,0.301,0.01,0.621-0.181,0.865C27.25,36.566,26,40.183,26,44v2c0,7.72,6.28,14,14,14 h0.76c0.385,0,0.735,0.221,0.901,0.567c0.167,0.347,0.119,0.759-0.122,1.059c-0.88,1.098-1.404,2.417-1.515,3.816 c-0.021,0.271-0.153,0.522-0.363,0.694c-1.658,1.357-3.762,1.986-5.769,1.732c-2.331-0.138-4.38-1.54-5.282-3.654 c-1.028-2.057-3.379-4.437-6.539-4.218c1.881,0.514,3.562,1.938,4.435,3.754c0.215,0.412,0.389,0.876,0.558,1.324 c0.083,0.221,0.165,0.439,0.252,0.65c0.513,1.314,1.529,2.515,2.871,3.401c1.973,1.299,4.407,1.792,6.85,1.388 c0.476-0.047,1.028-0.185,1.626-0.399c0.305-0.109,0.646-0.063,0.913,0.124C39.842,70.426,40,70.731,40,71.057v10.77 c0,0.311-0.144,0.604-0.39,0.793s-0.567,0.254-0.866,0.174C22.997,78.613,12,64.307,12,48c0-19.851,16.149-36,36-36 s36,16.149,36,36c0,16.307-10.997,30.613-26.744,34.793C57.17,82.815,57.084,82.826,57,82.826z"/>
+                            <g>
+                                <path fill="#0fd2ff" d="M57,83.826c-1.104,0-2-0.896-2-2V66c0-1.376-0.457-2.672-1.32-3.748 c-0.481-0.601-0.576-1.424-0.243-2.117C53.77,59.441,54.47,59,55.24,59H56c7.168,0,13-5.832,13-13v-2 c0-3.463-1.106-6.771-3.198-9.565c-0.372-0.496-0.492-1.137-0.326-1.734c0.432-1.552,0.783-3.89,0.257-6.694 c-1.285,0.144-3.323,0.683-5.217,2.521c-0.549,0.534-1.354,0.708-2.075,0.445C56.664,28.327,54.833,28,53,28h-2.5 c-1.104,0-2-0.896-2-2s0.896-2,2-2H53c1.905,0,3.803,0.279,5.659,0.833c4.22-3.418,8.726-2.839,8.929-2.814 c0.784,0.109,1.431,0.671,1.648,1.432c1.083,3.793,0.837,7.067,0.33,9.375C71.815,36.145,73,39.987,73,44v2 c0,8.533-6.319,15.617-14.523,16.82C58.82,63.84,59,64.915,59,66v15.826C59,82.931,58.104,83.826,57,83.826z" opacity=".3"/><path fill="#0fd2ff" d="M57,84.826c-1.657,0-3-1.343-3-3V66c0-1.146-0.38-2.226-1.1-3.123 c-0.722-0.899-0.864-2.135-0.365-3.175C53.034,58.662,54.086,58,55.24,58H56c6.617,0,12-5.383,12-12v-2 c0-3.245-1.037-6.346-2.999-8.966c-0.558-0.744-0.738-1.705-0.489-2.602c0.351-1.262,0.644-3.081,0.387-5.264 c-1.063,0.263-2.411,0.837-3.687,2.075c-0.825,0.8-2.033,1.06-3.113,0.668C56.432,29.307,54.716,29,53,29h-2.5 c-1.657,0-3-1.343-3-3s1.343-3,3-3H53c1.832,0,3.656,0.246,5.445,0.732c4.436-3.326,9.064-2.732,9.28-2.704 c1.177,0.163,2.146,1.006,2.473,2.147c1.075,3.763,0.903,7.044,0.432,9.444C72.839,36.022,74,39.928,74,44v2 c0,8.646-6.126,15.887-14.265,17.61C59.91,64.392,60,65.193,60,66v15.826C60,83.483,58.657,84.826,57,84.826z" opacity=".3"/><path fill="#0fd2ff" d="M57,82.826c-0.552,0-1-0.447-1-1V66c0-1.605-0.533-3.118-1.54-4.374 c-0.241-0.3-0.288-0.712-0.122-1.059C54.504,60.221,54.855,60,55.24,60H56c7.72,0,14-6.28,14-14v-2 c0-3.681-1.175-7.195-3.397-10.164c-0.186-0.248-0.246-0.568-0.163-0.867c0.505-1.817,0.908-4.638,0.092-8.01 c-1.251,0.003-4.105,0.32-6.711,2.851c-0.275,0.266-0.679,0.353-1.038,0.223C56.895,27.347,54.95,27,53,27h-2.5 c-0.552,0-1-0.447-1-1s0.448-1,1-1H53c1.983,0,3.959,0.319,5.884,0.951c3.998-3.526,8.375-2.97,8.566-2.941 c0.393,0.054,0.715,0.335,0.824,0.716c1.096,3.836,0.758,7.107,0.216,9.305C70.788,36.264,72,40.045,72,44v2 c0,8.473-6.62,15.429-14.959,15.967C57.666,63.213,58,64.598,58,66v15.826C58,82.379,57.552,82.826,57,82.826z"/>
+                            </g>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="https://mail.ru/" id="footer-email" class="footer__link">
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="80px" height="80px">
+                                <linearGradient id="SVGID_2_" x1="38.631" x2="9.369" y1="9.619" y2="38.881" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#60e8fe"/>
+                                    <stop offset=".033" stop-color="#6ae9fe"/><stop offset=".197" stop-color="#97f0fe"/>
+                                    <stop offset=".362" stop-color="#bdf5ff"/><stop offset=".525" stop-color="#dafaff"/>
+                                    <stop offset=".687" stop-color="#eefdff"/><stop offset=".846" stop-color="#fbfeff"/>
+                                    <stop offset="1" stop-color="#fff"/>
+                                </linearGradient><path fill="url(#SVGID_2_)" d="M34.5,40.5h-21c-3.314,0-6-2.646-6-5.909V13.909C7.5,10.646,10.186,8,13.5,8h21c3.314,0,6,2.646,6,5.909v20.682	C40.5,37.854,37.814,40.5,34.5,40.5z"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M27.532,40.5H13.5c-3.314,0-6-2.686-6-6V21.809"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M7.5,16.064V13.5c0-3.314,2.686-6,6-6h21c3.314,0,6,2.686,6,6v21c0,3.314-2.686,6-6,6"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M23.383,31.516H13.5c-0.552,0-1-0.448-1-1V17.484c0-0.552,0.448-1,1-1h21c0.552,0,1,0.448,1,1v13.032	c0,0.552-0.448,1-1,1h-4.862H23.383z"/><path fill="none" stroke="#10cfe3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" d="M34.856,17.319l-9.022,7.347c-1.073,0.874-2.613,0.873-3.685-0.001l-4.381-3.573"/><line x1="19.824" x2="13.144" y1="24" y2="30.681" fill="none" stroke="#10cfe3" stroke-miterlimit="10" stroke-width="3"/>
+                                <line x1="34.856" x2="28.166" y1="30.681" y2="24" fill="none" stroke="#10cfe3" stroke-miterlimit="10" stroke-width="3"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="https://web.telegram.org/k/" id="footer-tg-link" class="footer__link">
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="80px" height="80px">
+                                <path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"/>
+                                <path fill="#fff" d="M33.95,15l-3.746,19.126c0,0-0.161,0.874-1.245,0.874c-0.576,0-0.873-0.274-0.873-0.274l-8.114-6.733 l-3.97-2.001l-5.095-1.355c0,0-0.907-0.262-0.907-1.012c0-0.625,0.933-0.923,0.933-0.923l21.316-8.468 c-0.001-0.001,0.651-0.235,1.126-0.234C33.667,14,34,14.125,34,14.5C34,14.75,33.95,15,33.95,15z"/><path fill="#b0bec5" d="M23,30.505l-3.426,3.374c0,0-0.149,0.115-0.348,0.12c-0.069,0.002-0.143-0.009-0.219-0.043 l0.964-5.965L23,30.505z"/><path fill="#cfd8dc" d="M29.897,18.196c-0.169-0.22-0.481-0.26-0.701-0.093L16,26c0,0,2.106,5.892,2.427,6.912 c0.322,1.021,0.58,1.045,0.58,1.045l0.964-5.965l9.832-9.096C30.023,18.729,30.064,18.416,29.897,18.196z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+                <div class="footer__copy-block">
+                    <p class="footer__copyright">
+                        © 2024 Vladimir Toporkov. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
