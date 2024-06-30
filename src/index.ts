@@ -37,6 +37,7 @@ function updateSwiperText(swiperInstance: SwiperInstance): void {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    dayjs.extend(dayjs_plugin_relativeTime);
     const swiper = new Swiper(".swiper", {
         slidesPerView: 2,
         centeredSlides: false,
@@ -235,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     comicImage.alt = comic.alt;
 
                     const date = new Date(`${comic.year}-${comic.month}-${comic.day}`);
-                    comicDate.textContent = `Date of publication: ${date.toLocaleDateString()}`;
+                    comicDate.textContent = `Date of publication: ${date.toLocaleDateString()} (${dayjs(date).fromNow()})`;
 
                     comicContainer.style.display = 'block';
                 })
