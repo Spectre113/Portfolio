@@ -1,7 +1,39 @@
-function updateSwiperText(swiperInstance) {
+interface Comic {
+    month: string;
+    num: number;
+    link: string;
+    year: string;
+    news: string;
+    safe_title: string;
+    transcript: string;
+    alt: string;
+    img: string;
+    title: string;
+    day: string;
+}
+
+interface Project {
+    title: string;
+    description: string;
+    technologies: string;
+    link: string;
+}
+
+interface SwiperInstance {
+    realIndex: number;
+    params: {
+        slidesPerGroup: number;
+    };
+    slides: {
+        length: number;
+    };
+    loopedSlides: number;
+}
+
+function updateSwiperText(swiperInstance: SwiperInstance): void {
     const currentIndex = Math.floor(swiperInstance.realIndex / swiperInstance.params.slidesPerGroup) + 1;
     const totalSlides = swiperInstance.slides.length - swiperInstance.loopedSlides - 1;
-    document.querySelector('.swiper-text').textContent = `${currentIndex} / ${totalSlides}`;
+    document.querySelector('.swiper-text')!.textContent = `${currentIndex} / ${totalSlides}`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -24,18 +56,19 @@ document.addEventListener("DOMContentLoaded", function () {
             disableOnInteraction: false,
         },
         on: {
-            init: function () {
+            init(this: SwiperInstance) {
                 updateSwiperText(this);
             },
-            slideChange: function () {
+            slideChange(this: SwiperInstance) {
                 updateSwiperText(this);
             },
         },
     });
+
     let swiperClickElements = document.querySelectorAll('.about__swiper-click');
     swiperClickElements.forEach(swiperClickElement => {
         let aboutContent = swiperClickElement.closest('.about__swiper-content');
-        aboutContent.addEventListener('click', () => {
+        aboutContent!.addEventListener('click', () => {
             swiperClickElement.classList.toggle('about__swiper-click--active');
         });
     });
@@ -46,8 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
         shouldSort: false,
         itemSelectText: '',
     });
-    
-    const projectInfo = {
+
+    const projectInfo: Record<string, Project> = {
         'Euclid': {
             title: 'Euclid',
             description: 'Euclid is a website that provides project system services and is still not adapted for various devices, but it already utilizes JavaScript. The site offers investment opportunities for various companies, aiming to streamline and enhance their project management and operational processes through innovative web-based solutions.',
@@ -73,17 +106,17 @@ document.addEventListener("DOMContentLoaded", function () {
             link: ''
         },
     };
-    
-    document.getElementById('my-select').addEventListener('change', function (event) {
-        const projectId = event.target.value;
+
+    document.getElementById('my-select')!.addEventListener('change', function (event) {
+        const projectId = (event.target as HTMLSelectElement).value;
         const project = projectInfo[projectId];
         if (project) {
-            document.querySelector('.projects__info-block h2').textContent = project.title;
-            document.querySelector('.projects__info-block p:nth-of-type(1)').innerHTML = `<strong>Description:</strong> ${project.description}`;
-            document.querySelector('.projects__info-block p:nth-of-type(2)').innerHTML = `<strong>Technologies:</strong> ${project.technologies}`;
-            const linkElement = document.querySelector('.projects__info-block p:nth-of-type(3) a');
+            document.querySelector('.projects__info-block h2')!.textContent = project.title;
+            document.querySelector('.projects__info-block p:nth-of-type(1)')!.innerHTML = `<strong>Description:</strong> ${project.description}`;
+            document.querySelector('.projects__info-block p:nth-of-type(2)')!.innerHTML = `<strong>Technologies:</strong> ${project.technologies}`;
+            const linkElement = document.querySelector('.projects__info-block p:nth-of-type(3) a')!;
             linkElement.setAttribute('href', project.link);
-    
+
             if (projectId === 'Lagoona') {
                 linkElement.textContent = 'Problems occurred, the link is not working, will be fixed soon.';
             } 
@@ -92,16 +125,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-    
+
     const initialProjectId = mySelect.getValue(true);
     const initialProject = projectInfo[initialProjectId];
     if (initialProject) {
-        document.querySelector('.projects__info-block h2').textContent = initialProject.title;
-        document.querySelector('.projects__info-block p:nth-of-type(1)').innerHTML = `<strong>Description:</strong> ${initialProject.description}`;
-        document.querySelector('.projects__info-block p:nth-of-type(2)').innerHTML = `<strong>Technologies:</strong> ${initialProject.technologies}`;
-        const linkElement = document.querySelector('.projects__info-block p:nth-of-type(3) a');
+        document.querySelector('.projects__info-block h2')!.textContent = initialProject.title;
+        document.querySelector('.projects__info-block p:nth-of-type(1)')!.innerHTML = `<strong>Description:</strong> ${initialProject.description}`;
+        document.querySelector('.projects__info-block p:nth-of-type(2)')!.innerHTML = `<strong>Technologies:</strong> ${initialProject.technologies}`;
+        const linkElement = document.querySelector('.projects__info-block p:nth-of-type(3) a')!;
         linkElement.setAttribute('href', initialProject.link);
-    
+
         if (initialProjectId === 'Lagoona') {
             linkElement.textContent = 'Problems occurred, the link is not working, will be fixed soon.';
         } 
@@ -109,53 +142,55 @@ document.addEventListener("DOMContentLoaded", function () {
             linkElement.textContent = 'Visit project';
         }
     }
+
     // copy
-    let lastClickedButton = null;
+    let lastClickedButton: HTMLElement | null = null;
 
     document.querySelectorAll('.reference-copy').forEach(button => {
-        button.addEventListener('click', function() {
-            const textToCopy = this.getAttribute('data-copy-text');
+        button.addEventListener('click', function(this: HTMLElement) {
+            const textToCopy = this.getAttribute('data-copy-text')!;
             const tempInput = document.createElement('input');
             tempInput.value = textToCopy;
             document.body.appendChild(tempInput);
             tempInput.select();
             document.execCommand('copy');
             document.body.removeChild(tempInput);
-
+    
             if (!this.getAttribute('data-original-text')) {
-                this.setAttribute('data-original-text', this.textContent);
+                this.setAttribute('data-original-text', this.textContent!);
             }
-
+    
             if (lastClickedButton && lastClickedButton !== this) {
-                lastClickedButton.textContent = lastClickedButton.getAttribute('data-original-text');
+                lastClickedButton.textContent = lastClickedButton.getAttribute('data-original-text')!;
             }
-
+    
             lastClickedButton = this;
             this.textContent = 'Copied';
         });
     });
 
     // scroll
-    document.querySelectorAll('header__link').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    document.querySelectorAll('.header__link').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
             e.preventDefault();
-
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            
+            const targetId = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+            if (targetId) {
+                document.querySelector(targetId)!.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
-    
+
     // acc
     var acc = document.getElementsByClassName("skills__accordeon-btn");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function(this: HTMLElement) {
             this.classList.toggle("active");
-            var panel = this.nextElementSibling;
+            var panel = this.nextElementSibling as HTMLElement;
             if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
+                panel.style.maxHeight = '';
             } else {
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }
@@ -164,13 +199,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // comic
 
-    const form = document.getElementById('email-form');
-    const emailInput = document.getElementById('comic-email');
-    const comicContainer = document.getElementById('comic-container');
-    const comicTitle = document.getElementById('comic-title');
-    const comicImage = document.getElementById('comic-image');
-    const comicDate = document.getElementById('comic-date');
-    const validation = new window.JustValidate('#email-form');
+    const form = document.getElementById('email-form') as HTMLFormElement;
+    const emailInput = document.getElementById('comic-email') as HTMLInputElement;
+    const comicContainer = document.getElementById('comic-container')!;
+    const comicTitle = document.getElementById('comic-title')!;
+    const comicImage = document.getElementById('comic-image') as HTMLImageElement;
+    const comicDate = document.getElementById('comic-date')!;
+    const validation = new JustValidate('#email-form');
 
     validation
         .addField('#comic-email', [
@@ -183,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 errorMessage: 'Write correct email',
             },
         ])
-        .onSuccess((event) => {
+        .onSuccess((event: Event) => {
             event.preventDefault();
             const email = emailInput.value;
 
@@ -192,9 +227,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     const comicId = data;
                     return fetch(`https://fwd.innopolis.university/api/comic?id=${comicId}`);
-            })
+                })
                 .then(response => response.json())
-                .then(comic => {
+                .then((comic: Comic) => {
                     comicTitle.textContent = comic.safe_title;
                     comicImage.src = comic.img;
                     comicImage.alt = comic.alt;
@@ -203,11 +238,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     comicDate.textContent = `Date of publication: ${date.toLocaleDateString()}`;
 
                     comicContainer.style.display = 'block';
-            })
+                })
                 .catch(error => {
                     console.error('Error fetching comic:', error);
                     comicContainer.innerHTML = '<p>Failed to load comic. Please try again later.</p>';
                     comicContainer.style.display = 'block';
-            });
-    });
+                });
+        });
 });
