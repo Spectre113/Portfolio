@@ -12,3 +12,9 @@ declare module 'choices.js' {
     const Choices: any;
     export default Choices;
 }
+
+declare const Swiper: any;
+declare const Choices: any;
+declare const JustValidate: any;
+declare const dayjs: any;
+declare const dayjs_plugin_relativeTime: any;
