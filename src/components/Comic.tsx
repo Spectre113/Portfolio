@@ -14,12 +14,6 @@ interface Comic {
   day: string;
 }
 
-declare const JustValidate: any;
-declare const dayjs: any;
-declare const dayjs_plugin_relativeTime: any;
-
-dayjs.extend(dayjs_plugin_relativeTime);
-
 const Comic: React.FC = () => {
   const [comic, setComic] = useState<Comic | null>(null);
 
