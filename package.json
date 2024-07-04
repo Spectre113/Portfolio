@@ -1,6 +1,7 @@
 {
   "name": "Portfolio",
   "version": "1.0.0",
+  "homepage": "https://spectre113.github.io/Portfolio/",
   "description": "Portfolio website",
   "main": "dist/bundle.js",
   "dependencies": {
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "gh-pages": "^6.1.1"
   }
 }
