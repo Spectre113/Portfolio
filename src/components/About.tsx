@@ -9,7 +9,15 @@ const About: React.FC = () => {
       document.querySelector('.swiper-text')!.textContent = `${currentIndex} / ${totalSlides}`;
     };
 
-    const swiper = new Swiper('.swiper', {
+    const swiperClickElements = document.querySelectorAll('.about__swiper-click');
+    swiperClickElements.forEach(swiperClickElement => {
+      const aboutContent = swiperClickElement.closest('.about__swiper-content');
+      aboutContent!.addEventListener('click', () => {
+        swiperClickElement.classList.toggle('about__swiper-click--active');
+      });
+    });
+
+    new Swiper('.swiper', {
       slidesPerView: 2,
       centeredSlides: false,
       slidesPerGroup: 2,
@@ -35,14 +43,6 @@ const About: React.FC = () => {
           updateSwiperText(this);
         },
       },
-    });
-
-    const swiperClickElements = document.querySelectorAll('.about__swiper-click');
-    swiperClickElements.forEach(swiperClickElement => {
-      const aboutContent = swiperClickElement.closest('.about__swiper-content');
-      aboutContent!.addEventListener('click', () => {
-        swiperClickElement.classList.toggle('about__swiper-click--active');
-      });
     });
   }, []);
 
