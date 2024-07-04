@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import JustValidate from 'just-validate';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
-interface ComicData {
+interface Comic {
   month: string;
   num: number;
   link: string;
@@ -14,8 +18,8 @@ interface ComicData {
   day: string;
 }
 
-const ComicComponent: React.FC = () => {
-  const [comic, setComic] = useState<ComicData | null>(null);
+const Comic: React.FC = () => {
+  const [comic, setComic] = useState<Comic | null>(null);
 
   useEffect(() => {
     const validation = new JustValidate('#email-form');
@@ -42,7 +46,7 @@ const ComicComponent: React.FC = () => {
             return fetch(`https://fwd.innopolis.university/api/comic?id=${comicId}`);
           })
           .then(response => response.json())
-          .then((comicData: ComicData) => {
+          .then((comicData: Comic) => {
             setComic(comicData);
             document.getElementById('comic-container')!.classList.remove('none');
           })
@@ -86,4 +90,4 @@ const ComicComponent: React.FC = () => {
   );
 };
 
-export default ComicComponent;
+export default Comic;
