@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Swiper from 'swiper';
 
 export const useSwiper = () => {
   useEffect(() => {
