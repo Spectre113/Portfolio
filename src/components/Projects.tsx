@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Choices from 'choices.js';
 
 interface Project {
@@ -9,7 +9,7 @@ interface Project {
 }
 
 const Projects: React.FC = () => {
-  const projectInfo: Record<string, Project> = {
+  const projectInfo = useMemo<Record<string, Project>>(() => ({
     Euclid: {
       title: 'Euclid',
       description: 'Euclid is a website that provides project system services and is still not adapted for various devices, but it already utilizes JavaScript. The site offers investment opportunities for various companies, aiming to streamline and enhance their project management and operational processes through innovative web-based solutions.',
@@ -34,7 +34,7 @@ const Projects: React.FC = () => {
       technologies: 'HTML, CSS, JavaScript, BEM',
       link: '',
     },
-  };
+  }), []);
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(projectInfo['Euclid']);
 
@@ -45,8 +45,9 @@ const Projects: React.FC = () => {
     });
 
     const selectElement = document.getElementById('my-select');
-    const handleChange = (event: any) => {
-      const projectId = event.target.value;
+    const handleChange = (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      const projectId = target.value as keyof typeof projectInfo;
       setSelectedProject(projectInfo[projectId]);
     };
 
