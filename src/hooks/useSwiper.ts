@@ -5,7 +5,10 @@ export const useSwiper = () => {
     const updateSwiperText = (swiperInstance: any) => {
       const currentIndex = Math.floor(swiperInstance.realIndex / swiperInstance.params.slidesPerGroup) + 1;
       const totalSlides = swiperInstance.slides.length - swiperInstance.loopedSlides - 1;
-      document.querySelector('.swiper-text')!.textContent = `${currentIndex} / ${totalSlides}`;
+      const swiperTextElement = document.querySelector('.swiper-text');
+      if (swiperTextElement) {
+        swiperTextElement.textContent = `${currentIndex} / ${totalSlides}`;
+      }
     };
 
     const swiper = new Swiper('.swiper', {
@@ -27,11 +30,11 @@ export const useSwiper = () => {
         disableOnInteraction: false,
       },
       on: {
-        init(this: any) {
-          updateSwiperText(this);
+        init(swiperInstance: any) {
+          updateSwiperText(swiperInstance);
         },
-        slideChange(this: any) {
-          updateSwiperText(this);
+        slideChange(swiperInstance: any) {
+          updateSwiperText(swiperInstance);
         },
       },
     });
