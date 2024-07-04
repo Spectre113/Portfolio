@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-interface Comic {
+interface ComicData {
   month: string;
   num: number;
   link: string;
@@ -14,8 +14,8 @@ interface Comic {
   day: string;
 }
 
-const Comic: React.FC = () => {
-  const [comic, setComic] = useState<Comic | null>(null);
+const ComicComponent: React.FC = () => {
+  const [comic, setComic] = useState<ComicData | null>(null);
 
   useEffect(() => {
     const validation = new JustValidate('#email-form');
@@ -42,7 +42,7 @@ const Comic: React.FC = () => {
             return fetch(`https://fwd.innopolis.university/api/comic?id=${comicId}`);
           })
           .then(response => response.json())
-          .then((comicData: Comic) => {
+          .then((comicData: ComicData) => {
             setComic(comicData);
             document.getElementById('comic-container')!.classList.remove('none');
           })
@@ -86,4 +86,4 @@ const Comic: React.FC = () => {
   );
 };
 
-export default Comic;
+export default ComicComponent;
