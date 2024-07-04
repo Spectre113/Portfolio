@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fd2907cf.css",
+    "main.js": "/static/js/main.1c8620c7.js",
+    "static/media/about-back.jpg": "/static/media/about-back.a06ccb124266d39e1c0b.jpg",
+    "static/media/about-hobbies.jpg": "/static/media/about-hobbies.91e1eae176c05dd140bb.jpg",
+    "static/media/about-life-history.jpg": "/static/media/about-life-history.1222109181d9b8f1e1dd.jpg",
+    "static/media/about-education.jpg": "/static/media/about-education.d93c8ce0db07bf65759e.jpg",
+    "static/media/hero-back.jpg": "/static/media/hero-back.598bbe64b4a18638f982.jpg",
+    "static/media/about-experience.jpg": "/static/media/about-experience.0f724a32986d2d1048a0.jpg",
+    "static/media/about-skills.jpg": "/static/media/about-skills.c8af340c2255d4433f7e.jpg",
+    "index.html": "/index.html",
+    "static/media/about-info.svg": "/static/media/about-info.c7ecf5c233a86e739913.svg",
+    "static/media/about-left.svg": "/static/media/about-left.cc222fac7a33eba92d18.svg",
+    "static/media/about-right.svg": "/static/media/about-right.efb12f15b446bc140c10.svg",
+    "static/media/arrow.svg": "/static/media/arrow.f669ca20937118fee1d5.svg",
+    "main.fd2907cf.css.map": "/static/css/main.fd2907cf.css.map",
+    "main.1c8620c7.js.map": "/static/js/main.1c8620c7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fd2907cf.css",
+    "static/js/main.1c8620c7.js"
+  ]
+}
