@@ -44,7 +44,6 @@ const About: React.FC = () => {
         swiperClickElement.classList.toggle('about__swiper-click--active');
       });
     });
-
   }, []);
 
   return (

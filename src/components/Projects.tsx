@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Choices from 'choices.js';
 
 interface Project {
   title: string;
@@ -38,7 +39,7 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(projectInfo['Euclid']);
 
   useEffect(() => {
-    const choices = new Choices('#my-select', {
+    new Choices('#my-select', {
       shouldSort: false,
       itemSelectText: '',
     });
