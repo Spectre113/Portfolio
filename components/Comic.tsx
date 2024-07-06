@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import JustValidate from 'just-validate';
@@ -81,7 +82,7 @@ const Comic: React.FC = () => {
           {comic && (
             <>
               <h3 id="comic-title" className="comic__container-title">{comic.safe_title}</h3>
-              <img id="comic-image" className="comic__container-image" src={comic.img} alt={comic.alt} />
+              <Image id="comic-image" className="comic__container-image" src={comic.img} alt={comic.alt} />
               <p id="comic-date" className="comic__container-date">
                 Date of publication: {dayjs(`${comic.year}-${comic.month}-${comic.day}`).format('MMMM D, YYYY')} ({dayjs(`${comic.year}-${comic.month}-${comic.day}`).fromNow()})
               </p>
