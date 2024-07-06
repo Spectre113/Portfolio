@@ -173,7 +173,7 @@ const About: React.FC = () => {
                             <button className="btn-reset about-swiper-btn"></button>
                             <div className="about__swiper-click">
                                 <div>
-                                    <p className="about__swiper-info">In my free time, I enjoy engaging in activities that stimulate both creativity and teamwork. One of my favorite hobbies is building complex LEGO structures. It's a fantastic way to unwind and exercise my problem-solving skills. Additionally, I love playing computer games with friends. Whether it is a cooperative game or a competitive one, gaming provides a great opportunity to connect, strategize, and have fun together.</p>
+                                    <p className="about__swiper-info">In my free time, I enjoy engaging in activities that stimulate both creativity and teamwork. One of my favorite hobbies is building complex LEGO structures. It is a fantastic way to unwind and exercise my problem-solving skills. Additionally, I love playing computer games with friends. Whether it is a cooperative game or a competitive one, gaming provides a great opportunity to connect, strategize, and have fun together.</p>
                                 </div>
                                 <button className="btn-reset about__swiper-click-close">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

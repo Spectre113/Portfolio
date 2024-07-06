@@ -45,11 +45,14 @@ const Projects: React.FC = () => {
       itemSelectText: '',
     });
 
-    document.getElementById('my-select')!.addEventListener('change', (event: any) => {
-      const projectId = event.target.value;
-      setSelectedProject(projectInfo[projectId]);
-    });
-  }, []);
+    const selectElement = document.getElementById('my-select');
+    if (selectElement) {
+      selectElement.addEventListener('change', (event: any) => {
+        const projectId = event.target.value;
+        setSelectedProject(projectInfo[projectId]);
+      });
+    }
+  }, [projectInfo]);
 
   return (
     <section id="projects" className="projects">
