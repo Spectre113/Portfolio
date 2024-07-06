@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import Choices from 'choices.js';
 
 interface Project {
   title: string;
@@ -40,19 +39,20 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(projectInfo['Euclid']);
 
   useEffect(() => {
-    const choices = new Choices('#my-select', {
-      shouldSort: false,
-      itemSelectText: '',
-    });
+    if (typeof window !== 'undefined') {
+      import('choices.js').then((Choices) => {
+        const choices = new Choices.default('#my-select', {
+          shouldSort: false,
+          itemSelectText: '',
+        });
 
-    const selectElement = document.getElementById('my-select');
-    if (selectElement) {
-      selectElement.addEventListener('change', (event: any) => {
-        const projectId = event.target.value;
-        setSelectedProject(projectInfo[projectId]);
+        document.getElementById('my-select')!.addEventListener('change', (event: any) => {
+          const projectId = event.target.value;
+          setSelectedProject(projectInfo[projectId]);
+        });
       });
     }
-  }, [projectInfo]);
+  }, []);
 
   return (
     <section id="projects" className="projects">
