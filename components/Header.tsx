@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import Link from 'next/link';
 
 const Header: React.FC = () => {
   return (
@@ -17,19 +20,29 @@ const Header: React.FC = () => {
         <nav className="header__nav">
           <ul className="header__list list-reset flex">
             <li className="header__item">
-              <a href="#about" className="header__link">ABOUT</a>
+              <Link href="/about" legacyBehavior>
+                <a className="header__link">ABOUT</a>
+              </Link>
             </li>
             <li className="header__item">
-              <a href="#projects" className="header__link">PROJECTS</a>
+              <Link href="/projects" legacyBehavior>
+                <a className="header__link">PROJECTS</a>
+              </Link>
             </li>
             <li className="header__item">
-              <a href="#reference" className="header__link">REFERENCE</a>
+              <Link href="/reference" legacyBehavior>
+                <a className="header__link">REFERENCE</a>
+              </Link>
             </li>
             <li className="header__item">
-              <a href="#skills" className="header__link">SKILLS</a>
+              <Link href="/skills" legacyBehavior>
+                <a className="header__link">SKILLS</a>
+              </Link>
             </li>
             <li className="header__item">
-              <a href="#comic" className="header__link">COMIC</a>
+              <Link href="/comic" legacyBehavior>
+                <a className="header__link">COMIC</a>
+              </Link>
             </li>
           </ul>
         </nav>

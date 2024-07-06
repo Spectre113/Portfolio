@@ -1,8 +1,9 @@
+"use client";
+
 import React, { useEffect } from 'react';
 
 const Reference: React.FC = () => {
     useEffect(() => {
-      // Copy functionality
       let lastClickedButton: HTMLElement | null = null;
   
       document.querySelectorAll('.reference-copy').forEach(button => {

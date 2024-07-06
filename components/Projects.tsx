@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useMemo } from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import Choices from 'choices.js';
 
 interface Project {
@@ -9,7 +10,7 @@ interface Project {
 }
 
 const Projects: React.FC = () => {
-  const projectInfo = useMemo<Record<string, Project>>(() => ({
+  const projectInfo: Record<string, Project> = {
     Euclid: {
       title: 'Euclid',
       description: 'Euclid is a website that provides project system services and is still not adapted for various devices, but it already utilizes JavaScript. The site offers investment opportunities for various companies, aiming to streamline and enhance their project management and operational processes through innovative web-based solutions.',
@@ -34,29 +35,21 @@ const Projects: React.FC = () => {
       technologies: 'HTML, CSS, JavaScript, BEM',
       link: '',
     },
-  }), []);
+  };
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(projectInfo['Euclid']);
 
   useEffect(() => {
-    new Choices('#my-select', {
+    const choices = new Choices('#my-select', {
       shouldSort: false,
       itemSelectText: '',
     });
 
-    const selectElement = document.getElementById('my-select');
-    const handleChange = (event: Event) => {
-      const target = event.target as HTMLSelectElement;
-      const projectId = target.value as keyof typeof projectInfo;
+    document.getElementById('my-select')!.addEventListener('change', (event: any) => {
+      const projectId = event.target.value;
       setSelectedProject(projectInfo[projectId]);
-    };
-
-    selectElement!.addEventListener('change', handleChange);
-
-    return () => {
-      selectElement!.removeEventListener('change', handleChange);
-    };
-  }, [projectInfo]);
+    });
+  }, []);
 
   return (
     <section id="projects" className="projects">
