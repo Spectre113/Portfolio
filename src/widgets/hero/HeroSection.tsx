@@ -21,24 +21,6 @@ const socialLinks = [
   },
 ];
 
-const gridColumns = [15, 12, 9, 7, 6, 5, 4, 3];
-
-const gridDots = gridColumns.map((rows, columnIndex) => {
-  const horizontalFade = columnIndex < 4 ? 1 : 1 - (columnIndex - 3) * 0.11;
-
-  return Array.from({ length: rows }, (_, rowIndex) => {
-    const center = (rows - 1) / 2;
-    const distanceFromCenter = Math.abs(rowIndex - center);
-    const verticalFade = 1 - (distanceFromCenter / Math.max(center, 1)) * 0.58;
-    const opacity = Math.max(0.26, verticalFade * horizontalFade);
-
-    return {
-      key: `${columnIndex}-${rowIndex}`,
-      opacity: Number(opacity.toFixed(2)),
-    };
-  });
-});
-
 export function HeroSection() {
   return (
     <section className="hero-section">
@@ -82,19 +64,7 @@ export function HeroSection() {
 
         <div className="hero-section__visual">
           <HeroCodeCard />
-          <div className="hero-section__grid" aria-hidden="true">
-            {gridDots.map((column, columnIndex) => (
-              <span className="hero-section__grid-column" key={columnIndex}>
-                {column.map((dot) => (
-                  <span
-                    className="hero-section__grid-dot"
-                    key={dot.key}
-                    style={{ opacity: dot.opacity }}
-                  />
-                ))}
-              </span>
-            ))}
-          </div>
+          <div className="dotted-grid hero-section__dots" aria-hidden="true" />
         </div>
       </div>
     </section>
