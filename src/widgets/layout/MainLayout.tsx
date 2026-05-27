@@ -11,8 +11,13 @@ const navigation = [
   { label: 'Навыки', to: '/skills' },
 ];
 
+export type MainLayoutContext = {
+  openContactModal: () => void;
+};
+
 export function MainLayout() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const openContactModal = () => setIsContactModalOpen(true);
 
   return (
     <div className="app-shell">
@@ -44,7 +49,7 @@ export function MainLayout() {
             <button
               className="site-header__contact btn-reset"
               type="button"
-              onClick={() => setIsContactModalOpen(true)}
+              onClick={openContactModal}
             >
               Связаться со мной
             </button>
@@ -53,7 +58,7 @@ export function MainLayout() {
       </header>
 
       <main>
-        <Outlet />
+        <Outlet context={{ openContactModal } satisfies MainLayoutContext} />
       </main>
 
       <ContactModal
