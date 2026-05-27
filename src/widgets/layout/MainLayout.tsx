@@ -20,7 +20,7 @@ export function MainLayout() {
         <div className="container site-header__inner">
           <NavLink className="brand" to="/" aria-label="На главную">
             <span className="brand__mark">&lt;/&gt;</span>
-            <span>Spectre113</span>
+            <span>Spectre</span>
           </NavLink>
 
           <nav className="site-nav" aria-label="Основная навигация">

@@ -22,7 +22,7 @@ type TypewriterState = {
   cleanCharacters: number;
 };
 
-const TYPE_SPEED = 24;
+const TYPE_SPEED = 30;
 const DELETE_SPEED = 18;
 const JOKE_PAUSE = 1000;
 const CLEAN_PAUSE = 900;
@@ -38,13 +38,13 @@ const STATIC_LINES: CodeToken[][] = [
   [
     { text: '  name', tone: 'property' },
     { text: ': ' },
-    { text: "'Spectre113'", tone: 'string' },
+    { text: "'Vladimir Toporkov'", tone: 'string' },
     { text: ',' },
   ],
   [
-    { text: '  realName', tone: 'property' },
+    { text: '  nickname', tone: 'property' },
     { text: ': ' },
-    { text: "'Vladimir Toporkov'", tone: 'string' },
+    { text: "'Spectre'", tone: 'string' },
     { text: ',' },
   ],
   [
@@ -101,11 +101,7 @@ const CLEAN_RETURN: CodeToken[] = [
 
 const CLOSING_LINE: CodeToken[] = [{ text: '}' }];
 
-const JOKE_LINES = [
-  ...STATIC_LINES,
-  [...RETURN_PREFIX, ...JOKE_RETURN],
-  CLOSING_LINE,
-];
+const JOKE_LINES = [...STATIC_LINES, [...RETURN_PREFIX, ...JOKE_RETURN]];
 const CLEAN_LINES = [
   ...STATIC_LINES,
   [...RETURN_PREFIX, ...CLEAN_RETURN],
@@ -278,15 +274,20 @@ export function useTypewriterSequence() {
       return [
         ...STATIC_LINES,
         [...RETURN_PREFIX, ...revealTokens(JOKE_RETURN, state.jokeCharacters)],
-        CLOSING_LINE,
       ];
     }
 
-    return [
-      ...STATIC_LINES,
-      [...RETURN_PREFIX, ...revealTokens(CLEAN_RETURN, state.cleanCharacters)],
-      CLOSING_LINE,
-    ];
+    if (state.phase === 'typingClean' || state.phase === 'pauseClean') {
+      return [
+        ...STATIC_LINES,
+        [
+          ...RETURN_PREFIX,
+          ...revealTokens(CLEAN_RETURN, state.cleanCharacters),
+        ],
+      ];
+    }
+
+    return CLEAN_LINES;
   }, [prefersReducedMotion, state]);
 
   const cursorLineIndex = getCursorLineIndex({
