@@ -1,0 +1,123 @@
+.home-page {
+  padding: 72px 0;
+}
+
+.hero-foundation {
+  display: grid;
+  gap: 22px;
+}
+
+.hero-foundation__eyebrow {
+  margin-bottom: 16px;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.hero-foundation__title {
+  max-width: 760px;
+  font-size: clamp(42px, 7vw, 84px);
+}
+
+.hero-foundation__text {
+  max-width: 680px;
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.section-preview {
+  display: grid;
+  gap: 28px;
+  padding-bottom: 72px;
+}
+
+.section-preview__heading {
+  display: grid;
+  gap: 8px;
+}
+
+.section-preview__text,
+.state-message {
+  color: var(--color-text-secondary);
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.project-card {
+  display: grid;
+  gap: 12px;
+  min-height: 230px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  background: var(--color-surface);
+  box-shadow: var(--color-shadow);
+  transition: var(--theme-transition);
+}
+
+.project-card__kicker {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 800;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.project-card__title {
+  font-size: 20px;
+}
+
+.project-card__description {
+  color: var(--color-text-secondary);
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.project-card__stack {
+  display: flex;
+  align-self: end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-card__stack li {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font-size: 12px;
+  font-weight: 700;
+  transition: var(--theme-transition);
+}
+
+@media (max-width: 980px) {
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .home-page {
+    padding: 48px 0;
+  }
+
+  .hero-foundation__title {
+    font-size: 42px;
+  }
+
+  .hero-foundation__text {
+    font-size: 18px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}

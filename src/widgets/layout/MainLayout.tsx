@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
+import './MainLayout.css';
 
 const navigation = [
   { label: 'Главная', to: '/' },
@@ -37,9 +38,9 @@ export function MainLayout() {
 
           <div className="site-header__actions">
             <ThemeToggle />
-            <NavLink className="site-header__contact" to="/contacts">
+            <button className="site-header__contact btn-reset" type="button">
               Связаться со мной
-            </NavLink>
+            </button>
           </div>
         </div>
       </header>

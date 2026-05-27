@@ -1,0 +1,40 @@
+.about-page {
+  max-width: 840px;
+  padding: 72px 0;
+}
+
+.about-page__eyebrow {
+  margin-bottom: 16px;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.about-page__title {
+  max-width: 760px;
+  font-size: clamp(42px, 7vw, 84px);
+}
+
+.about-page__text {
+  max-width: 680px;
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+@media (max-width: 640px) {
+  .about-page {
+    padding: 48px 0;
+  }
+
+  .about-page__title {
+    font-size: 42px;
+  }
+
+  .about-page__text {
+    font-size: 18px;
+  }
+}

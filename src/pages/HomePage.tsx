@@ -1,10 +1,11 @@
 import { useFeaturedProjects } from '../entities/project/hooks/useProjects.ts';
+import './HomePage.css';
 
 export function HomePage() {
   const { data: projects = [], isError, isLoading } = useFeaturedProjects();
 
   return (
-    <div className="page">
+    <div className="home-page">
       <section className="container hero-foundation">
         <p className="hero-foundation__eyebrow">Frontend Developer</p>
         <h1 className="hero-foundation__title">Владимир Топорков</h1>
