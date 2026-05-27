@@ -7,7 +7,6 @@ const navigation = [
   { label: 'Проекты', to: '/projects' },
   { label: 'Обо мне', to: '/about' },
   { label: 'Навыки', to: '/skills' },
-  { label: 'Контакты', to: '/contacts' },
 ];
 
 export function MainLayout() {

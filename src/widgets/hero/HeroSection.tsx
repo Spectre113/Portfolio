@@ -1,10 +1,11 @@
 import {
   ArrowRight,
-  Code2,
   Download,
+  Mail,
   Send,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
 import { HeroCodeCard } from './HeroCodeCard.tsx';
 import './HeroSection.css';
 
@@ -12,12 +13,17 @@ const socialLinks = [
   {
     label: 'GitHub',
     href: 'https://github.com/Spectre113',
-    icon: Code2,
+    icon: GitHubIcon,
   },
   {
     label: 'Telegram',
     href: 'https://t.me/Spectre113',
     icon: Send,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:VTvolody626@gmail.com',
+    icon: Mail,
   },
 ];
 
