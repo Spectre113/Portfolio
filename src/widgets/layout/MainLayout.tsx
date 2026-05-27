@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import { ContactModal } from '../contact-modal/ContactModal.tsx';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
 import './MainLayout.css';
 
@@ -10,6 +12,8 @@ const navigation = [
 ];
 
 export function MainLayout() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <div className="app-shell">
       <header className="site-header">
@@ -37,7 +41,11 @@ export function MainLayout() {
 
           <div className="site-header__actions">
             <ThemeToggle />
-            <button className="site-header__contact btn-reset" type="button">
+            <button
+              className="site-header__contact btn-reset"
+              type="button"
+              onClick={() => setIsContactModalOpen(true)}
+            >
               Связаться со мной
             </button>
           </div>
@@ -47,6 +55,11 @@ export function MainLayout() {
       <main>
         <Outlet />
       </main>
+
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </div>
   );
 }
