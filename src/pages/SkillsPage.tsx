@@ -1,9 +1,11 @@
 export function SkillsPage() {
   return (
     <section className="container page page--narrow">
-      <p className="eyebrow">Skills</p>
-      <h1>Навыки</h1>
-      <p>Здесь соберем стек, инструменты и практики разработки.</p>
+      <p className="page__eyebrow">Skills</p>
+      <h1 className="page__title">Навыки</h1>
+      <p className="page__text">
+        Здесь соберем стек, инструменты и практики разработки.
+      </p>
     </section>
   );
 }

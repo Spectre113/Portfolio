@@ -6,8 +6,8 @@ export function HomePage() {
   return (
     <div className="page">
       <section className="container hero-foundation">
-        <p className="eyebrow">Frontend Developer</p>
-        <h1>Владимир Топорков</h1>
+        <p className="hero-foundation__eyebrow">Frontend Developer</p>
+        <h1 className="hero-foundation__title">Владимир Топорков</h1>
         <p className="hero-foundation__text">
           Собираю современные веб-интерфейсы на React, TypeScript и аккуратной
           архитектуре. Это первый фундамент портфолио, дальше будем наращивать
@@ -17,16 +17,16 @@ export function HomePage() {
 
       <section className="container section-preview">
         <div className="section-preview__heading">
-          <h2>Избранные проекты</h2>
-          <p>
+          <h2 className="section-preview__title">Избранные проекты</h2>
+          <p className="section-preview__text">
             Данные уже идут через GitHub API и локальные метаданные, чтобы UI не
             зависел от сырого ответа сервиса.
           </p>
         </div>
 
-        {isLoading && <p className="state-text">Загружаю проекты...</p>}
+        {isLoading && <p className="state-message">Загружаю проекты...</p>}
         {isError && (
-          <p className="state-text">
+          <p className="state-message">
             GitHub сейчас не ответил, но локальные метаданные уже готовы для
             fallback-слоя.
           </p>
@@ -36,8 +36,8 @@ export function HomePage() {
           {projects.map((project) => (
             <article className="project-card" key={project.slug}>
               <p className="project-card__kicker">{project.repositoryName}</p>
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
+              <h3 className="project-card__title">{project.title}</h3>
+              <p className="project-card__description">{project.description}</p>
               <ul className="project-card__stack list-reset">
                 {project.stack.map((technology) => (
                   <li key={technology}>{technology}</li>

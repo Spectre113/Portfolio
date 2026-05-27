@@ -37,7 +37,7 @@ export function MainLayout() {
 
           <div className="site-header__actions">
             <ThemeToggle />
-            <NavLink className="contact-link" to="/contacts">
+            <NavLink className="site-header__contact" to="/contacts">
               Связаться со мной
             </NavLink>
           </div>
