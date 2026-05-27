@@ -6,7 +6,7 @@
   border-radius: var(--radius-md);
   background: var(--hero-code-bg);
   box-shadow:
-    0 24px 70px rgba(5, 8, 22, 0.22),
+    var(--hero-code-shadow),
     var(--color-shadow);
   transition: var(--theme-transition);
 }
@@ -15,8 +15,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 38%),
-    radial-gradient(circle at 88% 14%, rgba(255, 255, 255, 0.11), transparent 16rem);
+    linear-gradient(120deg, rgba(255, 255, 255, 0.09), transparent 42%),
+    radial-gradient(circle at 86% 12%, rgba(255, 255, 255, 0.1), transparent 17rem);
   pointer-events: none;
   content: '';
 }
@@ -52,7 +52,7 @@
   z-index: 1;
   margin: 0;
   padding: 22px 34px 34px;
-  color: #d6deeb;
+  color: #d7e1ee;
   font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
   font-size: 16px;
   line-height: 1.75;
@@ -66,19 +66,19 @@
 }
 
 .hero-code__token--keyword {
-  color: #c792ea;
+  color: #f093fb;
 }
 
 .hero-code__token--operator {
-  color: #89ddff;
+  color: #89dceb;
 }
 
 .hero-code__token--property {
-  color: #ffcb6b;
+  color: #ffd166;
 }
 
 .hero-code__token--string {
-  color: #c3e88d;
+  color: #7ff0a5;
 }
 
 .hero-code__cursor {

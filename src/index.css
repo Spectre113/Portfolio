@@ -15,8 +15,9 @@
   --color-shadow: 0 10px 30px rgba(109, 94, 252, 0.08);
   --color-header-bg: rgba(245, 247, 251, 0.84);
   --gradient-accent: linear-gradient(135deg, #6d5efc 0%, #8b7cff 100%);
-  --hero-code-bg: linear-gradient(145deg, #ffffff 0%, #f3f5fb 100%);
-  --hero-code-border: #e7e9f2;
+  --hero-code-bg: linear-gradient(145deg, #17202e 0%, #111827 58%, #0c1321 100%);
+  --hero-code-border: rgba(109, 94, 252, 0.2);
+  --hero-code-shadow: 0 24px 70px rgba(23, 32, 46, 0.18);
   --tag-bg: #f3f4f6;
   --tag-text: #374151;
   --quote-color: #6d5efc;
@@ -50,6 +51,7 @@
   --gradient-accent: linear-gradient(135deg, #38f2a3 0%, #00c2ff 100%);
   --hero-code-bg: linear-gradient(145deg, #08101f 0%, #0d1629 100%);
   --hero-code-border: rgba(56, 242, 163, 0.25);
+  --hero-code-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
   --tag-bg: rgba(56, 242, 163, 0.08);
   --tag-text: #7fffd4;
   --quote-color: #38f2a3;

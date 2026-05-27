@@ -21,6 +21,8 @@ const socialLinks = [
   },
 ];
 
+const gridDots = Array.from({ length: 84 }, (_, index) => index);
+
 export function HeroSection() {
   return (
     <section className="hero-section">
@@ -64,7 +66,11 @@ export function HeroSection() {
 
         <div className="hero-section__visual">
           <HeroCodeCard />
-          <div className="hero-section__grid" aria-hidden="true" />
+          <div className="hero-section__grid" aria-hidden="true">
+            {gridDots.map((dot) => (
+              <span className="hero-section__grid-dot" key={dot} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
