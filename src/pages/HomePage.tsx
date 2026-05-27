@@ -1,4 +1,5 @@
 import { useFeaturedProjects } from '../entities/project/hooks/useProjects.ts';
+import { HeroSection } from '../widgets/hero/HeroSection.tsx';
 import './HomePage.css';
 
 export function HomePage() {
@@ -6,15 +7,7 @@ export function HomePage() {
 
   return (
     <div className="home-page">
-      <section className="container hero-foundation">
-        <p className="hero-foundation__eyebrow">Frontend Developer</p>
-        <h1 className="hero-foundation__title">Владимир Топорков</h1>
-        <p className="hero-foundation__text">
-          Собираю современные веб-интерфейсы на React, TypeScript и аккуратной
-          архитектуре. Это первый фундамент портфолио, дальше будем наращивать
-          дизайн и анимации порционно.
-        </p>
-      </section>
+      <HeroSection />
 
       <section className="container section-preview">
         <div className="section-preview__heading">
