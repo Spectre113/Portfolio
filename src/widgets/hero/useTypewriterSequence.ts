@@ -54,15 +54,24 @@ const STATIC_LINES: CodeToken[][] = [
     { text: ',' },
   ],
   [
-    { text: '  focus', tone: 'property' },
+    { text: '  stack', tone: 'property' },
     { text: ': ' },
-    { text: "['React', 'TypeScript', 'UI/UX']", tone: 'string' },
+    { text: "['React', 'TypeScript', 'Vite', 'Zod']", tone: 'string' },
     { text: ',' },
   ],
   [
-    { text: '  stack', tone: 'property' },
+    { text: '  focus', tone: 'property' },
     { text: ': ' },
-    { text: "['Next.js', 'Tailwind CSS', 'Zod']", tone: 'string' },
+    {
+      text: "['Clean UI', 'API Integration', 'Responsive Layout']",
+      tone: 'string',
+    },
+    { text: ',' },
+  ],
+  [
+    { text: '  learning', tone: 'property' },
+    { text: ': ' },
+    { text: "['Next.js', 'Testing', 'Accessibility']", tone: 'string' },
     { text: ',' },
   ],
   [{ text: '};' }],
@@ -86,13 +95,17 @@ const JOKE_RETURN: CodeToken[] = [
 ];
 
 const CLEAN_RETURN: CodeToken[] = [
-  { text: "'clean code + great design'", tone: 'string' },
+  { text: "'Clean code + great design'", tone: 'string' },
   { text: ';' },
 ];
 
 const CLOSING_LINE: CodeToken[] = [{ text: '}' }];
 
-const JOKE_LINES = [...STATIC_LINES, [...RETURN_PREFIX, ...JOKE_RETURN], CLOSING_LINE];
+const JOKE_LINES = [
+  ...STATIC_LINES,
+  [...RETURN_PREFIX, ...JOKE_RETURN],
+  CLOSING_LINE,
+];
 const CLEAN_LINES = [
   ...STATIC_LINES,
   [...RETURN_PREFIX, ...CLEAN_RETURN],
