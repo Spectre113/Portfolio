@@ -1,0 +1,42 @@
+import { NavLink, Outlet } from 'react-router-dom';
+
+const navigation = [
+  { label: 'Главная', to: '/' },
+  { label: 'Проекты', to: '/projects' },
+  { label: 'Обо мне', to: '/about' },
+  { label: 'Навыки', to: '/skills' },
+  { label: 'Контакты', to: '/contacts' },
+];
+
+export function MainLayout() {
+  return (
+    <div className="app-shell">
+      <header className="site-header">
+        <div className="container site-header__inner">
+          <NavLink className="brand" to="/" aria-label="На главную">
+            <span className="brand__mark">&lt;/&gt;</span>
+            <span>Spectre113</span>
+          </NavLink>
+
+          <nav className="site-nav" aria-label="Основная навигация">
+            {navigation.map((item) => (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'site-nav__link site-nav__link--active' : 'site-nav__link'
+                }
+                key={item.to}
+                to={item.to}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
+}
