@@ -1,5 +1,6 @@
 import { useFeaturedProjects } from '../entities/project/hooks/useProjects.ts';
 import { HeroSection } from '../widgets/hero/HeroSection.tsx';
+import { SkillsSection } from '../widgets/skills/SkillsSection.tsx';
 import './HomePage.css';
 
 export function HomePage() {
@@ -8,6 +9,7 @@ export function HomePage() {
   return (
     <div className="home-page">
       <HeroSection />
+      <SkillsSection />
 
       <section className="container section-preview">
         <div className="section-preview__heading">
