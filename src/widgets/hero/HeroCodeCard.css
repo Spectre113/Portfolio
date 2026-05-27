@@ -91,6 +91,16 @@
   vertical-align: text-bottom;
 }
 
+.hero-code__cursor--animated {
+  animation: cursor-blink 950ms steps(2, jump-none) infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 640px) {
   .hero-code {
     min-height: 300px;

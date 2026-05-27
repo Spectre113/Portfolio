@@ -1,54 +1,9 @@
 import './HeroCodeCard.css';
-
-const developerLines = [
-  [
-    { text: 'const', tone: 'keyword' },
-    { text: ' developer ' },
-    { text: '= ', tone: 'operator' },
-    { text: '{' },
-  ],
-  [
-    { text: '  name', tone: 'property' },
-    { text: ': ' },
-    { text: "'Spectre113'", tone: 'string' },
-    { text: ',' },
-  ],
-  [
-    { text: '  realName', tone: 'property' },
-    { text: ': ' },
-    { text: "'Vladimir Toporkov'", tone: 'string' },
-    { text: ',' },
-  ],
-  [
-    { text: '  role', tone: 'property' },
-    { text: ': ' },
-    { text: "'Frontend Developer'", tone: 'string' },
-    { text: ',' },
-  ],
-  [
-    { text: '  focus', tone: 'property' },
-    { text: ': ' },
-    { text: "['React', 'TypeScript', 'UI/UX']", tone: 'string' },
-    { text: ',' },
-  ],
-  [{ text: '};' }],
-  [],
-  [
-    { text: 'function', tone: 'keyword' },
-    { text: ' createExperience' },
-    { text: '() ', tone: 'operator' },
-    { text: '{' },
-  ],
-  [
-    { text: '  return', tone: 'keyword' },
-    { text: ' ' },
-    { text: "'clean code + great design'", tone: 'string' },
-    { text: ';' },
-  ],
-  [{ text: '}' }],
-];
+import { useTypewriterSequence } from './useTypewriterSequence.ts';
 
 export function HeroCodeCard() {
+  const { cursorLineIndex, isAnimating, lines } = useTypewriterSequence();
+
   return (
     <div className="hero-code" aria-label="Пример кода о разработчике">
       <div className="hero-code__toolbar" aria-hidden="true">
@@ -59,7 +14,7 @@ export function HeroCodeCard() {
 
       <pre className="hero-code__pre">
         <code>
-          {developerLines.map((line, index) => (
+          {lines.map((line, index) => (
             <span className="hero-code__line" key={index}>
               {line.map((part, partIndex) => (
                 <span
@@ -71,9 +26,18 @@ export function HeroCodeCard() {
                   {part.text}
                 </span>
               ))}
+              {index === cursorLineIndex && (
+                <span
+                  className={
+                    isAnimating
+                      ? 'hero-code__cursor hero-code__cursor--animated'
+                      : 'hero-code__cursor'
+                  }
+                  aria-hidden="true"
+                />
+              )}
             </span>
           ))}
-          <span className="hero-code__cursor" aria-hidden="true" />
         </code>
       </pre>
     </div>
