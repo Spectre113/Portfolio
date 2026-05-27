@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
 
 const navigation = [
   { label: 'Главная', to: '/' },
@@ -22,7 +23,9 @@ export function MainLayout() {
             {navigation.map((item) => (
               <NavLink
                 className={({ isActive }) =>
-                  isActive ? 'site-nav__link site-nav__link--active' : 'site-nav__link'
+                  isActive
+                    ? 'site-nav__link site-nav__link--active'
+                    : 'site-nav__link'
                 }
                 key={item.to}
                 to={item.to}
@@ -31,6 +34,13 @@ export function MainLayout() {
               </NavLink>
             ))}
           </nav>
+
+          <div className="site-header__actions">
+            <ThemeToggle />
+            <NavLink className="contact-link" to="/contacts">
+              Связаться со мной
+            </NavLink>
+          </div>
         </div>
       </header>
 
