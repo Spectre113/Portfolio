@@ -10,7 +10,11 @@
   place-items: center;
   padding: 24px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(109, 94, 252, 0.16), transparent 26rem),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(109, 94, 252, 0.16),
+      transparent 26rem
+    ),
     rgba(9, 15, 30, 0.58);
   backdrop-filter: blur(12px);
 }
@@ -20,7 +24,6 @@
   grid-template-columns: minmax(260px, 0.9fr) minmax(360px, 1.6fr);
   overflow: hidden;
   width: min(100%, 880px);
-  border: 1px solid color-mix(in srgb, var(--color-border) 68%, transparent);
   border-radius: 18px;
   background: var(--color-surface);
   box-shadow: 0 30px 90px rgba(5, 8, 22, 0.34);
