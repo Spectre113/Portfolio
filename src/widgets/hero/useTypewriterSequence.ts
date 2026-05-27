@@ -12,7 +12,6 @@ type TypewriterPhase =
   | 'pauseJoke'
   | 'deletingJoke'
   | 'typingClean'
-  | 'pauseClean'
   | 'complete';
 
 type TypewriterState = {
@@ -25,7 +24,6 @@ type TypewriterState = {
 const TYPE_SPEED = 30;
 const DELETE_SPEED = 18;
 const JOKE_PAUSE = 1000;
-const CLEAN_PAUSE = 900;
 const JOKE_TEXT = "'ChatGPT: make beautiful and awesome website'";
 
 const STATIC_LINES: CodeToken[][] = [
@@ -238,14 +236,20 @@ export function useTypewriterSequence() {
           currentState.phase === 'typingClean' &&
           currentState.cleanCharacters < cleanReturnLength
         ) {
+          const nextCleanCharacters = currentState.cleanCharacters + 1;
+
+          if (nextCleanCharacters >= cleanReturnLength) {
+            return {
+              ...currentState,
+              phase: 'complete',
+              cleanCharacters: nextCleanCharacters,
+            };
+          }
+
           return {
             ...currentState,
-            cleanCharacters: currentState.cleanCharacters + 1,
+            cleanCharacters: nextCleanCharacters,
           };
-        }
-
-        if (currentState.phase === 'typingClean') {
-          return { ...currentState, phase: 'pauseClean' };
         }
 
         return { ...currentState, phase: 'complete' };
@@ -277,7 +281,7 @@ export function useTypewriterSequence() {
       ];
     }
 
-    if (state.phase === 'typingClean' || state.phase === 'pauseClean') {
+    if (state.phase === 'typingClean') {
       return [
         ...STATIC_LINES,
         [
@@ -307,10 +311,6 @@ function getPhaseDelay(phase: TypewriterPhase) {
     return JOKE_PAUSE;
   }
 
-  if (phase === 'pauseClean') {
-    return CLEAN_PAUSE;
-  }
-
   if (phase === 'deletingJoke') {
     return DELETE_SPEED;
   }
@@ -328,8 +328,7 @@ function getCursorLineIndex({
   if (
     phase === 'pauseJoke' ||
     phase === 'deletingJoke' ||
-    phase === 'typingClean' ||
-    phase === 'pauseClean'
+    phase === 'typingClean'
   ) {
     return returnLineIndex;
   }

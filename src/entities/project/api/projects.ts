@@ -8,28 +8,35 @@ import {
 
 const GITHUB_OWNER = 'Spectre113';
 
-async function fetchGithubRepo(repositoryName: string): Promise<GithubRepo> {
-  const response = await fetch(
-    `https://api.github.com/repos/${GITHUB_OWNER}/${repositoryName}`,
-  );
+async function fetchGithubRepo(
+  repositoryName: string,
+): Promise<GithubRepo | null> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${repositoryName}`,
+    );
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch repository ${repositoryName}`);
+    if (!response.ok) {
+      return null;
+    }
+
+    const data: unknown = await response.json();
+
+    return GithubRepoSchema.parse(data);
+  } catch {
+    return null;
   }
-
-  const data: unknown = await response.json();
-
-  return GithubRepoSchema.parse(data);
 }
 
-function mapProject(meta: ProjectMeta, repo: GithubRepo): Project {
+function mapProject(meta: ProjectMeta, repo: GithubRepo | null): Project {
   return {
     ...meta,
-    githubUrl: repo.html_url,
-    stars: repo.stargazers_count,
-    updatedAt: repo.updated_at,
-    createdAt: repo.created_at,
-    demoUrl: meta.demoUrl ?? repo.homepage ?? undefined,
+    githubUrl: repo?.html_url ?? `https://github.com/${GITHUB_OWNER}/${meta.repositoryName}`,
+    stars: repo?.stargazers_count ?? 0,
+    pushedAt: repo?.pushed_at ?? '',
+    updatedAt: repo?.updated_at ?? '',
+    createdAt: repo?.created_at ?? '',
+    demoUrl: meta.demoUrl ?? repo?.homepage ?? undefined,
   };
 }
 

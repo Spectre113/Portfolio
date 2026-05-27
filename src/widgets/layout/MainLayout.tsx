@@ -61,6 +61,12 @@ export function MainLayout() {
         <Outlet context={{ openContactModal } satisfies MainLayoutContext} />
       </main>
 
+      <footer className="site-footer">
+        <p className="site-footer__copyright">
+          © 2025 Spectre. Все права защищены.
+        </p>
+      </footer>
+
       <ContactModal
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}

@@ -1,11 +1,11 @@
 .home-page {
   display: grid;
   gap: 26px;
-  padding-bottom: 72px;
+  padding-bottom: 20px;
 }
 
 @media (max-width: 640px) {
   .home-page {
-    padding-bottom: 48px;
+    padding-bottom: 15px;
   }
 }

@@ -6,6 +6,7 @@ export const GithubRepoSchema = z.object({
   html_url: z.url(),
   homepage: z.string().nullable(),
   stargazers_count: z.number(),
+  pushed_at: z.iso.datetime(),
   updated_at: z.iso.datetime(),
   created_at: z.iso.datetime(),
 });
@@ -23,6 +24,7 @@ export const ProjectMetaSchema = z.object({
   featured: z.boolean(),
   order: z.number(),
   demoUrl: z.url().optional(),
+  demoStatus: z.string().optional(),
 });
 
 export type ProjectMeta = z.infer<typeof ProjectMetaSchema>;
@@ -32,6 +34,7 @@ export const ProjectMetaListSchema = z.array(ProjectMetaSchema);
 export const ProjectSchema = ProjectMetaSchema.extend({
   githubUrl: z.url(),
   stars: z.number(),
+  pushedAt: z.string(),
   updatedAt: z.string(),
   createdAt: z.string(),
 });
