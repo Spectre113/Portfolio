@@ -63,7 +63,7 @@ export function MainLayout() {
 
       <footer className="site-footer">
         <p className="site-footer__copyright">
-          © 2025 Spectre. Все права защищены.
+          © 2026 Spectre. Все права защищены.
         </p>
       </footer>
 

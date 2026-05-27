@@ -5,7 +5,7 @@ import {
 
 const rawProjectMeta = [
   {
-    repositoryName: 'VK-marusya',
+    repositoryName: 'Marusya',
     slug: 'vk-marusya',
     title: 'VK Маруся',
     description:
