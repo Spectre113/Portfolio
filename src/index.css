@@ -18,6 +18,8 @@
   --hero-code-bg: linear-gradient(145deg, #17202e 0%, #111827 58%, #0c1321 100%);
   --hero-code-border: rgba(109, 94, 252, 0.2);
   --hero-code-shadow: 0 24px 70px rgba(23, 32, 46, 0.18);
+  --dotted-grid-color: rgba(109, 94, 252, 0.54);
+  --dotted-grid-glow: rgba(109, 94, 252, 0.3);
   --tag-bg: #f3f4f6;
   --tag-text: #374151;
   --quote-color: #6d5efc;
@@ -52,6 +54,8 @@
   --hero-code-bg: linear-gradient(145deg, #08101f 0%, #0d1629 100%);
   --hero-code-border: rgba(56, 242, 163, 0.25);
   --hero-code-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  --dotted-grid-color: rgba(56, 242, 163, 0.5);
+  --dotted-grid-glow: rgba(56, 242, 163, 0.32);
   --tag-bg: rgba(56, 242, 163, 0.08);
   --tag-text: #7fffd4;
   --quote-color: #38f2a3;
