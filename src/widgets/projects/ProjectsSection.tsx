@@ -32,15 +32,64 @@ function formatCommitDate(date: string) {
 
 export function ProjectsSection() {
   const { data: projects = [], isError, isLoading } = useProjects();
+  const carouselOffsetRef = useRef(0);
+  const isCarouselPausedRef = useRef(false);
+  const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const carouselProjects = [...projects, ...projects];
+  const carouselProjects = [...projects, ...projects, ...projects];
 
   useEffect(() => {
     const viewport = viewportRef.current;
 
-    if (!viewport) {
+    if (!viewport || projects.length === 0) {
       return;
     }
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    const track = trackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    const getLoopWidth = () => track.scrollWidth / 3;
+
+    const renderCarouselPosition = () => {
+      track.style.transform = `translate3d(${-carouselOffsetRef.current}px, 0, 0)`;
+    };
+
+    const initializeScrollPosition = () => {
+      const loopWidth = getLoopWidth();
+
+      if (loopWidth > 0) {
+        carouselOffsetRef.current = loopWidth;
+        renderCarouselPosition();
+      }
+    };
+
+    const normalizeScrollPosition = () => {
+      const loopWidth = getLoopWidth();
+
+      if (loopWidth === 0) {
+        return;
+      }
+
+      while (carouselOffsetRef.current <= loopWidth * 0.5) {
+        carouselOffsetRef.current += loopWidth;
+      }
+
+      while (carouselOffsetRef.current >= loopWidth * 1.5) {
+        carouselOffsetRef.current -= loopWidth;
+      }
+
+      renderCarouselPosition();
+    };
+
+    initializeScrollPosition();
+    window.requestAnimationFrame(initializeScrollPosition);
 
     const handleWheel = (event: WheelEvent) => {
       if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
@@ -49,28 +98,50 @@ export function ProjectsSection() {
 
       event.preventDefault();
 
-      const loopWidth = viewport.scrollWidth / 2;
-      const nextScrollLeft = viewport.scrollLeft + event.deltaY;
+      carouselOffsetRef.current += event.deltaY;
+      normalizeScrollPosition();
+    };
 
-      if (nextScrollLeft >= loopWidth) {
-        viewport.scrollLeft = nextScrollLeft - loopWidth;
-        return;
-      }
+    const handlePointerEnter = () => {
+      isCarouselPausedRef.current = true;
+    };
 
-      if (nextScrollLeft <= 0) {
-        viewport.scrollLeft = nextScrollLeft + loopWidth;
-        return;
-      }
-
-      viewport.scrollLeft = nextScrollLeft;
+    const handlePointerLeave = () => {
+      isCarouselPausedRef.current = false;
     };
 
     viewport.addEventListener('wheel', handleWheel, { passive: false });
+    viewport.addEventListener('pointerenter', handlePointerEnter);
+    viewport.addEventListener('pointerleave', handlePointerLeave);
+
+    let animationFrameId = 0;
+    let lastFrameTime = 0;
+
+    const animateCarousel = (timestamp: number) => {
+      if (!lastFrameTime) {
+        lastFrameTime = timestamp;
+      }
+
+      const deltaTime = timestamp - lastFrameTime;
+      lastFrameTime = timestamp;
+
+      if (!isCarouselPausedRef.current && !prefersReducedMotion) {
+        carouselOffsetRef.current += deltaTime * 0.055;
+        normalizeScrollPosition();
+      }
+
+      animationFrameId = window.requestAnimationFrame(animateCarousel);
+    };
+
+    animationFrameId = window.requestAnimationFrame(animateCarousel);
 
     return () => {
       viewport.removeEventListener('wheel', handleWheel);
+      viewport.removeEventListener('pointerenter', handlePointerEnter);
+      viewport.removeEventListener('pointerleave', handlePointerLeave);
+      window.cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [projects.length]);
 
   return (
     <section className="container projects-section" id="projects">
@@ -98,16 +169,15 @@ export function ProjectsSection() {
         </p>
       )}
 
-      <div
-        className="projects-section__viewport"
-        ref={viewportRef}
-      >
-        <div className="projects-section__track">
+      <div className="projects-section__viewport" ref={viewportRef}>
+        <div className="projects-section__track" ref={trackRef}>
           {carouselProjects.map((project, index) => (
             <article
               className="project-card"
               key={`${project.slug}-${index}`}
-              aria-hidden={index >= projects.length}
+              aria-hidden={
+                index < projects.length || index >= projects.length * 2
+              }
             >
               <div className="project-card__cover-wrap">
                 <img

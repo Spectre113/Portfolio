@@ -15,7 +15,12 @@
   --color-shadow: 0 10px 30px rgba(109, 94, 252, 0.08);
   --color-header-bg: rgba(245, 247, 251, 0.84);
   --gradient-accent: linear-gradient(135deg, #6d5efc 0%, #8b7cff 100%);
-  --hero-code-bg: linear-gradient(145deg, #17202e 0%, #111827 58%, #0c1321 100%);
+  --hero-code-bg: linear-gradient(
+    145deg,
+    #17202e 0%,
+    #111827 58%,
+    #0c1321 100%
+  );
   --hero-code-border: rgba(109, 94, 252, 0.2);
   --hero-code-shadow: 0 24px 70px rgba(23, 32, 46, 0.18);
   --dotted-grid-color: rgba(109, 94, 252, 0.54);
@@ -26,6 +31,7 @@
   --radius-sm: 12px;
   --radius-md: 18px;
   --radius-lg: 28px;
+  --container-width: min(calc(100% - clamp(60px, 14vw, 295px)), 2160px);
   --motion-fast: 180ms ease;
   --theme-duration: 360ms;
   --theme-easing: cubic-bezier(0.22, 1, 0.36, 1);
@@ -121,8 +127,7 @@ input {
 }
 
 .container {
-  width: 95%;
-  max-width: 1280px;
+  width: var(--container-width);
   margin: 0 auto;
 }
 

@@ -33,7 +33,7 @@ function mapProject(meta: ProjectMeta, repo: GithubRepo | null): Project {
     ...meta,
     githubUrl: repo?.html_url ?? `https://github.com/${GITHUB_OWNER}/${meta.repositoryName}`,
     stars: repo?.stargazers_count ?? 0,
-    pushedAt: repo?.pushed_at ?? '',
+    pushedAt: repo?.pushed_at ?? meta.lastCommitAt ?? '',
     updatedAt: repo?.updated_at ?? '',
     createdAt: repo?.created_at ?? '',
     demoUrl: meta.demoUrl ?? repo?.homepage ?? undefined,

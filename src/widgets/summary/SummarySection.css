@@ -294,6 +294,17 @@
   }
 }
 
+@media (min-width: 1600px) {
+  .summary-section {
+    gap: 32px;
+  }
+
+  .summary-card {
+    min-height: 255px;
+    padding: 34px;
+  }
+}
+
 @media (max-width: 640px) {
   .summary-card {
     min-height: auto;

@@ -25,6 +25,7 @@ export const ProjectMetaSchema = z.object({
   order: z.number(),
   demoUrl: z.url().optional(),
   demoStatus: z.string().optional(),
+  lastCommitAt: z.iso.datetime().optional(),
 });
 
 export type ProjectMeta = z.infer<typeof ProjectMetaSchema>;

@@ -152,6 +152,21 @@
   }
 }
 
+@media (min-width: 1600px) {
+  .skills-section {
+    padding: 32px;
+  }
+
+  .skills-section__grid {
+    gap: 22px;
+  }
+
+  .skills-section__item {
+    min-height: 72px;
+    padding-inline: 22px;
+  }
+}
+
 @media (max-width: 700px) {
   .skills-section {
     padding: 22px;

@@ -11,6 +11,7 @@ const rawProjectMeta = [
     featured: true,
     order: 1,
     demoUrl: 'https://spectre113.github.io/Marusya/',
+    lastCommitAt: '2026-04-28T11:25:29Z',
   },
   {
     repositoryName: 'Portfolio',
@@ -21,6 +22,7 @@ const rawProjectMeta = [
     stack: ['React', 'Themes', 'Typewriter', 'Zod'],
     featured: true,
     order: 2,
+    lastCommitAt: '2026-05-28T04:06:31Z',
   },
   {
     repositoryName: 'Avito-task',
@@ -32,6 +34,7 @@ const rawProjectMeta = [
     featured: true,
     order: 3,
     demoStatus: 'Демо требует backend',
+    lastCommitAt: '2026-03-25T20:13:06Z',
   },
   {
     repositoryName: 'VK-test',
@@ -43,6 +46,7 @@ const rawProjectMeta = [
     featured: true,
     order: 4,
     demoUrl: 'https://spectre113.github.io/VK-test/',
+    lastCommitAt: '2026-04-10T08:49:32Z',
   },
   {
     repositoryName: 'W-wave',
@@ -54,6 +58,7 @@ const rawProjectMeta = [
     featured: false,
     order: 5,
     demoUrl: 'https://spectre113.github.io/W-wave/',
+    lastCommitAt: '2026-04-27T16:11:17Z',
   },
   {
     repositoryName: 'TravelForge',
@@ -65,6 +70,7 @@ const rawProjectMeta = [
     featured: false,
     order: 6,
     demoUrl: 'http://travelforge.213-165-209-28.nip.io/',
+    lastCommitAt: '2026-04-20T07:28:46Z',
   },
 ] satisfies ProjectMeta[];
 

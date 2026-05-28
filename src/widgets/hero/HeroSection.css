@@ -4,9 +4,9 @@
 
 .hero-section__inner {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(520px, 1.08fr);
+  grid-template-columns: minmax(420px, 0.9fr) minmax(560px, 1.1fr);
   align-items: center;
-  gap: 72px;
+  gap: clamp(56px, 6vw, 132px);
 }
 
 .hero-section__content {
@@ -39,7 +39,7 @@
 
 .hero-section__title {
   max-width: 720px;
-  font-size: clamp(44px, 5.4vw, 76px);
+  font-size: clamp(44px, 4.6vw, 88px);
 }
 
 .hero-section__title span {
@@ -50,7 +50,7 @@
 .hero-section__text {
   max-width: 620px;
   color: var(--color-text-secondary);
-  font-size: 22px;
+  font-size: clamp(20px, 1.35vw, 26px);
   transition: color var(--theme-duration) var(--theme-easing);
 }
 
