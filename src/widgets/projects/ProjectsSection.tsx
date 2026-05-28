@@ -1,4 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useMemo } from 'react';
+import type { EmblaOptionsType } from 'embla-carousel';
+import AutoScroll from 'embla-carousel-auto-scroll';
+import useEmblaCarousel from 'embla-carousel-react';
 import { ExternalLink, FolderGit2, GitBranch, GitCommit } from 'lucide-react';
 import { useProjects } from '../../entities/project/hooks/useProjects.ts';
 import avitoCover from '../../assets/Avito-test.png';
@@ -18,6 +21,14 @@ const projectCovers: Record<string, string> = {
   'w-wave': wWaveCover,
 };
 
+const PROJECTS_CAROUSEL_OPTIONS: EmblaOptionsType = {
+  align: 'start',
+  containScroll: false,
+  dragFree: true,
+  loop: true,
+  skipSnaps: true,
+};
+
 function formatCommitDate(date: string) {
   if (!date) {
     return 'Дата коммита недоступна';
@@ -32,148 +43,26 @@ function formatCommitDate(date: string) {
 
 export function ProjectsSection() {
   const { data: projects = [], isError, isLoading } = useProjects();
-  const carouselOffsetRef = useRef(0);
-  const isCarouselPausedRef = useRef(false);
-  const touchStartXRef = useRef(0);
-  const groupRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const carouselGroups = [0, 1, 2];
-
-  useEffect(() => {
-    const viewport = viewportRef.current;
-
-    if (!viewport || projects.length === 0) {
-      return;
-    }
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
-
-    const track = trackRef.current;
-
-    if (!track) {
-      return;
-    }
-
-    const getLoopWidth = () => groupRef.current?.offsetWidth ?? 0;
-
-    const renderCarouselPosition = () => {
-      track.style.transform = `translate3d(${-carouselOffsetRef.current}px, 0, 0)`;
-    };
-
-    const initializeScrollPosition = () => {
-      const loopWidth = getLoopWidth();
-
-      if (loopWidth > 0) {
-        carouselOffsetRef.current = loopWidth;
-        renderCarouselPosition();
-      }
-    };
-
-    const normalizeScrollPosition = () => {
-      const loopWidth = getLoopWidth();
-
-      if (loopWidth === 0) {
-        return;
-      }
-
-      while (carouselOffsetRef.current <= loopWidth * 0.5) {
-        carouselOffsetRef.current += loopWidth;
-      }
-
-      while (carouselOffsetRef.current >= loopWidth * 1.5) {
-        carouselOffsetRef.current -= loopWidth;
-      }
-
-      renderCarouselPosition();
-    };
-
-    initializeScrollPosition();
-    window.requestAnimationFrame(initializeScrollPosition);
-
-    const handleWheel = (event: WheelEvent) => {
-      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-        return;
-      }
-
-      event.preventDefault();
-
-      carouselOffsetRef.current += event.deltaY;
-      normalizeScrollPosition();
-    };
-
-    const handlePointerEnter = (event: PointerEvent) => {
-      if (event.pointerType !== 'mouse') {
-        return;
-      }
-
-      isCarouselPausedRef.current = true;
-    };
-
-    const handlePointerLeave = (event: PointerEvent) => {
-      if (event.pointerType !== 'mouse') {
-        return;
-      }
-
-      isCarouselPausedRef.current = false;
-    };
-
-    const handleTouchStart = (event: TouchEvent) => {
-      touchStartXRef.current = event.touches[0]?.clientX ?? 0;
-    };
-
-    const handleTouchMove = (event: TouchEvent) => {
-      const nextTouchX = event.touches[0]?.clientX ?? touchStartXRef.current;
-      const deltaX = touchStartXRef.current - nextTouchX;
-
-      if (Math.abs(deltaX) < 1) {
-        return;
-      }
-
-      event.preventDefault();
-      carouselOffsetRef.current += deltaX;
-      touchStartXRef.current = nextTouchX;
-      normalizeScrollPosition();
-    };
-
-    viewport.addEventListener('wheel', handleWheel, { passive: false });
-    viewport.addEventListener('pointerenter', handlePointerEnter);
-    viewport.addEventListener('pointerleave', handlePointerLeave);
-    viewport.addEventListener('touchstart', handleTouchStart, { passive: true });
-    viewport.addEventListener('touchmove', handleTouchMove, { passive: false });
-
-    let animationFrameId = 0;
-    let lastFrameTime = 0;
-
-    const animateCarousel = (timestamp: number) => {
-      if (!lastFrameTime) {
-        lastFrameTime = timestamp;
-      }
-
-      const deltaTime = timestamp - lastFrameTime;
-      lastFrameTime = timestamp;
-
-      if (!isCarouselPausedRef.current && !prefersReducedMotion) {
-        carouselOffsetRef.current += deltaTime * 0.055;
-        normalizeScrollPosition();
-      }
-
-      animationFrameId = window.requestAnimationFrame(animateCarousel);
-    };
-
-    animationFrameId = window.requestAnimationFrame(animateCarousel);
-
-    return () => {
-      viewport.removeEventListener('wheel', handleWheel);
-      viewport.removeEventListener('pointerenter', handlePointerEnter);
-      viewport.removeEventListener('pointerleave', handlePointerLeave);
-      viewport.removeEventListener('touchstart', handleTouchStart);
-      viewport.removeEventListener('touchmove', handleTouchMove);
-      window.cancelAnimationFrame(animationFrameId);
-    };
-  }, [projects.length]);
+  const autoScrollPlugins = useMemo(
+    () => [
+      AutoScroll({
+        breakpoints: {
+          '(prefers-reduced-motion: reduce)': { active: false },
+        },
+        playOnInit: true,
+        speed: 0.75,
+        startDelay: 700,
+        stopOnFocusIn: true,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+    [],
+  );
+  const [emblaRef] = useEmblaCarousel(
+    PROJECTS_CAROUSEL_OPTIONS,
+    autoScrollPlugins,
+  );
 
   return (
     <section className="container projects-section" id="projects">
@@ -201,80 +90,71 @@ export function ProjectsSection() {
         </p>
       )}
 
-      <div className="projects-section__viewport" ref={viewportRef}>
-        <div className="projects-section__track" ref={trackRef}>
-          {carouselGroups.map((groupIndex) => (
-            <div
-              className="projects-section__group"
-              key={groupIndex}
-              ref={groupIndex === 0 ? groupRef : undefined}
-              aria-hidden={groupIndex !== 1}
-            >
-              {projects.map((project) => (
-                <article className="project-card" key={`${project.slug}-${groupIndex}`}>
-                  <div className="project-card__cover-wrap">
-                    <img
-                      className="project-card__cover"
-                      src={projectCovers[project.slug]}
-                      alt={`Превью проекта ${project.title}`}
-                      loading="lazy"
-                    />
-                  </div>
+      <div className="projects-section__viewport" ref={emblaRef}>
+        <div className="projects-section__track">
+          {projects.map((project) => (
+            <article className="project-card" key={project.slug}>
+              <div className="project-card__cover-wrap">
+                <img
+                  className="project-card__cover"
+                  src={projectCovers[project.slug]}
+                  alt={`Превью проекта ${project.title}`}
+                  loading="lazy"
+                />
+              </div>
 
-                  <div className="project-card__body">
-                    <h3 className="project-card__title">{project.title}</h3>
-                    <p className="project-card__description">
-                      {project.description}
-                    </p>
+              <div className="project-card__body">
+                <h3 className="project-card__title">{project.title}</h3>
+                <p className="project-card__description">
+                  {project.description}
+                </p>
 
-                    <ul className="project-card__stack list-reset">
-                      {project.stack.map((technology) => (
-                        <li className="project-card__tag" key={technology}>
-                          {technology}
-                        </li>
-                      ))}
-                    </ul>
+                <ul className="project-card__stack list-reset">
+                  {project.stack.map((technology) => (
+                    <li className="project-card__tag" key={technology}>
+                      {technology}
+                    </li>
+                  ))}
+                </ul>
 
-                    <p className="project-card__meta">
-                      <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
-                      Последний коммит: {formatCommitDate(project.pushedAt)}
-                    </p>
+                <p className="project-card__meta">
+                  <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
+                  Последний коммит: {formatCommitDate(project.pushedAt)}
+                </p>
 
-                    <div className="project-card__actions">
-                      <a
-                        className="project-card__action"
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <GitBranch size={17} strokeWidth={2.1} aria-hidden="true" />
-                        GitHub
-                      </a>
+                <div className="project-card__actions">
+                  <a
+                    className="project-card__action"
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <GitBranch size={17} strokeWidth={2.1} aria-hidden="true" />
+                    GitHub
+                  </a>
 
-                      {project.demoUrl ? (
-                        <a
-                          className="project-card__action project-card__action--primary"
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <ExternalLink
-                            size={17}
-                            strokeWidth={2.1}
-                            aria-hidden="true"
-                          />
-                          Demo
-                        </a>
-                      ) : (
-                        <span className="project-card__status">
-                          {project.demoStatus ?? 'В разработке'}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
+                  {project.demoUrl ? (
+                    <a
+                      className="project-card__action project-card__action--primary"
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ExternalLink
+                        size={17}
+                        strokeWidth={2.1}
+                        aria-hidden="true"
+                      />
+                      Demo
+                    </a>
+                  ) : (
+                    <span className="project-card__status">
+                      {project.demoStatus ?? 'В разработке'}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </article>
           ))}
         </div>
       </div>
