@@ -80,7 +80,11 @@
 }
 
 .skills-section__item:hover {
-  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+  border-color: color-mix(
+    in srgb,
+    var(--color-accent) 45%,
+    var(--color-border)
+  );
   box-shadow: var(--color-shadow);
   transform: translateY(-2px);
 }
@@ -165,6 +169,10 @@
 @media (max-width: 1120px) {
   .skills-section__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .skills-section__item {
+    font-size: 14px;
   }
 }
 
