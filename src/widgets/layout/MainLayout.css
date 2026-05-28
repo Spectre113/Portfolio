@@ -199,6 +199,10 @@
   display: none;
   width: 20px;
   height: 20px;
+  background-color: currentColor;
+  mask: url('../../assets/mail.svg') center / contain no-repeat;
+  transition: background-color var(--theme-duration) var(--theme-easing);
+  -webkit-mask: url('../../assets/mail.svg') center / contain no-repeat;
 }
 
 .site-header__contact:hover {
@@ -331,9 +335,16 @@
     min-width: 44px;
     max-width: 44px;
     border-color: var(--color-border);
-    background: #ffffff;
-    color: #111827;
+    background: #fff;
+    color: var(--color-text);
     font-size: 0;
+    box-shadow: none;
+  }
+
+  [data-theme='dark'] .site-header__contact {
+    border-color: var(--color-border);
+    background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+    color: var(--color-text);
   }
 
   .site-header__contact-text {

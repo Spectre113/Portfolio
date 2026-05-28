@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import mailIcon from '../../assets/mail.svg';
 import { ContactModal } from '../contact-modal/ContactModal.tsx';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
 import './MainLayout.css';
@@ -75,12 +74,7 @@ export function MainLayout() {
               <span className="site-header__contact-text">
                 Связаться со мной
               </span>
-              <img
-                className="site-header__contact-icon"
-                src={mailIcon}
-                alt=""
-                aria-hidden="true"
-              />
+              <span className="site-header__contact-icon" aria-hidden="true" />
             </button>
           </div>
         </div>

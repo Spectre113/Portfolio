@@ -35,9 +35,10 @@ export function ProjectsSection() {
   const carouselOffsetRef = useRef(0);
   const isCarouselPausedRef = useRef(false);
   const touchStartXRef = useRef(0);
+  const groupRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const carouselProjects = [...projects, ...projects, ...projects];
+  const carouselGroups = [0, 1, 2];
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -56,7 +57,7 @@ export function ProjectsSection() {
       return;
     }
 
-    const getLoopWidth = () => track.scrollWidth / 3;
+    const getLoopWidth = () => groupRef.current?.offsetWidth ?? 0;
 
     const renderCarouselPosition = () => {
       track.style.transform = `translate3d(${-carouselOffsetRef.current}px, 0, 0)`;
@@ -202,75 +203,78 @@ export function ProjectsSection() {
 
       <div className="projects-section__viewport" ref={viewportRef}>
         <div className="projects-section__track" ref={trackRef}>
-          {carouselProjects.map((project, index) => (
-            <article
-              className="project-card"
-              key={`${project.slug}-${index}`}
-              aria-hidden={
-                index < projects.length || index >= projects.length * 2
-              }
+          {carouselGroups.map((groupIndex) => (
+            <div
+              className="projects-section__group"
+              key={groupIndex}
+              ref={groupIndex === 0 ? groupRef : undefined}
+              aria-hidden={groupIndex !== 1}
             >
-              <div className="project-card__cover-wrap">
-                <img
-                  className="project-card__cover"
-                  src={projectCovers[project.slug]}
-                  alt={`Превью проекта ${project.title}`}
-                  loading="lazy"
-                />
-              </div>
+              {projects.map((project) => (
+                <article className="project-card" key={`${project.slug}-${groupIndex}`}>
+                  <div className="project-card__cover-wrap">
+                    <img
+                      className="project-card__cover"
+                      src={projectCovers[project.slug]}
+                      alt={`Превью проекта ${project.title}`}
+                      loading="lazy"
+                    />
+                  </div>
 
-              <div className="project-card__body">
-                <h3 className="project-card__title">{project.title}</h3>
-                <p className="project-card__description">
-                  {project.description}
-                </p>
+                  <div className="project-card__body">
+                    <h3 className="project-card__title">{project.title}</h3>
+                    <p className="project-card__description">
+                      {project.description}
+                    </p>
 
-                <ul className="project-card__stack list-reset">
-                  {project.stack.map((technology) => (
-                    <li className="project-card__tag" key={technology}>
-                      {technology}
-                    </li>
-                  ))}
-                </ul>
+                    <ul className="project-card__stack list-reset">
+                      {project.stack.map((technology) => (
+                        <li className="project-card__tag" key={technology}>
+                          {technology}
+                        </li>
+                      ))}
+                    </ul>
 
-                <p className="project-card__meta">
-                  <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
-                  Последний коммит: {formatCommitDate(project.pushedAt)}
-                </p>
+                    <p className="project-card__meta">
+                      <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
+                      Последний коммит: {formatCommitDate(project.pushedAt)}
+                    </p>
 
-                <div className="project-card__actions">
-                  <a
-                    className="project-card__action"
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <GitBranch size={17} strokeWidth={2.1} aria-hidden="true" />
-                    GitHub
-                  </a>
+                    <div className="project-card__actions">
+                      <a
+                        className="project-card__action"
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <GitBranch size={17} strokeWidth={2.1} aria-hidden="true" />
+                        GitHub
+                      </a>
 
-                  {project.demoUrl ? (
-                    <a
-                      className="project-card__action project-card__action--primary"
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <ExternalLink
-                        size={17}
-                        strokeWidth={2.1}
-                        aria-hidden="true"
-                      />
-                      Demo
-                    </a>
-                  ) : (
-                    <span className="project-card__status">
-                      {project.demoStatus ?? 'В разработке'}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </article>
+                      {project.demoUrl ? (
+                        <a
+                          className="project-card__action project-card__action--primary"
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <ExternalLink
+                            size={17}
+                            strokeWidth={2.1}
+                            aria-hidden="true"
+                          />
+                          Demo
+                        </a>
+                      ) : (
+                        <span className="project-card__status">
+                          {project.demoStatus ?? 'В разработке'}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           ))}
         </div>
       </div>

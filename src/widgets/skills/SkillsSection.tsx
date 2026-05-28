@@ -51,6 +51,8 @@ const MOBILE_VISIBLE_SKILLS = 6;
 
 export function SkillsSection() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const visibleSkills = skills.slice(0, MOBILE_VISIBLE_SKILLS);
+  const extraSkills = skills.slice(MOBILE_VISIBLE_SKILLS);
 
   return (
     <section className="container skills-section">
@@ -68,32 +70,51 @@ export function SkillsSection() {
         </Link>
       </header>
 
-      <ul className="skills-section__grid list-reset">
-        {skills.map((skill, index) => (
-          <li
-            className={
-              index >= MOBILE_VISIBLE_SKILLS
-                ? 'skills-section__item skills-section__item--extra'
-                : 'skills-section__item'
-            }
-            hidden={index >= MOBILE_VISIBLE_SKILLS && !isExpanded}
-            key={skill.label}
-          >
-            <SkillIcon icon={skill.icon} />
-            <span>{skill.label}</span>
-          </li>
-        ))}
-      </ul>
+      <div
+        className={
+          isExpanded
+            ? 'skills-section__content skills-section__content--expanded'
+            : 'skills-section__content'
+        }
+      >
+        <ul className="skills-section__grid list-reset">
+          {visibleSkills.map((skill) => (
+            <SkillItem key={skill.label} skill={skill} />
+          ))}
+        </ul>
+
+        <div
+          className="skills-section__extra"
+          id="skills-extra"
+          aria-hidden={!isExpanded}
+        >
+          <ul className="skills-section__grid skills-section__grid--extra list-reset">
+            {extraSkills.map((skill) => (
+              <SkillItem key={skill.label} skill={skill} />
+            ))}
+          </ul>
+        </div>
+      </div>
 
       <button
         className="skills-section__more btn-reset"
         type="button"
         aria-expanded={isExpanded}
+        aria-controls="skills-extra"
         onClick={() => setIsExpanded((currentValue) => !currentValue)}
       >
         {isExpanded ? 'Скрыть' : 'Показать все'}
       </button>
     </section>
+  );
+}
+
+function SkillItem({ skill }: { skill: Skill }) {
+  return (
+    <li className="skills-section__item">
+      <SkillIcon icon={skill.icon} />
+      <span>{skill.label}</span>
+    </li>
   );
 }
 

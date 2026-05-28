@@ -94,8 +94,16 @@
 .projects-section__track {
   display: flex;
   width: max-content;
+  align-items: stretch;
   gap: 22px;
   will-change: transform;
+}
+
+.projects-section__group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  gap: 22px;
 }
 
 .project-card {
@@ -270,6 +278,10 @@
   }
 
   .projects-section__track {
+    gap: 28px;
+  }
+
+  .projects-section__group {
     gap: 28px;
   }
 
