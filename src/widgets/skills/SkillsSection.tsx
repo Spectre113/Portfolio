@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Accessibility,
   ArrowRight,
@@ -46,7 +47,11 @@ const skills: Skill[] = [
   { icon: 'ai', label: 'AI-assisted workflow' },
 ];
 
+const MOBILE_VISIBLE_SKILLS = 6;
+
 export function SkillsSection() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <section className="container skills-section">
       <header className="skills-section__header">
@@ -64,13 +69,30 @@ export function SkillsSection() {
       </header>
 
       <ul className="skills-section__grid list-reset">
-        {skills.map((skill) => (
-          <li className="skills-section__item" key={skill.label}>
+        {skills.map((skill, index) => (
+          <li
+            className={
+              index >= MOBILE_VISIBLE_SKILLS
+                ? 'skills-section__item skills-section__item--extra'
+                : 'skills-section__item'
+            }
+            hidden={index >= MOBILE_VISIBLE_SKILLS && !isExpanded}
+            key={skill.label}
+          >
             <SkillIcon icon={skill.icon} />
             <span>{skill.label}</span>
           </li>
         ))}
       </ul>
+
+      <button
+        className="skills-section__more btn-reset"
+        type="button"
+        aria-expanded={isExpanded}
+        onClick={() => setIsExpanded((currentValue) => !currentValue)}
+      >
+        {isExpanded ? 'Скрыть' : 'Показать все'}
+      </button>
     </section>
   );
 }

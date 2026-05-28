@@ -85,6 +85,22 @@
   transform: translateY(-2px);
 }
 
+.skills-section__item[hidden] {
+  display: flex;
+}
+
+.skills-section__more {
+  display: none;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent);
+  font-weight: 900;
+  transition: var(--theme-transition);
+}
+
 .skills-section__brand {
   display: inline-grid;
   flex: 0 0 auto;
@@ -179,5 +195,13 @@
 
   .skills-section__grid {
     grid-template-columns: 1fr;
+  }
+
+  .skills-section__item[hidden] {
+    display: none;
+  }
+
+  .skills-section__more {
+    display: inline-flex;
   }
 }

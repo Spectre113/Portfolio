@@ -17,7 +17,9 @@ export type MainLayoutContext = {
 
 export function MainLayout() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const openContactModal = () => setIsContactModalOpen(true);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <div className="app-shell">
@@ -28,7 +30,24 @@ export function MainLayout() {
             <span>Spectre</span>
           </NavLink>
 
-          <nav className="site-nav" aria-label="Основная навигация">
+          <button
+            className="site-header__burger btn-reset"
+            type="button"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="site-navigation"
+            aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+            onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          <nav
+            className={`site-nav${isMobileMenuOpen ? ' site-nav--open' : ''}`}
+            id="site-navigation"
+            aria-label="Основная навигация"
+          >
             {navigation.map((item) => (
               <NavLink
                 className={({ isActive }) =>
@@ -37,6 +56,7 @@ export function MainLayout() {
                     : 'site-nav__link'
                 }
                 key={item.to}
+                onClick={closeMobileMenu}
                 to={item.to}
               >
                 {item.label}
