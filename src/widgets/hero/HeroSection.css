@@ -56,6 +56,7 @@
 
 .hero-section__actions {
   display: flex;
+  min-width: 0;
   flex-wrap: wrap;
   gap: 18px;
   padding-top: 4px;
@@ -64,6 +65,8 @@
 .hero-section__primary,
 .hero-section__secondary {
   display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
   min-height: 52px;
   align-items: center;
   justify-content: center;
@@ -121,6 +124,7 @@
 
 .hero-section__visual {
   position: relative;
+  min-width: 0;
 }
 
 .dotted-grid {

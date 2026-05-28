@@ -20,6 +20,7 @@
 }
 
 .contact-modal__dialog {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(260px, 0.9fr) minmax(360px, 1.6fr);
   overflow: hidden;
@@ -227,6 +228,16 @@
   font-size: 14px;
 }
 
+@media (max-width: 900px) {
+  .contact-modal {
+    padding: 13px;
+  }
+
+  .contact-modal__aside {
+    padding: 38px 20px;
+  }
+}
+
 @media (max-width: 760px) {
   .contact-modal {
     align-items: start;
@@ -244,5 +255,14 @@
 
   .contact-modal__content {
     padding: 56px 24px 28px;
+  }
+
+  .contact-modal__close {
+    position: absolute;
+    top: 35px;
+    right: 16px;
+    z-index: 2;
+    background: color-mix(in srgb, var(--color-surface) 86%, transparent);
+    backdrop-filter: blur(12px);
   }
 }

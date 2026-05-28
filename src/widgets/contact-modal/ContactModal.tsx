@@ -46,6 +46,15 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         aria-labelledby="contact-modal-title"
         onMouseDown={(event) => event.stopPropagation()}
       >
+        <button
+          className="contact-modal__close btn-reset"
+          type="button"
+          aria-label="Закрыть модальное окно"
+          onClick={onClose}
+        >
+          <X size={24} strokeWidth={2} aria-hidden="true" />
+        </button>
+
         <aside className="contact-modal__aside">
           <span className="contact-modal__logo" aria-hidden="true">
             &lt;/&gt;
@@ -99,15 +108,6 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         </aside>
 
         <div className="contact-modal__content">
-          <button
-            className="contact-modal__close btn-reset"
-            type="button"
-            aria-label="Закрыть модальное окно"
-            onClick={onClose}
-          >
-            <X size={24} strokeWidth={2} aria-hidden="true" />
-          </button>
-
           <div className="contact-modal__heading">
             <h2 id="contact-modal-title">Сообщение</h2>
             <p>Расскажите о проекте или задайте вопрос</p>
