@@ -34,6 +34,7 @@ export function ProjectsSection() {
   const { data: projects = [], isError, isLoading } = useProjects();
   const carouselOffsetRef = useRef(0);
   const isCarouselPausedRef = useRef(false);
+  const touchStartXRef = useRef(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const carouselProjects = [...projects, ...projects, ...projects];
@@ -102,17 +103,45 @@ export function ProjectsSection() {
       normalizeScrollPosition();
     };
 
-    const handlePointerEnter = () => {
+    const handlePointerEnter = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse') {
+        return;
+      }
+
       isCarouselPausedRef.current = true;
     };
 
-    const handlePointerLeave = () => {
+    const handlePointerLeave = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse') {
+        return;
+      }
+
       isCarouselPausedRef.current = false;
+    };
+
+    const handleTouchStart = (event: TouchEvent) => {
+      touchStartXRef.current = event.touches[0]?.clientX ?? 0;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const nextTouchX = event.touches[0]?.clientX ?? touchStartXRef.current;
+      const deltaX = touchStartXRef.current - nextTouchX;
+
+      if (Math.abs(deltaX) < 1) {
+        return;
+      }
+
+      event.preventDefault();
+      carouselOffsetRef.current += deltaX;
+      touchStartXRef.current = nextTouchX;
+      normalizeScrollPosition();
     };
 
     viewport.addEventListener('wheel', handleWheel, { passive: false });
     viewport.addEventListener('pointerenter', handlePointerEnter);
     viewport.addEventListener('pointerleave', handlePointerLeave);
+    viewport.addEventListener('touchstart', handleTouchStart, { passive: true });
+    viewport.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     let animationFrameId = 0;
     let lastFrameTime = 0;
@@ -139,6 +168,8 @@ export function ProjectsSection() {
       viewport.removeEventListener('wheel', handleWheel);
       viewport.removeEventListener('pointerenter', handlePointerEnter);
       viewport.removeEventListener('pointerleave', handlePointerLeave);
+      viewport.removeEventListener('touchstart', handleTouchStart);
+      viewport.removeEventListener('touchmove', handleTouchMove);
       window.cancelAnimationFrame(animationFrameId);
     };
   }, [projects.length]);

@@ -166,12 +166,27 @@
   transition: var(--theme-transition);
 }
 
+@media (max-width: 1450px) {
+  .skills-section__item {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1300px) {
+  .skills-section__item {
+    padding: 12px 9px;
+    gap: 10px;
+    font-size: 12px;
+  }
+}
+
 @media (max-width: 1120px) {
   .skills-section__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .skills-section__item {
+    padding: 12px 16px;
     font-size: 14px;
   }
 }
