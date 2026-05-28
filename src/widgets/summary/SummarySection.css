@@ -311,11 +311,16 @@
     padding: 24px;
   }
 
+  .summary-card__text {
+    max-width: calc(100% - 72px);
+  }
+
   .summary-card__plant {
-    right: 18px;
-    bottom: 18px;
-    scale: 0.76;
-    opacity: 0.24;
+    right: 12px;
+    bottom: 14px;
+    scale: 0.88;
+    opacity: 0.34;
+    transform-origin: right bottom;
   }
 
   .summary-card__stats {
@@ -335,5 +340,19 @@
 
   .summary-card__stat:last-child {
     border-bottom: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .summary-card__link {
+    width: 100%;
+  }
+
+  .summary-card__text {
+    max-width: 100%;
+  }
+
+  .summary-card__plant {
+    display: none;
   }
 }

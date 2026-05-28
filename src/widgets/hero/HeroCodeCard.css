@@ -106,13 +106,32 @@
 }
 
 @media (max-width: 640px) {
-  .hero-code {
-    min-height: 300px;
+  .hero-code__pre {
+    min-height: 325px;
+    padding: 18px 18px 22px;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .hero-code__line {
+    min-height: 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-code__toolbar {
+    gap: 8px;
+    padding: 18px 20px 2px;
+  }
+
+  .hero-code__dot {
+    width: 10px;
+    height: 10px;
   }
 
   .hero-code__pre {
-    min-height: 300px;
-    padding: 18px 20px 24px;
-    font-size: 13px;
+    min-height: 325px;
+    padding-inline: 16px;
+    font-size: 10.5px;
   }
 }
