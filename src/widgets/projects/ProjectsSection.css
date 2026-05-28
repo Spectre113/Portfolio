@@ -66,15 +66,48 @@
   transition: color var(--theme-duration) var(--theme-easing);
 }
 
-.projects-section__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.projects-section__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-inline: -8px;
+  padding: 2px 8px 8px;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 5%,
+    #000 95%,
+    transparent
+  );
+}
+
+.projects-section__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-section__track {
+  display: flex;
+  width: max-content;
   gap: 22px;
+  animation: projects-marquee 42s linear infinite;
+}
+
+.projects-section__viewport:hover .projects-section__track {
+  animation-play-state: paused;
 }
 
 .project-card {
   overflow: hidden;
   display: grid;
+  flex: 0 0 clamp(286px, 24vw, 332px);
   min-height: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -140,18 +173,23 @@
 
 .project-card__stack {
   display: flex;
+  min-height: 34px;
+  max-height: 34px;
+  overflow: hidden;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+  margin-bottom: 4px;
 }
 
 .project-card__tag {
+  flex: 0 0 auto;
   border: 1px solid
     color-mix(in srgb, var(--color-accent) 26%, var(--color-border));
   border-radius: 8px;
-  padding: 7px 10px;
+  padding: 6px 8px;
   background: var(--tag-bg);
   color: var(--color-accent);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   transition: var(--theme-transition);
 }
@@ -226,9 +264,15 @@
   text-align: right;
 }
 
+@keyframes projects-marquee {
+  to {
+    transform: translateX(calc(-50% - 11px));
+  }
+}
+
 @media (max-width: 1180px) {
-  .projects-section__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .project-card {
+    flex-basis: clamp(282px, 42vw, 360px);
   }
 }
 
@@ -242,11 +286,23 @@
     flex-direction: column;
   }
 
-  .projects-section__grid {
-    grid-template-columns: 1fr;
+  .project-card {
+    flex-basis: 82vw;
   }
 
   .project-card__description {
     min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-section__viewport {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .projects-section__track {
+    animation: none;
   }
 }

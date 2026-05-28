@@ -1,7 +1,4 @@
-import {
-  ProjectMetaListSchema,
-  type ProjectMeta,
-} from './project.schema.ts';
+import { ProjectMetaListSchema, type ProjectMeta } from './project.schema.ts';
 
 const rawProjectMeta = [
   {
@@ -10,7 +7,7 @@ const rawProjectMeta = [
     title: 'VK Маруся',
     description:
       'Frontend SPA для поиска фильмов, просмотра карточек, работы с жанрами и личным кабинетом пользователя.',
-    stack: ['React', 'TypeScript', 'Zod', 'TanStack'],
+    stack: ['Movie SPA', 'TanStack', 'Zod', 'Auth'],
     featured: true,
     order: 1,
     demoUrl: 'https://spectre113.github.io/Marusya/',
@@ -21,7 +18,7 @@ const rawProjectMeta = [
     title: 'Portfolio',
     description:
       'Персональный сайт-портфолио с современной архитектурой, темами, анимациями и аккуратным data layer.',
-    stack: ['React', 'TypeScript', 'Vite', 'TanStack'],
+    stack: ['React', 'Themes', 'Typewriter', 'Zod'],
     featured: true,
     order: 2,
   },
@@ -31,7 +28,7 @@ const rawProjectMeta = [
     title: 'Avito Task',
     description:
       'Личный кабинет продавца: объявления, карточки, редактирование и AI-рекомендации для описания и цены.',
-    stack: ['React', 'AI integration', 'React Hook Form'],
+    stack: ['Ollama AI', 'Forms', 'Zod', 'TanStack'],
     featured: true,
     order: 3,
     demoStatus: 'Демо требует backend',
@@ -42,7 +39,7 @@ const rawProjectMeta = [
     title: 'VK Test',
     description:
       'Тестовое задание для VK: сайт с котиками, избранным и бесконечной подгрузкой карточек.',
-    stack: ['Infinite scroll', 'React', 'TypeScript'],
+    stack: ['Cat API', 'Favorites', 'Infinite scroll'],
     featured: true,
     order: 4,
     demoUrl: 'https://spectre113.github.io/VK-test/',
@@ -51,8 +48,9 @@ const rawProjectMeta = [
     repositoryName: 'W-wave',
     slug: 'w-wave',
     title: 'W-Wave',
-    description: 'Учебный лендинг студии с адаптивной версткой.',
-    stack: ['HTML', 'SCSS', 'JavaScript'],
+    description:
+      'Статический сайт радиостанции с адаптивной версткой, интерактивностью и БЭМ-структурой.',
+    stack: ['BEM', 'Swiper', 'Choices.js', 'Forms'],
     featured: false,
     order: 5,
     demoUrl: 'https://spectre113.github.io/W-wave/',
@@ -61,8 +59,9 @@ const rawProjectMeta = [
     repositoryName: 'TravelForge',
     slug: 'travelforge',
     title: 'TravelForge',
-    description: 'Приложение для путешествий, маршрутов и планирования.',
-    stack: ['React', 'TypeScript', 'Tailwind'],
+    description:
+      'Приложение для планирования поездок с бюджетом, предпочтениями, картой и TravelBot.',
+    stack: ['TravelBot', 'Budget UI', 'REST API', 'Map'],
     featured: false,
     order: 6,
     demoUrl: 'http://travelforge.213-165-209-28.nip.io/',
