@@ -27,6 +27,8 @@ const socialLinks = [
   },
 ];
 
+const resumeUrl = `${import.meta.env.BASE_URL}resume-vladimir-toporkov.pdf`;
+
 export function HeroSection() {
   return (
     <section className="hero-section">
@@ -42,8 +44,9 @@ export function HeroSection() {
           </h1>
 
           <p className="hero-section__text">
-            Создаю современные веб-приложения с чистым кодом, вниманием к
-            деталям и любовью к интерфейсам, которыми приятно пользоваться.
+            Frontend-разработчик на React и TypeScript. Разрабатываю SPA с
+            авторизацией, REST API и управлением server state, уделяя внимание
+            поддерживаемости, производительности и предсказуемому UX.
           </p>
 
           <div className="hero-section__actions">
@@ -51,7 +54,11 @@ export function HeroSection() {
               Смотреть проекты
               <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </Link>
-            <a className="hero-section__secondary" href="/resume.pdf" download>
+            <a
+              className="hero-section__secondary"
+              href={resumeUrl}
+              download="Vladimir-Toporkov-Frontend-Developer.pdf"
+            >
               Скачать резюме
               <Download size={18} strokeWidth={2.2} aria-hidden="true" />
             </a>

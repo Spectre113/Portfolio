@@ -6,7 +6,10 @@ export function AboutPage() {
       <p className="about-page__eyebrow">About</p>
       <h1 className="about-page__title">Обо мне</h1>
       <p className="about-page__text">
-        Страница про опыт, подход к разработке и профессиональный фокус.
+        Frontend-разработчик на React и TypeScript. Разрабатываю SPA с
+        авторизацией, REST API и управлением server state. Работаю с React
+        Query, Zod и компонентной архитектурой, уделяя внимание
+        поддерживаемости и производительности.
       </p>
     </section>
   );

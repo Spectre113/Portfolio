@@ -27,9 +27,9 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
         </div>
 
         <p className="summary-card__text">
-          Я frontend-разработчик, который любит создавать быстрые, удобные и
-          качественные веб-приложения. Постоянно изучаю новое и стремлюсь к
-          росту.
+          Разрабатываю SPA с авторизацией, REST API и управлением server state.
+          Работаю с React Query, Zod и компонентной архитектурой, уделяя
+          внимание поддерживаемости и производительности.
         </p>
 
         <a className="summary-card__link" href="/about">
