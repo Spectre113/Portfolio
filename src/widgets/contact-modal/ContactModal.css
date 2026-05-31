@@ -153,11 +153,12 @@
 
 .contact-modal__form {
   display: grid;
-  gap: 22px;
+  gap: 8px;
 }
 
 .contact-modal__field {
   display: grid;
+  gap: 7px;
 }
 
 .contact-modal__field span {
@@ -195,6 +196,34 @@
 .contact-modal__field textarea:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 14%, transparent);
+}
+
+.contact-modal__field--invalid input,
+.contact-modal__field--invalid textarea {
+  border-color: color-mix(in srgb, #ef4444 78%, var(--color-border));
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+}
+
+.contact-modal__error {
+  min-height: 18px;
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.contact-modal__form-status {
+  margin: -6px 0 0;
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 28%, var(--color-border));
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  background: var(--tag-bg);
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  transition: var(--theme-transition);
 }
 
 .contact-modal__submit {
