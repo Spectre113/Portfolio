@@ -20,7 +20,8 @@ import {
   WandSparkles,
   Workflow,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties, RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import avatarImage from '../assets/avatar.png';
 import { GitHubIcon } from '../shared/ui/BrandIcon/BrandIcon.tsx';
@@ -122,8 +123,157 @@ const aiWorkflow = [
   },
 ];
 
+type TimelineRevealState = {
+  characters: number;
+  stepIndex: number;
+};
+
+const TIMELINE_TYPE_SPEED = 32;
+const TIMELINE_STEP_PAUSE = 0;
+
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const handleChange = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+
+  return prefersReducedMotion;
+}
+
+function useTimelineReveal(
+  items: typeof timeline,
+  sectionRef: RefObject<HTMLElement | null>,
+) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [isInView, setIsInView] = useState(false);
+  const [state, setState] = useState<TimelineRevealState>({
+    characters: 0,
+    stepIndex: 0,
+  });
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.38,
+      },
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [sectionRef]);
+
+  useEffect(() => {
+    if (prefersReducedMotion || !isInView || state.stepIndex >= items.length) {
+      return;
+    }
+
+    const currentTextLength = items[state.stepIndex].text.length;
+    const isStepTextComplete = state.characters >= currentTextLength;
+    const delay = isStepTextComplete
+      ? TIMELINE_STEP_PAUSE
+      : TIMELINE_TYPE_SPEED;
+
+    const timeout = window.setTimeout(() => {
+      setState((currentState) => {
+        const textLength = items[currentState.stepIndex]?.text.length ?? 0;
+
+        if (currentState.characters < textLength) {
+          return {
+            ...currentState,
+            characters: currentState.characters + 1,
+          };
+        }
+
+        return {
+          characters: 0,
+          stepIndex: currentState.stepIndex + 1,
+        };
+      });
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [isInView, items, prefersReducedMotion, state]);
+
+  return useMemo(() => {
+    if (prefersReducedMotion) {
+      return {
+        items: items.map((item) => ({
+          ...item,
+          isActive: true,
+          isVisible: true,
+          text: item.text,
+        })),
+        progress: 100,
+      };
+    }
+
+    const stepIndex = Math.min(state.stepIndex, items.length - 1);
+    const currentTextLength = items[stepIndex]?.text.length ?? 1;
+    const stepProgress =
+      state.stepIndex >= items.length
+        ? 1
+        : Math.min(state.characters / currentTextLength, 1);
+    const progress =
+      state.stepIndex >= items.length
+        ? 100
+        : ((stepIndex + stepProgress) / items.length) * 100;
+
+    return {
+      items: items.map((item, index) => {
+        const isPast = index < state.stepIndex;
+        const isCurrent = index === state.stepIndex;
+
+        return {
+          ...item,
+          isActive: index <= state.stepIndex,
+          isVisible: isPast || isCurrent,
+          text: isPast
+            ? item.text
+            : isCurrent
+              ? item.text.slice(0, state.characters)
+              : '',
+        };
+      }),
+      progress,
+    };
+  }, [items, prefersReducedMotion, state]);
+}
+
 export function AboutPage() {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const timelineSectionRef = useRef<HTMLElement | null>(null);
+  const timelineReveal = useTimelineReveal(timeline, timelineSectionRef);
 
   return (
     <main className="about-page">
@@ -171,7 +321,9 @@ export function AboutPage() {
             </ul>
           </div>
 
-          <div className={`about-page__more ${isMoreOpen ? 'about-page__more--open' : ''}`}>
+          <div
+            className={`about-page__more ${isMoreOpen ? 'about-page__more--open' : ''}`}
+          >
             <button
               className="about-page__more-button"
               type="button"
@@ -182,27 +334,27 @@ export function AboutPage() {
             </button>
             <div className="about-page__more-content">
               <div className="about-page__more-inner">
-            <p className="about-page__text">
-            В работе опираюсь на React, TypeScript, REST API, React Query и Zod.
-            Люблю компонентную архитектуру, предсказуемый data-flow, понятные
-            состояния загрузки и ошибок, а также интерфейсы, в которых внимание
-            к деталям чувствуется без лишнего шума.
-            </p>
-            <div className="about-page__outside">
-            <p>Вне кода:</p>
-            <ul className="about-page__interests list-reset">
-              {interests.map(({ icon: Icon, label }) => (
-                <li key={label}>
-                  <Icon size={18} strokeWidth={2.1} aria-hidden="true" />
-                  {label}
-                </li>
-              ))}
-            </ul>
-            </div>
+                <p className="about-page__text">
+                  В работе опираюсь на React, TypeScript, REST API, React Query
+                  и Zod. Люблю компонентную архитектуру, предсказуемый
+                  data-flow, понятные состояния загрузки и ошибок, а также
+                  интерфейсы, в которых внимание к деталям чувствуется без
+                  лишнего шума.
+                </p>
+                <div className="about-page__outside">
+                  <p>Вне кода:</p>
+                  <ul className="about-page__interests list-reset">
+                    {interests.map(({ icon: Icon, label }) => (
+                      <li key={label}>
+                        <Icon size={18} strokeWidth={2.1} aria-hidden="true" />
+                        {label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-
         </div>
 
         <article className="about-profile">
@@ -232,10 +384,7 @@ export function AboutPage() {
             </ul>
           </div>
 
-          <div
-            className="about-profile__avatar"
-            aria-label="Аватар Владимира"
-          >
+          <div className="about-profile__avatar" aria-label="Аватар Владимира">
             <img src={avatarImage} alt="" aria-hidden="true" />
           </div>
 
@@ -262,54 +411,62 @@ export function AboutPage() {
         </div>
 
         <div className="about-values__body">
-        <ul className="about-values__grid list-reset">
-          {values.slice(0, 4).map(({ icon: Icon, label, text }) => (
-            <li className="about-values__item" key={label}>
-              <span className="about-page__value-icon" aria-hidden="true">
-                <Icon size={22} strokeWidth={2.1} />
-              </span>
-              <h3>{label}</h3>
-              <p>{text}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="about-ai">
-          <div className="about-ai__intro">
-            <span className="about-page__value-icon" aria-hidden="true">
-              <Cpu size={22} strokeWidth={2.1} />
-            </span>
-            <div>
-              <h3>AI в рабочем процессе</h3>
-              <p>
-                AI для меня — это ассистент для ускорения рутины и поиска
-                идей, а не замена пониманию задачи, архитектуры и качества
-                результата.
-              </p>
-            </div>
-          </div>
-
-          <ul className="about-ai__grid list-reset">
-            {aiWorkflow.map(({ icon: Icon, label, text }) => (
-              <li className="about-ai__item" key={label}>
-                <Icon size={22} strokeWidth={2.1} aria-hidden="true" />
-                <div>
-                  <h4>{label}</h4>
-                  <p>{text}</p>
-                </div>
+          <ul className="about-values__grid list-reset">
+            {values.slice(0, 4).map(({ icon: Icon, label, text }) => (
+              <li className="about-values__item" key={label}>
+                <span className="about-page__value-icon" aria-hidden="true">
+                  <Icon size={22} strokeWidth={2.1} />
+                </span>
+                <h3>{label}</h3>
+                <p>{text}</p>
               </li>
             ))}
           </ul>
 
-          <p className="about-ai__note">
-            AI помогает двигаться быстрее, но ответственность за архитектуру,
-            логику, UX и финальный код всегда остается на мне.
-          </p>
-        </div>
+          <div className="about-ai">
+            <div className="about-ai__intro">
+              <span className="about-page__value-icon" aria-hidden="true">
+                <Cpu size={22} strokeWidth={2.1} />
+              </span>
+              <div>
+                <h3>AI в рабочем процессе</h3>
+                <p>
+                  AI для меня — это ассистент для ускорения рутины и поиска
+                  идей, а не замена пониманию задачи, архитектуры и качества
+                  результата.
+                </p>
+              </div>
+            </div>
+
+            <ul className="about-ai__grid list-reset">
+              {aiWorkflow.map(({ icon: Icon, label, text }) => (
+                <li className="about-ai__item" key={label}>
+                  <Icon size={22} strokeWidth={2.1} aria-hidden="true" />
+                  <div>
+                    <h4>{label}</h4>
+                    <p>{text}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <p className="about-ai__note">
+              AI помогает двигаться быстрее, но ответственность за архитектуру,
+              логику, UX и финальный код всегда остается на мне.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="container about-path">
+      <section
+        className="container about-path"
+        ref={timelineSectionRef}
+        style={
+          {
+            '--timeline-progress': `${timelineReveal.progress}%`,
+          } as CSSProperties
+        }
+      >
         <div className="about-path__heading">
           <span className="about-path__icon" aria-hidden="true">
             <Activity size={22} strokeWidth={2.1} />
@@ -318,8 +475,13 @@ export function AboutPage() {
         </div>
 
         <ol className="about-path__timeline list-reset">
-          {timeline.map((item) => (
-            <li className="about-path__item" key={item.period}>
+          {timelineReveal.items.map((item) => (
+            <li
+              className={`about-path__item ${item.isActive ? 'about-path__item--active' : ''} ${
+                item.isVisible ? 'about-path__item--visible' : ''
+              }`}
+              key={item.period}
+            >
               <span className="about-path__dot" aria-hidden="true" />
               <p className="about-path__period">{item.period}</p>
               <h3 className="about-path__item-title">{item.title}</h3>
@@ -345,7 +507,10 @@ export function AboutPage() {
           </p>
 
           <div className="about-now__actions">
-            <Link className="about-now__button about-now__button--primary" to="/projects">
+            <Link
+              className="about-now__button about-now__button--primary"
+              to="/projects"
+            >
               Смотреть проекты
               <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </Link>
