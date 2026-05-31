@@ -1,16 +1,21 @@
 import {
   Activity,
-  Brain,
-  Code2,
+  Blocks,
+  Bot,
+  Braces,
+  Cpu,
   Dumbbell,
-  Heart,
+  Gauge,
+  LayoutGrid,
   Mail,
   MapPin,
+  MessageSquareCode,
   Music2,
+  Rocket,
   Send,
-  Sparkles,
-  Star,
-  UserRound,
+  Target,
+  WandSparkles,
+  Workflow,
 } from 'lucide-react';
 import { useState } from 'react';
 import avatarImage from '../assets/avatar.png';
@@ -19,32 +24,32 @@ import './AboutPage.css';
 
 const values = [
   {
-    icon: Star,
+    icon: Target,
     label: 'Ориентирован на качество',
     text: 'Не оставляю интерфейс в состоянии "и так сойдёт": проверяю детали, edge cases и поведение в разных состояниях.',
   },
   {
-    icon: Brain,
+    icon: LayoutGrid,
     label: 'Думаю на шаг вперёд',
     text: 'Проектирую компоненты и данные так, чтобы код было проще расширять, тестировать и поддерживать.',
   },
   {
-    icon: Heart,
+    icon: Braces,
     label: 'Делаю с заботой о пользователе',
     text: 'Смотрю на интерфейс через сценарии пользователя: что он видит, где может ошибиться и как быстро получает результат.',
   },
   {
-    icon: Code2,
+    icon: Rocket,
     label: 'Пишу понятный код',
     text: 'Предпочитаю явные структуры, типизацию и разделение ответственности вместо магии, которую страшно трогать.',
   },
   {
-    icon: Activity,
+    icon: Gauge,
     label: 'Развиваюсь системно',
     text: 'Изучаю новые инструменты не ради галочки, а чтобы лучше решать реальные задачи и быстрее приносить пользу.',
   },
   {
-    icon: UserRound,
+    icon: Workflow,
     label: 'Умею слышать контекст',
     text: 'Для меня важно понять задачу, ограничения и ожидания команды до того, как писать решение.',
   },
@@ -85,6 +90,29 @@ const timeline = [
     period: '2026 и далее',
     title: 'Рост и практика',
     text: 'Продолжаю развиваться во frontend: углубляюсь в server state, валидацию данных, производительность, доступность и качество интерфейсов.',
+  },
+];
+
+const aiWorkflow = [
+  {
+    icon: Bot,
+    label: 'Идеи и варианты решений',
+    text: 'Использую AI как собеседника, чтобы быстрее проверить несколько направлений и выбрать самое внятное.',
+  },
+  {
+    icon: MessageSquareCode,
+    label: 'Черновики компонентов',
+    text: 'Могу набросать структуру, но финальную архитектуру, типы и поведение всегда довожу руками.',
+  },
+  {
+    icon: Workflow,
+    label: 'Рефакторинг и читаемость',
+    text: 'Прошу подсветить слабые места, после чего сам принимаю решение, что улучшать и почему.',
+  },
+  {
+    icon: WandSparkles,
+    label: 'Ускорение рутины',
+    text: 'Доверяю AI повторяемые задачи, но ответственность за качество, UX и поддержку оставляю за собой.',
   },
 ];
 
@@ -222,13 +250,14 @@ export function AboutPage() {
       <section className="container about-values">
         <div className="about-values__heading">
           <span className="about-page__value-icon" aria-hidden="true">
-            <Sparkles size={22} strokeWidth={2.1} />
+            <Blocks size={22} strokeWidth={2.1} />
           </span>
-          <h2>Что для меня важно в работе</h2>
+          <h2>Мой подход к разработке</h2>
         </div>
 
+        <div className="about-values__body">
         <ul className="about-values__grid list-reset">
-          {values.map(({ icon: Icon, label, text }) => (
+          {values.slice(0, 4).map(({ icon: Icon, label, text }) => (
             <li className="about-values__item" key={label}>
               <span className="about-page__value-icon" aria-hidden="true">
                 <Icon size={22} strokeWidth={2.1} />
@@ -238,6 +267,40 @@ export function AboutPage() {
             </li>
           ))}
         </ul>
+
+        <div className="about-ai">
+          <div className="about-ai__intro">
+            <span className="about-page__value-icon" aria-hidden="true">
+              <Cpu size={22} strokeWidth={2.1} />
+            </span>
+            <div>
+              <h3>AI в рабочем процессе</h3>
+              <p>
+                AI для меня — это ассистент для ускорения рутины и поиска
+                идей, а не замена пониманию задачи, архитектуры и качества
+                результата.
+              </p>
+            </div>
+          </div>
+
+          <ul className="about-ai__grid list-reset">
+            {aiWorkflow.map(({ icon: Icon, label, text }) => (
+              <li className="about-ai__item" key={label}>
+                <Icon size={22} strokeWidth={2.1} aria-hidden="true" />
+                <div>
+                  <h4>{label}</h4>
+                  <p>{text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <p className="about-ai__note">
+            AI помогает двигаться быстрее, но ответственность за архитектуру,
+            логику, UX и финальный код всегда остается на мне.
+          </p>
+        </div>
+        </div>
       </section>
 
       <section className="container about-path">
