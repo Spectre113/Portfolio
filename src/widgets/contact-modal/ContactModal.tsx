@@ -11,6 +11,10 @@ type ContactModalProps = {
   onClose: () => void;
 };
 
+type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
+
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+
 const contactFormSchema = z
   .object({
     email: z
@@ -101,6 +105,8 @@ function formatPhone(value: string) {
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [formStatus, setFormStatus] = useState<string | null>(null);
   const [phoneInput, setPhoneInput] = useState('');
+  const [submissionState, setSubmissionState] =
+    useState<SubmissionState>('idle');
   const {
     formState: { errors },
     handleSubmit,
@@ -122,6 +128,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     reset();
     setPhoneInput('');
     setFormStatus(null);
+    setSubmissionState('idle');
     onClose();
   }, [onClose, reset]);
 
@@ -149,8 +156,42 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     return null;
   };
 
-  const onSubmit: SubmitHandler<ContactFormValues> = () => {
-    setFormStatus('Форма проверена. Отправку подключим следующим шагом.');
+  const onSubmit: SubmitHandler<ContactFormValues> = async (values) => {
+    setFormStatus(null);
+
+    if (!FORMSPREE_ENDPOINT) {
+      setSubmissionState('error');
+      setFormStatus('Форма готова, но endpoint Formspree ещё не добавлен.');
+      return;
+    }
+
+    setSubmissionState('submitting');
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        body: JSON.stringify({
+          ...values,
+          _subject: `Сообщение с портфолио от ${values.name}`,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Formspree request failed');
+      }
+
+      reset();
+      setPhoneInput('');
+      setSubmissionState('success');
+      setFormStatus('Сообщение отправлено. Спасибо, я скоро отвечу.');
+    } catch {
+      setSubmissionState('error');
+      setFormStatus('Не удалось отправить сообщение. Попробуйте позже или напишите в Telegram.');
+    }
   };
 
   return (
@@ -312,14 +353,23 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </small>
             </label>
 
-            <button className="contact-modal__submit" type="submit">
+            <button
+              className="contact-modal__submit"
+              type="submit"
+              disabled={submissionState === 'submitting'}
+            >
               <Send size={20} strokeWidth={2} aria-hidden="true" />
-              Отправить сообщение
+              {submissionState === 'submitting'
+                ? 'Отправляю...'
+                : 'Отправить сообщение'}
             </button>
 
-            {formStatus && (
-              <p className="contact-modal__form-status">{formStatus}</p>
-            )}
+            <p
+              className={`contact-modal__form-status contact-modal__form-status--${submissionState}`}
+              aria-live="polite"
+            >
+              {formStatus}
+            </p>
           </form>
 
           <p className="contact-modal__notice">

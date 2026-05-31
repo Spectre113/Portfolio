@@ -40,6 +40,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: 'true'
+          VITE_FORMSPREE_ENDPOINT: ${{ secrets.VITE_FORMSPREE_ENDPOINT }}
 
       - name: Add SPA fallback
         run: cp dist/index.html dist/404.html

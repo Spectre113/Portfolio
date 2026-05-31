@@ -111,7 +111,7 @@
 .contact-modal__content {
   position: relative;
   display: grid;
-  gap: 28px;
+  gap: 15px;
   padding: 64px 40px 42px;
 }
 
@@ -213,7 +213,8 @@
 }
 
 .contact-modal__form-status {
-  margin: -6px 0 0;
+  margin: 0 0 0;
+  min-height: 46px;
   border: 1px solid
     color-mix(in srgb, var(--color-accent) 28%, var(--color-border));
   border-radius: var(--radius-sm);
@@ -226,11 +227,30 @@
   transition: var(--theme-transition);
 }
 
+.contact-modal__form-status--idle {
+  visibility: hidden;
+}
+
+.contact-modal__form-status--error {
+  border-color: color-mix(in srgb, #ef4444 54%, var(--color-border));
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.contact-modal__form-status--success {
+  border-color: color-mix(
+    in srgb,
+    var(--color-accent) 36%,
+    var(--color-border)
+  );
+}
+
 .contact-modal__submit {
   display: inline-flex;
   min-height: 58px;
   align-items: center;
   justify-content: center;
+  margin-top: 10px;
   gap: 12px;
   border: 0;
   border-radius: var(--radius-sm);
@@ -248,6 +268,12 @@
 
 .contact-modal__submit:hover {
   transform: translateY(-1px);
+}
+
+.contact-modal__submit:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
 }
 
 .contact-modal__notice {
