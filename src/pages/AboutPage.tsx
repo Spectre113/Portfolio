@@ -1,9 +1,12 @@
 import {
   Activity,
+  ArrowRight,
   Blocks,
   Bot,
   Braces,
+  Briefcase,
   Cpu,
+  Download,
   Dumbbell,
   Gauge,
   LayoutGrid,
@@ -18,9 +21,12 @@ import {
   Workflow,
 } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import avatarImage from '../assets/avatar.png';
 import { GitHubIcon } from '../shared/ui/BrandIcon/BrandIcon.tsx';
 import './AboutPage.css';
+
+const resumeUrl = `${import.meta.env.BASE_URL}resume-vladimir-toporkov.pdf`;
 
 const values = [
   {
@@ -321,6 +327,49 @@ export function AboutPage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="container about-now">
+        <div className="about-now__content">
+          <div className="about-now__heading">
+            <span className="about-path__icon" aria-hidden="true">
+              <Briefcase size={22} strokeWidth={2.1} />
+            </span>
+            <h2>Что ищу сейчас</h2>
+          </div>
+
+          <p>
+            Ищу возможности для frontend-стажировки или позиции
+            junior-разработчика, где смогу приносить пользу команде, учиться у
+            сильных коллег и расти профессионально.
+          </p>
+
+          <div className="about-now__actions">
+            <Link className="about-now__button about-now__button--primary" to="/projects">
+              Смотреть проекты
+              <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
+            <a
+              className="about-now__button"
+              href={resumeUrl}
+              download="Vladimir-Toporkov-Frontend-Developer.pdf"
+            >
+              Скачать резюме
+              <Download size={18} strokeWidth={2.2} aria-hidden="true" />
+            </a>
+            <a className="about-now__telegram" href="https://t.me/Spectre113">
+              Связаться со мной в Telegram
+              <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
+        <div className="about-now__visual" aria-hidden="true">
+          <span className="about-now__door" />
+          <span className="about-now__step about-now__step--top" />
+          <span className="about-now__step about-now__step--middle" />
+          <span className="about-now__step about-now__step--bottom" />
+        </div>
       </section>
     </main>
   );

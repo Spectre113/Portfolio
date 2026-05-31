@@ -213,7 +213,8 @@
 
 .about-profile,
 .about-values,
-.about-path {
+.about-path,
+.about-now {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background:
@@ -578,6 +579,186 @@
   transition: color var(--theme-duration) var(--theme-easing);
 }
 
+.about-now {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 32px;
+  min-height: 270px;
+  padding: 32px;
+}
+
+.about-now::after {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(48%, 560px);
+  background:
+    radial-gradient(
+      circle at 62% 42%,
+      color-mix(in srgb, var(--color-accent) 22%, transparent),
+      transparent 14rem
+    ),
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 42%, transparent) 0 1px,
+      transparent 1.6px
+    );
+  background-size:
+    auto,
+    16px 16px;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 26%,
+    #000 82%,
+    transparent
+  );
+  opacity: 0.72;
+  pointer-events: none;
+  content: '';
+}
+
+.about-now__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  gap: 22px;
+}
+
+.about-now__heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.about-now__heading h2 {
+  font-size: clamp(28px, 3vw, 42px);
+}
+
+.about-now__content p {
+  max-width: 930px;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.65;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.about-now__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.about-now__button,
+.about-now__telegram {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: var(--radius-sm);
+  padding: 0 28px;
+  color: var(--color-text);
+  font-weight: 900;
+  text-decoration: none;
+  transition:
+    color var(--theme-duration) var(--theme-easing),
+    background-color var(--theme-duration) var(--theme-easing),
+    border-color var(--theme-duration) var(--theme-easing),
+    transform var(--motion-fast);
+}
+
+.about-now__button {
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 48%, transparent);
+}
+
+.about-now__button--primary {
+  border-color: color-mix(in srgb, var(--color-accent) 68%, transparent);
+  color: var(--button-primary-text);
+  background: var(--button-primary-bg);
+  box-shadow: var(--button-primary-shadow);
+}
+
+.about-now__telegram {
+  min-height: auto;
+  padding: 0;
+  color: var(--color-accent);
+}
+
+.about-now__button:hover,
+.about-now__telegram:hover {
+  transform: translateY(-2px);
+}
+
+.about-now__visual {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: end center;
+  min-height: 220px;
+}
+
+.about-now__door {
+  position: relative;
+  width: 116px;
+  height: 178px;
+  border: 2px solid color-mix(in srgb, var(--color-accent) 68%, transparent);
+  border-left-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  border-radius: 4px 8px 4px 4px;
+  background: linear-gradient(
+    102deg,
+    color-mix(in srgb, var(--color-bg) 92%, transparent),
+    color-mix(in srgb, var(--color-accent) 16%, var(--color-bg)) 74%,
+    color-mix(in srgb, var(--color-accent) 82%, transparent)
+  );
+  box-shadow:
+    0 0 46px color-mix(in srgb, var(--color-accent) 42%, transparent),
+    inset -18px 0 24px color-mix(in srgb, var(--color-accent) 32%, transparent);
+  transform: perspective(480px) rotateY(-10deg);
+}
+
+.about-now__door::after {
+  position: absolute;
+  top: 48%;
+  right: 16px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-accent) 76%, #fff);
+  box-shadow: 0 0 14px var(--color-accent);
+  content: '';
+}
+
+.about-now__step {
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-accent) 62%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 50%, transparent);
+  transform: translateX(50%);
+}
+
+.about-now__step--top {
+  width: 170px;
+  bottom: 24px;
+}
+
+.about-now__step--middle {
+  width: 220px;
+  bottom: 12px;
+}
+
+.about-now__step--bottom {
+  width: 285px;
+}
+
 @media (max-width: 1255px) {
   .about-page__hero {
     grid-template-columns: 1fr;
@@ -619,6 +800,14 @@
   }
 
   .about-path__timeline::before {
+    display: none;
+  }
+
+  .about-now {
+    grid-template-columns: 1fr;
+  }
+
+  .about-now__visual {
     display: none;
   }
 }
@@ -686,8 +875,32 @@
   }
 
   .about-values,
-  .about-path {
+  .about-path,
+  .about-now {
     padding-inline: 22px;
+  }
+
+  .about-now {
+    min-height: auto;
+  }
+
+  .about-now::after {
+    width: 100%;
+    opacity: 0.42;
+  }
+
+  .about-now__actions {
+    display: grid;
+  }
+
+  .about-now__button,
+  .about-now__telegram {
+    width: 100%;
+  }
+
+  .about-now__telegram {
+    justify-content: center;
+    min-height: 50px;
   }
 
   .about-profile__avatar {
