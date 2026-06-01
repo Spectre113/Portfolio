@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { ContactModal } from '../contact-modal/ContactModal.tsx';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
 import './MainLayout.css';
@@ -16,6 +16,7 @@ export type MainLayoutContext = {
 };
 
 export function MainLayout() {
+  const location = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const openContactModal = () => setIsContactModalOpen(true);
@@ -80,7 +81,7 @@ export function MainLayout() {
         </div>
       </header>
 
-      <main>
+      <main className="page-transition" key={location.pathname}>
         <Outlet context={{ openContactModal } satisfies MainLayoutContext} />
       </main>
 
