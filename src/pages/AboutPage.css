@@ -1054,8 +1054,8 @@
 
 @media (max-width: 460px) {
   .about-path__text {
-    min-height: 18vw;
-    font-size: 11px;
+    min-height: 20vw;
+    font-size: 13px;
   }
 }
 
