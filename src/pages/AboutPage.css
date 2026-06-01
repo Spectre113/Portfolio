@@ -989,6 +989,7 @@
   .about-now__telegram {
     justify-content: center;
     min-height: 50px;
+    font-size: 14px;
   }
 
   .about-profile__avatar {
@@ -1054,7 +1055,7 @@
 
 @media (max-width: 460px) {
   .about-path__text {
-    min-height: 20vw;
+    min-height: 21vw;
     font-size: 13px;
   }
 }

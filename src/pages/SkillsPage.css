@@ -1,40 +1,599 @@
 .skills-page {
-  max-width: 840px;
-  padding: 72px 0;
+  display: grid;
+  gap: 34px;
+  padding: 34px 0 56px;
+}
+
+.skills-page__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(520px, 1.1fr);
+  gap: clamp(34px, 5vw, 82px);
+  align-items: center;
+}
+
+.skills-page__content {
+  display: grid;
+  gap: 26px;
+  align-content: start;
 }
 
 .skills-page__eyebrow {
-  margin-bottom: 16px;
-  color: var(--color-accent);
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: var(--tag-bg);
+  color: var(--color-text-secondary);
   font-size: 14px;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: color var(--theme-duration) var(--theme-easing);
+  transition: var(--theme-transition);
+}
+
+.skills-page__eyebrow span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-accent) 72%, transparent);
 }
 
 .skills-page__title {
   max-width: 760px;
-  font-size: clamp(42px, 7vw, 84px);
+  font-size: clamp(56px, 8vw, 104px);
+  line-height: 0.95;
 }
 
-.skills-page__text {
-  max-width: 680px;
-  color: var(--color-text-secondary);
-  font-size: 20px;
+.skills-page__title span {
+  color: var(--color-accent);
+}
+
+.skills-page__lead {
+  max-width: 760px;
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.45;
   transition: color var(--theme-duration) var(--theme-easing);
 }
 
-@media (max-width: 640px) {
+.skills-page__highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.skills-page__highlights li {
+  display: grid;
+  gap: 8px;
+  min-height: 92px;
+  align-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 800;
+  background: color-mix(in srgb, var(--color-surface) 58%, transparent);
+  transition: var(--theme-transition);
+}
+
+.skills-page__highlights svg {
+  color: var(--color-accent);
+}
+
+.runtime-console {
+  --runtime-duration: 12s;
+  --runtime-step: 1.45s;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(280px, 1.05fr);
+  gap: 18px;
+  min-height: 520px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 34%, var(--color-border));
+  border-radius: var(--radius-md);
+  padding: 20px;
+  background:
+    radial-gradient(
+      circle at 68% 46%,
+      color-mix(in srgb, var(--color-accent) 15%, transparent),
+      transparent 16rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-surface) 90%, transparent),
+      color-mix(in srgb, var(--color-bg) 92%, transparent)
+    );
+  box-shadow:
+    var(--color-shadow),
+    inset 0 0 70px color-mix(in srgb, var(--color-accent) 5%, transparent);
+  transition: var(--theme-transition);
+}
+
+.runtime-console::before {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: 58%;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 44%, transparent) 0 1px,
+    transparent 1.7px
+  );
+  background-size: 16px 16px;
+  content: '';
+  mask-image:
+    linear-gradient(90deg, transparent, #000 26%, #000 72%, transparent),
+    linear-gradient(180deg, transparent, #000 14%, #000 84%, transparent);
+  mask-composite: intersect;
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.runtime-console::after {
+  position: absolute;
+  top: 22%;
+  left: 44%;
+  z-index: -1;
+  width: 30%;
+  height: 56%;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+  border-radius: 999px;
+  content: '';
+  filter: blur(0.2px);
+  opacity: 0.28;
+  transform: rotate(-8deg);
+}
+
+.runtime-console__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 44%,
+      color-mix(in srgb, var(--color-accent) 14%, transparent) 44% 44.2%,
+      transparent 44.2%
+    );
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.runtime-console__panel {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 18%, var(--color-border));
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 8%, transparent);
+  transition: var(--theme-transition);
+}
+
+.runtime-console__panel--log {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding: 18px;
+}
+
+.runtime-console__panel--preview {
+  display: grid;
+  gap: 18px;
+  align-content: stretch;
+  padding: 18px;
+}
+
+.runtime-console__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 16px;
+}
+
+.runtime-console__bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.runtime-console__bar span:nth-child(1) {
+  background: #ff5f57;
+}
+
+.runtime-console__bar span:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.runtime-console__bar span:nth-child(3) {
+  background: #28c840;
+}
+
+.runtime-console h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.runtime-console__events {
+  display: grid;
+  gap: 10px;
+}
+
+.runtime-console__event {
+  --event-delay: calc(var(--event-index) * var(--runtime-step));
+
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 2px 12px;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 14%, transparent);
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--color-surface) 58%, transparent);
+  opacity: 0.58;
+  transform: translateX(0);
+  animation: runtime-event var(--runtime-duration) ease-in-out infinite;
+  animation-delay: var(--event-delay);
+}
+
+.runtime-console__event::after {
+  position: absolute;
+  inset: 50% auto auto 100%;
+  width: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 46%, transparent), transparent);
+  content: '';
+  opacity: 0.36;
+}
+
+.runtime-console__event-icon {
+  display: grid;
+  grid-row: span 2;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 12px;
+  color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 11%, transparent);
+}
+
+.runtime-console__command {
+  overflow: hidden;
+  color: var(--color-text);
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+  font-size: 13px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.runtime-console__result {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.runtime-console__preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text);
+  font-weight: 900;
+}
+
+.runtime-console__badge {
+  border: 1px solid color-mix(in srgb, var(--color-accent) 38%, transparent);
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: var(--color-accent);
+  font-size: 12px;
+  background: color-mix(in srgb, var(--color-accent) 9%, transparent);
+}
+
+.runtime-console__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 15%, var(--color-border));
+  border-radius: 16px;
+  padding: 13px 14px;
+  color: var(--color-text-secondary);
+  font-weight: 800;
+  background: color-mix(in srgb, var(--color-surface) 56%, transparent);
+}
+
+.runtime-console__search span:first-child {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--color-accent) 72%, transparent);
+}
+
+.runtime-console__state-stack {
+  position: relative;
+  min-height: 176px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 13%, var(--color-border));
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-accent) 7%, transparent),
+      color-mix(in srgb, var(--color-bg) 62%, transparent)
+    );
+}
+
+.runtime-console__state {
+  position: absolute;
+  inset: 18px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+  border-radius: 16px;
+  color: var(--color-text);
+  font-size: 18px;
+  font-weight: 900;
+  background: color-mix(in srgb, var(--color-surface) 62%, transparent);
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+}
+
+.runtime-console__state svg {
+  color: var(--color-accent);
+}
+
+.runtime-console__state--loading {
+  animation: runtime-preview-loading var(--runtime-duration) ease-in-out infinite;
+}
+
+.runtime-console__state--loading svg {
+  animation: runtime-spin 1s linear infinite;
+}
+
+.runtime-console__state--error {
+  animation: runtime-preview-error var(--runtime-duration) ease-in-out infinite;
+}
+
+.runtime-console__state--success {
+  animation: runtime-preview-success var(--runtime-duration) ease-in-out infinite;
+}
+
+.runtime-console__result-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 38%, transparent);
+  border-radius: 18px;
+  padding: 16px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-accent) 13%, transparent),
+      color-mix(in srgb, var(--color-surface) 58%, transparent)
+    );
+  animation: runtime-result var(--runtime-duration) ease-in-out infinite;
+}
+
+.runtime-console__result-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 18px;
+  color: var(--color-accent);
+  font-size: 20px;
+  font-weight: 950;
+  background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--color-accent) 16%, transparent);
+}
+
+.runtime-console__result-card strong {
+  color: var(--color-text);
+  font-size: 17px;
+}
+
+.runtime-console__result-card p {
+  margin: 4px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.35;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
+@keyframes runtime-event {
+  0%,
+  8%,
+  20%,
+  100% {
+    border-color: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    opacity: 0.58;
+    transform: translateX(0);
+    box-shadow: none;
+  }
+
+  10%,
+  17% {
+    border-color: color-mix(in srgb, var(--color-accent) 68%, transparent);
+    opacity: 1;
+    transform: translateX(6px);
+    box-shadow:
+      0 0 26px color-mix(in srgb, var(--color-accent) 16%, transparent),
+      inset 0 1px 0 color-mix(in srgb, #fff 8%, transparent);
+  }
+}
+
+@keyframes runtime-preview-loading {
+  0%,
+  22%,
+  45%,
+  100% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+
+  25%,
+  42% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes runtime-preview-error {
+  0%,
+  50%,
+  62%,
+  100% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+
+  53%,
+  59% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes runtime-preview-success {
+  0%,
+  64%,
+  100% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+
+  68%,
+  92% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes runtime-result {
+  0%,
+  66%,
+  100% {
+    border-color: color-mix(in srgb, var(--color-accent) 24%, transparent);
+    box-shadow: none;
+  }
+
+  72%,
+  92% {
+    border-color: color-mix(in srgb, var(--color-accent) 70%, transparent);
+    box-shadow: 0 0 34px color-mix(in srgb, var(--color-accent) 15%, transparent);
+  }
+}
+
+@keyframes runtime-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1380px) {
+  .skills-page__hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
   .skills-page {
-    padding: 48px 0;
+    padding: 28px 0 44px;
   }
 
   .skills-page__title {
-    font-size: 42px;
+    font-size: clamp(48px, 16vw, 74px);
   }
 
-  .skills-page__text {
-    font-size: 18px;
+  .skills-page__highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .runtime-console {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 14px;
+  }
+
+  .runtime-console__grid {
+    display: none;
+  }
+
+  .runtime-console::after {
+    display: none;
+  }
+
+  .runtime-console__panel {
+    border-radius: 18px;
+  }
+
+  .runtime-console__event {
+    transform: none;
+    animation-name: runtime-event-mobile;
+  }
+
+  .runtime-console__event::after {
+    display: none;
+  }
+
+  .runtime-console__command {
+    white-space: normal;
+  }
+
+  .runtime-console__state-stack {
+    min-height: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .runtime-console__event,
+  .runtime-console__state,
+  .runtime-console__state--loading svg,
+  .runtime-console__result-card {
+    animation: none;
+  }
+
+  .runtime-console__event {
+    opacity: 1;
+  }
+
+  .runtime-console__state--success {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes runtime-event-mobile {
+  0%,
+  8%,
+  20%,
+  100% {
+    border-color: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    opacity: 0.62;
+    box-shadow: none;
+  }
+
+  10%,
+  17% {
+    border-color: color-mix(in srgb, var(--color-accent) 68%, transparent);
+    opacity: 1;
+    box-shadow:
+      0 0 22px color-mix(in srgb, var(--color-accent) 14%, transparent),
+      inset 0 1px 0 color-mix(in srgb, #fff 8%, transparent);
   }
 }

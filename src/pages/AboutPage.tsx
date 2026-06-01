@@ -128,7 +128,7 @@ type TimelineRevealState = {
   stepIndex: number;
 };
 
-const TIMELINE_TYPE_SPEED = 20;
+const TIMELINE_TYPE_SPEED = 30;
 const TIMELINE_STEP_PAUSE = 0;
 
 function usePrefersReducedMotion() {
