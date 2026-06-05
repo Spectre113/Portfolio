@@ -817,6 +817,18 @@
   width: 285px;
 }
 
+@media (min-width: 1921px) {
+  .about-page__hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.75fr);
+  }
+}
+
+@media (min-width: 2600px) {
+  .about-page__hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.65fr);
+  }
+}
+
 @media (max-width: 1400px) {
   .about-path__text {
     font-size: 13px;

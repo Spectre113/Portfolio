@@ -271,7 +271,7 @@ function useTimelineReveal(
 }
 
 export function AboutPage() {
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(true);
   const timelineSectionRef = useRef<HTMLElement | null>(null);
   const timelineReveal = useTimelineReveal(timeline, timelineSectionRef);
 
@@ -295,32 +295,6 @@ export function AboutPage() {
             пользоваться и дальше развивать его без боли.
           </p>
 
-          <div className="about-page__person">
-            <div>
-              <h2 className="about-page__name">Владимир Топорков</h2>
-              <p className="about-page__role">Frontend Developer</p>
-            </div>
-
-            <ul className="about-page__contacts list-reset">
-              <li>
-                <MapPin size={18} strokeWidth={2} aria-hidden="true" />
-                Россия, Иннополис
-              </li>
-              <li>
-                <Mail size={18} strokeWidth={2} aria-hidden="true" />
-                VTvolody626@gmail.com
-              </li>
-              <li>
-                <Send size={18} strokeWidth={2} aria-hidden="true" />
-                @Spectre113
-              </li>
-              <li>
-                <GitHubIcon />
-                github.com/Spectre113
-              </li>
-            </ul>
-          </div>
-
           <div
             className={`about-page__more ${isMoreOpen ? 'about-page__more--open' : ''}`}
           >
@@ -334,13 +308,31 @@ export function AboutPage() {
             </button>
             <div className="about-page__more-content">
               <div className="about-page__more-inner">
-                <p className="about-page__text">
-                  В работе опираюсь на React, TypeScript, REST API, React Query
-                  и Zod. Люблю компонентную архитектуру, предсказуемый
-                  data-flow, понятные состояния загрузки и ошибок, а также
-                  интерфейсы, в которых внимание к деталям чувствуется без
-                  лишнего шума.
-                </p>
+                <div className="about-page__person">
+                  <div>
+                    <h2 className="about-page__name">Владимир Топорков</h2>
+                    <p className="about-page__role">Frontend Developer</p>
+                  </div>
+
+                  <ul className="about-page__contacts list-reset">
+                    <li>
+                      <MapPin size={18} strokeWidth={2} aria-hidden="true" />
+                      Россия, Иннополис
+                    </li>
+                    <li>
+                      <Mail size={18} strokeWidth={2} aria-hidden="true" />
+                      VTvolody626@gmail.com
+                    </li>
+                    <li>
+                      <Send size={18} strokeWidth={2} aria-hidden="true" />
+                      @Spectre113
+                    </li>
+                    <li>
+                      <GitHubIcon />
+                      github.com/Spectre113
+                    </li>
+                  </ul>
+                </div>
                 <div className="about-page__outside">
                   <p>Вне кода:</p>
                   <ul className="about-page__interests list-reset">
@@ -431,7 +423,7 @@ export function AboutPage() {
               <div>
                 <h3>AI в рабочем процессе</h3>
                 <p>
-                  AI для меня — это ассистент для ускорения рутины и поиска
+                  AI для меня - это ассистент для ускорения рутины и поиска
                   идей, а не замена пониманию задачи, архитектуры и качества
                   результата.
                 </p>
