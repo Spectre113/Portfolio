@@ -1,17 +1,28 @@
 .ai-assistant {
-  position: relative;
+  position: static;
 }
 
 .ai-assistant__trigger {
   position: relative;
+  --ai-eye-x: 0px;
+  --ai-eye-y: 0px;
   display: inline-grid;
   width: 44px;
   height: 44px;
   place-items: center;
-  border: 1px solid var(--color-border);
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 46%, var(--color-border));
   border-radius: var(--radius-sm);
   color: var(--color-accent);
-  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      color-mix(in srgb, var(--color-accent) 18%, transparent),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--color-surface) 92%, var(--color-bg));
+  box-shadow: 0 14px 34px
+    color-mix(in srgb, var(--color-accent) 10%, transparent);
   transition:
     background-color var(--theme-duration) var(--theme-easing),
     border-color var(--theme-duration) var(--theme-easing),
@@ -34,8 +45,13 @@
 
 .ai-assistant__trigger:hover,
 .ai-assistant__trigger[aria-expanded='true'] {
-  border-color: color-mix(in srgb, var(--color-accent) 52%, var(--color-border));
-  box-shadow: 0 12px 30px color-mix(in srgb, var(--color-accent) 12%, transparent);
+  border-color: color-mix(
+    in srgb,
+    var(--color-accent) 52%,
+    var(--color-border)
+  );
+  box-shadow: 0 12px 30px
+    color-mix(in srgb, var(--color-accent) 18%, transparent);
   transform: translateY(-1px);
 }
 
@@ -47,20 +63,24 @@
 .ai-assistant__backdrop {
   position: fixed;
   inset: 0;
-  z-index: 19;
-  background: transparent;
+  z-index: 30;
+  background: color-mix(in srgb, #020617 28%, transparent);
+  animation: ai-backdrop-enter 180ms var(--theme-easing) both;
 }
 
 .ai-assistant__panel {
-  position: absolute;
-  top: calc(100% + 14px);
-  right: 0;
-  z-index: 20;
+  position: fixed;
+  top: 88px;
+  right: 18px;
+  z-index: 31;
   display: grid;
-  width: min(430px, calc(100vw - 32px));
+  align-content: start;
+  width: min(460px, calc(100vw - 20px));
+  max-height: min(760px, calc(100dvh - 112px));
   gap: 16px;
-  border: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--color-border));
-  border-radius: var(--radius-md);
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 24%, var(--color-border));
+  border-radius: 28px;
   padding: 18px;
   background:
     radial-gradient(
@@ -70,9 +90,12 @@
     ),
     color-mix(in srgb, var(--color-surface) 96%, var(--color-bg));
   box-shadow: 0 24px 70px color-mix(in srgb, #000 24%, transparent);
-  animation: ai-panel-enter 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  animation: ai-panel-enter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
   backdrop-filter: blur(22px);
-  transform-origin: calc(100% - 22px) -22px;
+  transform-origin: 100% 50%;
 }
 
 .ai-assistant__panel::before {
@@ -91,6 +114,57 @@
     );
   content: '';
   pointer-events: none;
+  border-radius: inherit;
+}
+
+.ai-assistant__face {
+  position: relative;
+  display: block;
+  width: 28px;
+  height: 21px;
+  border: 2px solid currentColor;
+  border-radius: 10px;
+  box-shadow: inset 0 0 16px
+    color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.ai-assistant__face::before,
+.ai-assistant__face::after {
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: '';
+}
+
+.ai-assistant__face::before {
+  left: -6px;
+}
+
+.ai-assistant__face::after {
+  right: -6px;
+}
+
+.ai-assistant__eye {
+  position: absolute;
+  top: 5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 76%, transparent);
+  transform: translate(var(--ai-eye-x), var(--ai-eye-y));
+  transition: transform 90ms linear;
+}
+
+.ai-assistant__eye--left {
+  left: 7px;
+}
+
+.ai-assistant__eye--right {
+  right: 7px;
 }
 
 .ai-assistant__panel > * {
@@ -152,7 +226,8 @@
 .ai-assistant__notice {
   display: flex;
   gap: 12px;
-  border: 1px solid color-mix(in srgb, var(--color-accent) 18%, var(--color-border));
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 18%, var(--color-border));
   border-radius: 16px;
   padding: 13px;
   color: var(--color-text-secondary);
@@ -175,11 +250,30 @@
 .ai-assistant__result {
   display: grid;
   gap: 10px;
-  border: 1px solid color-mix(in srgb, var(--color-accent) 22%, var(--color-border));
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 22%, var(--color-border));
   border-radius: 16px;
   padding: 13px;
   background: color-mix(in srgb, var(--color-surface) 94%, var(--color-bg));
   transition: var(--theme-transition);
+}
+
+.ai-assistant__result--thinking {
+  overflow: hidden;
+}
+
+.ai-assistant__result--thinking::after {
+  width: 42%;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-accent) 72%, transparent),
+    transparent
+  );
+  content: '';
+  animation: ai-thinking-line 900ms var(--theme-easing) infinite;
 }
 
 .ai-assistant__result-head {
@@ -225,6 +319,30 @@
   box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent) 72%, transparent);
   content: '';
   transform: translateY(-50%);
+}
+
+.ai-assistant__projects {
+  display: grid;
+  gap: 7px;
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-accent) 18%, var(--color-border));
+  padding-top: 10px;
+}
+
+.ai-assistant__projects span {
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.ai-assistant__projects p {
+  margin: 0;
+  border-radius: 12px;
+  padding: 8px 10px;
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-accent) 7%, transparent);
+  font-size: 12px;
+  font-weight: 750;
 }
 
 .ai-assistant__field {
@@ -273,7 +391,8 @@
 }
 
 .ai-assistant__prompts button {
-  border: 1px solid color-mix(in srgb, var(--color-accent) 24%, var(--color-border));
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 24%, var(--color-border));
   border-radius: 999px;
   padding: 7px 10px;
   color: var(--color-accent);
@@ -287,7 +406,11 @@
 }
 
 .ai-assistant__prompts button:hover {
-  border-color: color-mix(in srgb, var(--color-accent) 50%, var(--color-border));
+  border-color: color-mix(
+    in srgb,
+    var(--color-accent) 50%,
+    var(--color-border)
+  );
   transform: translateY(-1px);
 }
 
@@ -312,13 +435,39 @@
   transform: translateY(-1px);
 }
 
+.ai-assistant__submit:disabled {
+  cursor: progress;
+  filter: saturate(0.88);
+  transform: none;
+}
+
 @keyframes ai-panel-enter {
   from {
-    transform: translateY(-8px) scale(0.98);
+    transform: translateX(34px) scale(0.985);
   }
 
   to {
-    transform: translateY(0) scale(1);
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes ai-backdrop-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ai-thinking-line {
+  from {
+    transform: translateX(-120%);
+  }
+
+  to {
+    transform: translateX(260%);
   }
 }
 
@@ -341,47 +490,55 @@
 
 @media (max-width: 430px) {
   .ai-assistant {
-    order: 2;
+    order: 3;
   }
 
   .ai-assistant__trigger {
     width: 44px;
     height: 44px;
-    border-color: var(--color-border);
-    background: color-mix(in srgb, var(--color-surface) 78%, transparent);
   }
 
   .ai-assistant__panel {
-    position: fixed;
-    right: 12px;
-    bottom: 12px;
-    top: auto;
-    width: calc(100vw - 24px);
-    max-height: calc(100dvh - 92px);
-    overflow-y: auto;
+    top: 78px;
+    right: 8px;
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 96px);
     border-radius: 24px;
-    animation-name: ai-sheet-enter;
-    transform-origin: 50% 100%;
+    transform-origin: 100% 50%;
   }
 }
 
-@keyframes ai-sheet-enter {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
+@media (max-width: 380px) {
+  .ai-assistant__panel {
+    top: 74px;
+    right: 6px;
+    width: calc(100vw - 12px);
+    max-height: calc(100dvh - 88px);
+    padding: 14px;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .ai-assistant__header {
+    grid-template-columns: 40px minmax(0, 1fr) 34px;
+    gap: 10px;
+  }
+
+  .ai-assistant__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ai-assistant__header h2 {
+    font-size: 18px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ai-assistant__panel,
+  .ai-assistant__backdrop,
   .ai-assistant__trigger,
   .ai-assistant__submit,
-  .ai-assistant__prompts button {
+  .ai-assistant__prompts button,
+  .ai-assistant__eye {
     animation: none;
     transition-duration: 1ms;
   }

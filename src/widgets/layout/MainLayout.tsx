@@ -77,11 +77,6 @@ export function MainLayout() {
 
           <div className="site-header__actions">
             <ThemeToggle />
-            <AIAssistantLauncher
-              isOpen={isAIAssistantOpen}
-              onClose={() => setIsAIAssistantOpen(false)}
-              onToggle={toggleAIAssistant}
-            />
             <button
               className="site-header__contact btn-reset"
               type="button"
@@ -92,6 +87,11 @@ export function MainLayout() {
               </span>
               <span className="site-header__contact-icon" aria-hidden="true" />
             </button>
+            <AIAssistantLauncher
+              isOpen={isAIAssistantOpen}
+              onClose={() => setIsAIAssistantOpen(false)}
+              onToggle={toggleAIAssistant}
+            />
           </div>
         </div>
       </header>
