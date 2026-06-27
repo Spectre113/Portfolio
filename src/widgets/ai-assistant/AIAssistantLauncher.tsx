@@ -9,6 +9,8 @@ type AssistantResponse = {
   projects: string[];
 };
 
+type AssistantSource = 'initial' | 'ai' | 'fallback';
+
 const quickPrompts = [
   {
     label: 'Подхожу ли я под вакансию?',
@@ -148,6 +150,8 @@ export function AIAssistantLauncher({
 }) {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState<AssistantResponse>(fallbackResponse);
+  const [responseSource, setResponseSource] =
+    useState<AssistantSource>('initial');
   const [isThinking, setIsThinking] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -187,6 +191,7 @@ export function AIAssistantLauncher({
   const handlePromptClick = (prompt: string) => {
     setInput(prompt);
     setResponse(buildAssistantResponse(prompt));
+    setResponseSource('fallback');
   };
 
   const handleSubmit = async () => {
@@ -198,6 +203,7 @@ export function AIAssistantLauncher({
 
     if (!trimmedInput) {
       setResponse(fallbackResponse);
+      setResponseSource('initial');
       return;
     }
 
@@ -207,8 +213,10 @@ export function AIAssistantLauncher({
       const assistantResponse = await requestAssistantResponse(trimmedInput);
 
       setResponse(assistantResponse);
+      setResponseSource('ai');
     } catch {
       setResponse(buildAssistantResponse(trimmedInput));
+      setResponseSource('fallback');
     } finally {
       setIsThinking(false);
     }
@@ -315,6 +323,17 @@ export function AIAssistantLauncher({
                   {isThinking ? 'Анализирую требования' : response.title}
                 </span>
               </div>
+              {!isThinking && (
+                <span
+                  className={`ai-assistant__source ai-assistant__source--${responseSource}`}
+                >
+                  {responseSource === 'ai'
+                    ? 'Ответ Groq AI'
+                    : responseSource === 'fallback'
+                      ? 'Локальный резервный ответ'
+                      : 'Готов к проверке'}
+                </span>
+              )}
               <p>
                 {isThinking
                   ? 'Смотрю, какие навыки и проекты лучше подсветить для этого запроса.'
