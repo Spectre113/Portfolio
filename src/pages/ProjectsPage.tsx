@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import {
-  Bot,
   ExternalLink,
   FolderGit2,
   GitBranch,
   GitCommit,
+  Search,
   SlidersHorizontal,
   Sparkles,
+  X,
 } from 'lucide-react';
 import { useProjects } from '../entities/project/hooks/useProjects.ts';
 import type { Project } from '../entities/project/model/project.schema.ts';
@@ -149,20 +150,47 @@ function formatCommitDate(date: string) {
   }).format(new Date(date));
 }
 
+function getProjectSearchText(project: Project) {
+  const details = projectDetails[project.slug];
+
+  return [
+    project.title,
+    project.description,
+    project.repositoryName,
+    project.stack.join(' '),
+    details?.role,
+    details?.scope,
+    details?.longDescription,
+    details?.highlights.join(' '),
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+}
+
 export function ProjectsPage() {
   const { data: projects = [], isError, isLoading } = useProjects();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
   const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const visibleProjects = useMemo(() => {
-    if (activeFilter === 'all') {
-      return projects;
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+    const filteredProjects =
+      activeFilter === 'all'
+        ? projects
+        : projects.filter((project) =>
+            projectDetails[project.slug]?.category.includes(activeFilter),
+          );
+
+    if (!normalizedSearchQuery) {
+      return filteredProjects;
     }
 
-    return projects.filter((project) =>
-      projectDetails[project.slug]?.category.includes(activeFilter),
+    return filteredProjects.filter((project) =>
+      getProjectSearchText(project).includes(normalizedSearchQuery),
     );
-  }, [activeFilter, projects]);
+  }, [activeFilter, projects, searchQuery]);
 
   const toggleProject = (slug: string) => {
     setExpandedProjects((currentProjects) =>
@@ -197,15 +225,24 @@ export function ProjectsPage() {
       </section>
 
       <section className="container projects-page__toolbar">
-        <label className="projects-page__ai-field">
-          <Bot size={20} strokeWidth={2.1} aria-hidden="true" />
+        <label className="projects-page__search-field">
+          <Search size={20} strokeWidth={2.1} aria-hidden="true" />
           <input
-            readOnly
-            value=""
-            placeholder="AI-поиск по проектам: например, “где есть Zod и server state?”"
-            aria-label="AI-поиск по проектам"
+            value={searchQuery}
+            placeholder="Поиск по проектам: Zod, формы, server state, авторизация..."
+            aria-label="Поиск по проектам"
+            onChange={(event) => setSearchQuery(event.target.value)}
           />
-          <span>скоро</span>
+          {searchQuery && (
+            <button
+              className="projects-page__search-clear btn-reset"
+              type="button"
+              aria-label="Очистить поиск"
+              onClick={() => setSearchQuery('')}
+            >
+              <X size={16} strokeWidth={2.3} aria-hidden="true" />
+            </button>
+          )}
         </label>
 
         <div className="projects-page__filters" aria-label="Фильтр проектов">
@@ -252,6 +289,13 @@ export function ProjectsPage() {
             />
           ))}
         </div>
+
+        {!isLoading && visibleProjects.length === 0 && (
+          <p className="projects-page__state">
+            По этому запросу проектов не нашлось. Попробуйте другой стек или
+            сбросьте фильтр.
+          </p>
+        )}
       </section>
     </main>
   );

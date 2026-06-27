@@ -120,7 +120,7 @@
   align-items: center;
 }
 
-.projects-page__ai-field {
+.projects-page__search-field {
   display: flex;
   min-height: 48px;
   align-items: center;
@@ -133,12 +133,12 @@
   transition: var(--theme-transition);
 }
 
-.projects-page__ai-field svg {
+.projects-page__search-field svg {
   flex: 0 0 auto;
   color: var(--color-accent);
 }
 
-.projects-page__ai-field input {
+.projects-page__search-field input {
   width: 100%;
   border: 0;
   outline: 0;
@@ -149,18 +149,40 @@
   font-weight: 700;
 }
 
-.projects-page__ai-field input::placeholder {
+.projects-page__search-field input::placeholder {
   color: var(--color-text-muted);
 }
 
-.projects-page__ai-field span {
+.projects-page__search-clear {
+  display: grid;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  place-items: center;
   border: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
-  border-radius: 999px;
-  padding: 4px 8px;
+  border-radius: 10px;
   color: var(--color-accent);
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
+  transition:
+    background-color var(--theme-duration) var(--theme-easing),
+    border-color var(--theme-duration) var(--theme-easing),
+    color var(--theme-duration) var(--theme-easing),
+    transform var(--motion-fast);
+}
+
+.projects-page__search-clear:hover,
+.projects-page__search-clear:focus-visible {
+  border-color: color-mix(
+    in srgb,
+    var(--color-accent) 50%,
+    var(--color-border)
+  );
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  transform: translateY(-1px);
+}
+
+.projects-page__search-clear:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 36%, transparent);
+  outline-offset: 2px;
 }
 
 .projects-page__filters {
@@ -564,18 +586,14 @@
     font-size: 18px;
   }
 
-  .projects-page__ai-field {
+  .projects-page__search-field {
     align-items: flex-start;
     min-height: auto;
     padding: 13px;
   }
 
-  .projects-page__ai-field input {
+  .projects-page__search-field input {
     min-width: 0;
-  }
-
-  .projects-page__ai-field span {
-    display: none;
   }
 
   .projects-page__filters {
