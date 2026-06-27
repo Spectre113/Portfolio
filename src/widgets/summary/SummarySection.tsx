@@ -6,8 +6,8 @@ type SummarySectionProps = {
 };
 
 const stats = [
-  { label: 'Год коммерческого опыта', value: '1+' },
-  { label: 'Проектов в портфолио', value: '12+' },
+  { label: 'Год опыта', value: '1+' },
+  { label: 'Проектов в портфолио', value: '6+' },
   {
     label: 'Фокус на качестве, деталях и стабильном результате',
     value: '100%',
@@ -67,7 +67,12 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
       </article>
 
       <article className="summary-card summary-card--cta">
-        <Quote className="summary-card__quote" size={36} strokeWidth={3} aria-hidden="true" />
+        <Quote
+          className="summary-card__quote"
+          size={36}
+          strokeWidth={3}
+          aria-hidden="true"
+        />
         <h2 className="summary-card__cta-title">
           Открыт к новым возможностям и интересным проектам
         </h2>
