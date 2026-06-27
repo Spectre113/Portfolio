@@ -13,6 +13,7 @@ const navigation = [
 ];
 
 export type MainLayoutContext = {
+  openAIAssistant: () => void;
   openContactModal: () => void;
 };
 
@@ -24,6 +25,11 @@ export function MainLayout() {
   const openContactModal = () => {
     setIsAIAssistantOpen(false);
     setIsContactModalOpen(true);
+  };
+  const openAIAssistant = () => {
+    setIsContactModalOpen(false);
+    setIsMobileMenuOpen(false);
+    setIsAIAssistantOpen(true);
   };
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
   const toggleAIAssistant = () => {
@@ -97,7 +103,11 @@ export function MainLayout() {
       </header>
 
       <main className="page-transition" key={location.pathname}>
-        <Outlet context={{ openContactModal } satisfies MainLayoutContext} />
+        <Outlet
+          context={
+            { openAIAssistant, openContactModal } satisfies MainLayoutContext
+          }
+        />
       </main>
 
       <footer className="site-footer">

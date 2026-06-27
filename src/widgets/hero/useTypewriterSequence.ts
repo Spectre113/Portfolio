@@ -24,60 +24,69 @@ type TypewriterState = {
 const TYPE_SPEED = 30;
 const DELETE_SPEED = 18;
 const JOKE_PAUSE = 1000;
-const JOKE_TEXT = "'ChatGPT: make beautiful and awesome website'";
+const JOKE_TEXT = 'shipPrettyUI()';
 
 const STATIC_LINES: CodeToken[][] = [
   [
     { text: 'const', tone: 'keyword' },
-    { text: ' developer ' },
+    { text: ' userSignals ' },
     { text: '= ', tone: 'operator' },
     { text: '{' },
   ],
   [
-    { text: '  name', tone: 'property' },
+    { text: '  projectViews', tone: 'property' },
     { text: ': ' },
-    { text: "'Vladimir Toporkov'", tone: 'string' },
+    { text: 'track' },
+    { text: '(', tone: 'operator' },
+    { text: "'project_card_open'", tone: 'string' },
+    { text: ')', tone: 'operator' },
     { text: ',' },
   ],
   [
-    { text: '  nickname', tone: 'property' },
+    { text: '  resumeClicks', tone: 'property' },
     { text: ': ' },
-    { text: "'Spectre'", tone: 'string' },
+    { text: 'track' },
+    { text: '(', tone: 'operator' },
+    { text: "'resume_download'", tone: 'string' },
+    { text: ')', tone: 'operator' },
     { text: ',' },
   ],
   [
-    { text: '  role', tone: 'property' },
+    { text: '  contactIntent', tone: 'property' },
     { text: ': ' },
-    { text: "'Frontend Developer'", tone: 'string' },
+    { text: 'track' },
+    { text: '(', tone: 'operator' },
+    { text: "'contact_open'", tone: 'string' },
+    { text: ')', tone: 'operator' },
     { text: ',' },
   ],
   [
-    { text: '  stack', tone: 'property' },
+    { text: '  assistantQuestions', tone: 'property' },
     { text: ': ' },
-    { text: "['React', 'TypeScript', 'Vite', 'Zod']", tone: 'string' },
+    { text: 'track' },
+    { text: '(', tone: 'operator' },
+    { text: "'ai_prompt_submit'", tone: 'string' },
+    { text: ')', tone: 'operator' },
     { text: ',' },
   ],
   [
-    { text: '  focus', tone: 'property' },
+    { text: '  respectPrivacy', tone: 'property' },
     { text: ': ' },
-    {
-      text: "['Clean UI', 'API Integration', 'Responsive Layout']",
-      tone: 'string',
-    },
+    { text: 'true', tone: 'keyword' },
     { text: ',' },
   ],
   [
-    { text: '  learning', tone: 'property' },
+    { text: '  collectPersonalData', tone: 'property' },
     { text: ': ' },
-    { text: "['Next.js', 'Testing', 'Accessibility']", tone: 'string' },
+    { text: 'false', tone: 'keyword' },
     { text: ',' },
   ],
   [{ text: '};' }],
   [],
   [
     { text: 'function', tone: 'keyword' },
-    { text: ' createExperience' },
-    { text: '() ', tone: 'operator' },
+    { text: ' tuneExperience' },
+    { text: '(signals) ', tone: 'operator' },
     { text: '{' },
   ],
 ];
@@ -88,12 +97,15 @@ const RETURN_PREFIX: CodeToken[] = [
 ];
 
 const JOKE_RETURN: CodeToken[] = [
-  { text: JOKE_TEXT, tone: 'string' },
+  { text: JOKE_TEXT },
   { text: ';' },
 ];
 
 const CLEAN_RETURN: CodeToken[] = [
-  { text: "'Clean code + great design'", tone: 'string' },
+  { text: 'improveUX' },
+  { text: '(', tone: 'operator' },
+  { text: 'signals' },
+  { text: ')', tone: 'operator' },
   { text: ';' },
 ];
 

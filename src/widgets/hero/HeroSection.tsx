@@ -29,7 +29,15 @@ const socialLinks = [
 
 const resumeUrl = `${import.meta.env.BASE_URL}resume-vladimir-toporkov.pdf`;
 
-export function HeroSection() {
+type HeroSectionProps = {
+  onAssistantOpen: () => void;
+  onContactClick: () => void;
+};
+
+export function HeroSection({
+  onAssistantOpen,
+  onContactClick,
+}: HeroSectionProps) {
   return (
     <section className="hero-section">
       <div className="container hero-section__inner">
@@ -76,7 +84,11 @@ export function HeroSection() {
         </div>
 
         <div className="hero-section__visual">
-          <HeroCodeCard />
+          <HeroCodeCard
+            onAssistantOpen={onAssistantOpen}
+            onContactClick={onContactClick}
+            resumeUrl={resumeUrl}
+          />
           <div className="dotted-grid hero-section__dots" aria-hidden="true" />
         </div>
       </div>

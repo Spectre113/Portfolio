@@ -7,11 +7,15 @@ import { SummarySection } from '../widgets/summary/SummarySection.tsx';
 import './HomePage.css';
 
 export function HomePage() {
-  const { openContactModal } = useOutletContext<MainLayoutContext>();
+  const { openAIAssistant, openContactModal } =
+    useOutletContext<MainLayoutContext>();
 
   return (
     <div className="home-page">
-      <HeroSection />
+      <HeroSection
+        onAssistantOpen={openAIAssistant}
+        onContactClick={openContactModal}
+      />
       <SkillsSection />
       <ProjectsSection />
       <SummarySection onContactClick={openContactModal} />
