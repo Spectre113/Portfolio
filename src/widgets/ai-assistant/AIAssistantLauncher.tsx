@@ -50,6 +50,22 @@ const projectHints = {
     'VK Test — список карточек с котиками, избранное на клиенте и infinite scroll.',
 };
 
+async function requestAssistantResponse(input: string): Promise<AssistantResponse> {
+  const response = await fetch('/api/assistant', {
+    body: JSON.stringify({ input }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  });
+
+  if (!response.ok) {
+    throw new Error('Assistant request failed');
+  }
+
+  return response.json() as Promise<AssistantResponse>;
+}
+
 function buildAssistantResponse(input: string): AssistantResponse {
   const normalizedInput = input.toLowerCase();
   const has = (keywords: string[]) =>
@@ -134,15 +150,6 @@ export function AIAssistantLauncher({
   const [response, setResponse] = useState<AssistantResponse>(fallbackResponse);
   const [isThinking, setIsThinking] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const thinkingTimeoutRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (thinkingTimeoutRef.current !== null) {
-        window.clearTimeout(thinkingTimeoutRef.current);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const handlePointerMove = (event: globalThis.PointerEvent) => {
@@ -182,21 +189,29 @@ export function AIAssistantLauncher({
     setResponse(buildAssistantResponse(prompt));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isThinking) {
+      return;
+    }
+
+    const trimmedInput = input.trim();
+
+    if (!trimmedInput) {
+      setResponse(fallbackResponse);
       return;
     }
 
     setIsThinking(true);
 
-    if (thinkingTimeoutRef.current !== null) {
-      window.clearTimeout(thinkingTimeoutRef.current);
-    }
+    try {
+      const assistantResponse = await requestAssistantResponse(trimmedInput);
 
-    thinkingTimeoutRef.current = window.setTimeout(() => {
-      setResponse(buildAssistantResponse(input));
+      setResponse(assistantResponse);
+    } catch {
+      setResponse(buildAssistantResponse(trimmedInput));
+    } finally {
       setIsThinking(false);
-    }, 520);
+    }
   };
 
   return (
@@ -251,9 +266,9 @@ export function AIAssistantLauncher({
             <div className="ai-assistant__notice">
               <Sparkles size={18} strokeWidth={2.1} aria-hidden="true" />
               <p>
-                Сейчас это локальный демо-ассистент без внешнего API. Он не
-                выдумывает опыт, а сопоставляет текст вакансии с тем, что уже
-                есть в портфолио.
+                Ассистент сопоставляет текст вакансии с моими реальными
+                навыками и проектами. Если модель временно недоступна, сайт
+                использует локальный резервный сценарий.
               </p>
             </div>
 
@@ -323,8 +338,8 @@ export function AIAssistantLauncher({
             </div>
 
             <p className="ai-assistant__status">
-              Следующий этап — заменить локальную логику на serverless endpoint,
-              чтобы безопасно подключить реальную модель без ключей на клиенте.
+              AI подключается через serverless endpoint, поэтому API-ключ
+              не попадает в клиентский код.
             </p>
           </section>
         </>
