@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { AIAssistantLauncher } from '../ai-assistant/AIAssistantLauncher.tsx';
 import { ContactModal } from '../contact-modal/ContactModal.tsx';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
 import './MainLayout.css';
@@ -17,10 +18,19 @@ export type MainLayoutContext = {
 
 export function MainLayout() {
   const location = useLocation();
+  const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const openContactModal = () => setIsContactModalOpen(true);
+  const openContactModal = () => {
+    setIsAIAssistantOpen(false);
+    setIsContactModalOpen(true);
+  };
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const toggleAIAssistant = () => {
+    setIsContactModalOpen(false);
+    setIsMobileMenuOpen(false);
+    setIsAIAssistantOpen((isOpen) => !isOpen);
+  };
 
   return (
     <div className="app-shell">
@@ -67,6 +77,11 @@ export function MainLayout() {
 
           <div className="site-header__actions">
             <ThemeToggle />
+            <AIAssistantLauncher
+              isOpen={isAIAssistantOpen}
+              onClose={() => setIsAIAssistantOpen(false)}
+              onToggle={toggleAIAssistant}
+            />
             <button
               className="site-header__contact btn-reset"
               type="button"
