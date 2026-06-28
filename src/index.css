@@ -163,6 +163,16 @@ input {
   box-shadow: var(--focus-ring);
 }
 
+.page-loader {
+  display: grid;
+  min-height: 42vh;
+  place-items: center;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  font-weight: 800;
+  transition: color var(--theme-duration) var(--theme-easing);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
