@@ -23,6 +23,6 @@
   <text x="126" y="168" fill="#38f2a3" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="800">Frontend Developer</text>
   <text x="126" y="277" fill="#f3f4f6" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="900">Владимир Топорков</text>
   <text x="126" y="350" fill="#d1d5db" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="650">React • TypeScript • SPA • API • UX</text>
-  <rect x="126" y="414" width="348" height="64" rx="16" fill="url(#accent)" />
-  <text x="158" y="456" fill="#04110b" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900">Portfolio</text>
+  <rect x="126" y="414" width="400" height="64" rx="16" fill="url(#accent)" />
+  <text x="158" y="456" fill="#04110b" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900">Portfolio + AI Assistant</text>
 </svg>
