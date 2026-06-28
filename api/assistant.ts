@@ -2,7 +2,11 @@ import { z } from 'zod';
 
 type VercelRequest = {
   body?: unknown;
+  headers?: Record<string, string | string[] | undefined>;
   method?: string;
+  socket?: {
+    remoteAddress?: string;
+  };
 };
 
 type VercelResponse = {
@@ -15,6 +19,15 @@ type VercelResponse = {
 const GROQ_MODEL = process.env.GROQ_MODEL ?? 'llama-3.1-8b-instant';
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 const MAX_INPUT_LENGTH = 4000;
+const RATE_LIMIT_MAX_REQUESTS = 8;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+
+type RateLimitEntry = {
+  count: number;
+  resetAt: number;
+};
+
+const rateLimitStore = new Map<string, RateLimitEntry>();
 
 const AssistantRequestSchema = z.object({
   input: z.string().trim().min(1).max(MAX_INPUT_LENGTH),
@@ -28,6 +41,15 @@ const AssistantResponseSchema = z.object({
 });
 
 type AssistantResponse = z.infer<typeof AssistantResponseSchema>;
+
+class HttpError extends Error {
+  constructor(
+    public statusCode: number,
+    message: string,
+  ) {
+    super(message);
+  }
+}
 
 const portfolioContext = `
 Владелец портфолио: Владимир Топорков, frontend-разработчик.
@@ -63,10 +85,86 @@ ${portfolioContext}
 
 function parseRequestBody(body: unknown) {
   if (typeof body === 'string') {
-    return JSON.parse(body);
+    try {
+      return JSON.parse(body);
+    } catch {
+      throw new HttpError(400, 'Invalid JSON body');
+    }
   }
 
   return body;
+}
+
+function getHeaderValue(
+  headers: VercelRequest['headers'],
+  headerName: string,
+) {
+  const value = headers?.[headerName] ?? headers?.[headerName.toLowerCase()];
+
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+
+  return value;
+}
+
+function getClientId(request: VercelRequest) {
+  const forwardedFor = getHeaderValue(request.headers, 'x-forwarded-for');
+  const realIp = getHeaderValue(request.headers, 'x-real-ip');
+
+  return (
+    forwardedFor?.split(',')[0]?.trim() ||
+    realIp ||
+    request.socket?.remoteAddress ||
+    'anonymous'
+  );
+}
+
+function assertRateLimit(clientId: string) {
+  const now = Date.now();
+  const currentEntry = rateLimitStore.get(clientId);
+
+  if (!currentEntry || currentEntry.resetAt <= now) {
+    rateLimitStore.set(clientId, {
+      count: 1,
+      resetAt: now + RATE_LIMIT_WINDOW_MS,
+    });
+    return;
+  }
+
+  if (currentEntry.count >= RATE_LIMIT_MAX_REQUESTS) {
+    throw new HttpError(429, 'Too many requests');
+  }
+
+  currentEntry.count += 1;
+}
+
+function getErrorResponse(error: unknown) {
+  if (error instanceof HttpError) {
+    return {
+      message: error.message,
+      statusCode: error.statusCode,
+    };
+  }
+
+  if (error instanceof z.ZodError || error instanceof SyntaxError) {
+    return {
+      message: 'Invalid assistant request',
+      statusCode: 400,
+    };
+  }
+
+  if (error instanceof Error && error.message.includes('GROQ_API_KEY')) {
+    return {
+      message: 'Assistant is not configured',
+      statusCode: 503,
+    };
+  }
+
+  return {
+    message: 'Assistant is temporarily unavailable',
+    statusCode: 500,
+  };
 }
 
 function parseGroqText(data: unknown) {
@@ -136,11 +234,14 @@ export default async function handler(
   response.setHeader('Cache-Control', 'no-store');
 
   if (request.method !== 'POST') {
+    response.setHeader('Allow', 'POST');
     response.status(405).json({ message: 'Method not allowed' });
     return;
   }
 
   try {
+    assertRateLimit(getClientId(request));
+
     const body = parseRequestBody(request.body);
     const { input } = AssistantRequestSchema.parse(body);
     const assistantResponse = await requestAssistantResponse(input);
@@ -148,9 +249,8 @@ export default async function handler(
     response.status(200).json(assistantResponse);
   } catch (error) {
     console.error(error);
+    const { message, statusCode } = getErrorResponse(error);
 
-    response.status(500).json({
-      message: 'Assistant is temporarily unavailable',
-    });
+    response.status(statusCode).json({ message });
   }
 }
