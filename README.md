@@ -4,7 +4,7 @@
 
 Персональный сайт-портфолио frontend-разработчика Владимира Топоркова. Это не статичная визитка, а полноценное React-приложение с роутингом, страницами проектов, разделами обо мне и навыках, контактной формой, аналитикой событий, мультиязычностью и AI-помощником для быстрого разбора вакансий.
 
-**Live:** [https://portfolio-delta-umber-48.vercel.app/](https://portfolio-delta-umber-48.vercel.app/)
+**Live:** [https://vtoporkov.vercel.app/](https://vtoporkov.vercel.app/)
 
 **Репозиторий:** [github.com/Spectre113/Portfolio](https://github.com/Spectre113/Portfolio)
 
@@ -121,13 +121,13 @@ GROQ_MODEL=llama-3.1-8b-instant
 
 ## Скрипты
 
-| Команда           | Описание                            |
-| ----------------- | ----------------------------------- |
-| `npm run dev`     | Запуск dev-сервера Vite             |
+| Команда           | Описание                                |
+| ----------------- | --------------------------------------- |
+| `npm run dev`     | Запуск dev-сервера Vite                 |
 | `npm run build`   | TypeScript-проверка и production-сборка |
-| `npm run preview` | Локальный preview production-сборки |
-| `npm run lint`    | Запуск ESLint                       |
-| `npm run test`    | Запуск тестов Vitest                |
+| `npm run preview` | Локальный preview production-сборки     |
+| `npm run lint`    | Запуск ESLint                           |
+| `npm run test`    | Запуск тестов Vitest                    |
 
 ## Деплой
 
