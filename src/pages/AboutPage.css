@@ -237,7 +237,7 @@
   display: grid;
   grid-template-columns: 1fr;
   min-height: 0;
-  height: clamp(460px, 35vw, 620px);
+  height: clamp(460px, 39vw, 750px);
   place-items: end center;
   padding: 0;
   align-self: start;
