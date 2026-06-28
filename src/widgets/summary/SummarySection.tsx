@@ -1,4 +1,5 @@
 import { ArrowRight, BarChart3, Quote, UserRound } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './SummarySection.css';
 
@@ -33,10 +34,10 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
           внимание поддерживаемости и производительности.
         </p>
 
-        <a className="summary-card__link" href="/about">
+        <Link className="summary-card__link" to="/about">
           Подробнее обо мне
           <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
-        </a>
+        </Link>
 
         <div className="summary-card__plant" aria-hidden="true">
           <span />

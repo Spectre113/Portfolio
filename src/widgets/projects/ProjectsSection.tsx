@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import type { EmblaOptionsType } from 'embla-carousel';
 import AutoScroll from 'embla-carousel-auto-scroll';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -75,10 +76,10 @@ export function ProjectsSection() {
           <h2 className="projects-section__title">Проекты</h2>
         </div>
 
-        <a className="projects-section__all-link" href="/projects">
+        <Link className="projects-section__all-link" to="/projects">
           Подробнее о проектах
           <ExternalLink size={17} strokeWidth={2.2} aria-hidden="true" />
-        </a>
+        </Link>
       </div>
 
       {isLoading && (
