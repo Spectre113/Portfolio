@@ -153,6 +153,9 @@ export function AIAssistantLauncher({
   const [responseSource, setResponseSource] =
     useState<AssistantSource>('initial');
   const [isThinking, setIsThinking] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -187,6 +190,65 @@ export function AIAssistantLauncher({
       window.removeEventListener('pointermove', handlePointerMove);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    previouslyFocusedElementRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      if (event.key !== 'Tab') {
+        return;
+      }
+
+      const panel = panelRef.current;
+
+      if (!panel) {
+        return;
+      }
+
+      const focusableElements = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.hasAttribute('disabled'));
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (!firstElement || !lastElement) {
+        return;
+      }
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      }
+
+      if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.setTimeout(() => closeButtonRef.current?.focus(), 0);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      previouslyFocusedElementRef.current?.focus();
+    };
+  }, [isOpen, onClose]);
 
   const handlePromptClick = (prompt: string) => {
     setInput(prompt);
@@ -249,8 +311,11 @@ export function AIAssistantLauncher({
           />
 
           <section
+            ref={panelRef}
             className="ai-assistant__panel ai-assistant__panel--open"
             id="ai-assistant-panel"
+            role="dialog"
+            aria-modal="true"
             aria-label="AI-помощник по портфолио"
           >
             <div className="ai-assistant__header">
@@ -262,6 +327,7 @@ export function AIAssistantLauncher({
                 <p>Быстрая проверка вакансии по моим навыкам и проектам</p>
               </div>
               <button
+                ref={closeButtonRef}
                 className="ai-assistant__close btn-reset"
                 type="button"
                 aria-label="Закрыть"

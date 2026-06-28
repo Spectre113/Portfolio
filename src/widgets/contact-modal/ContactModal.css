@@ -179,7 +179,6 @@
   background: color-mix(in srgb, var(--color-surface) 92%, var(--color-bg));
   color: var(--color-text);
   font: inherit;
-  outline: none;
   transition:
     background-color var(--theme-duration) var(--theme-easing),
     border-color var(--theme-duration) var(--theme-easing),
@@ -195,7 +194,7 @@
 .contact-modal__field input:focus,
 .contact-modal__field textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 14%, transparent);
+  box-shadow: var(--focus-ring);
 }
 
 .contact-modal__field--invalid input,

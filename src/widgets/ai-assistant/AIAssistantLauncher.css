@@ -384,7 +384,6 @@
   border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 13px 14px;
-  outline: none;
   background: color-mix(in srgb, var(--color-surface) 96%, var(--color-bg));
   color: var(--color-text);
   font: inherit;
@@ -399,7 +398,7 @@
 
 .ai-assistant__field textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 16%, transparent);
+  box-shadow: var(--focus-ring);
 }
 
 .ai-assistant__field textarea::placeholder {

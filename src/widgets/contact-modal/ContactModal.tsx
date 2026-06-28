@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock, Mail, Send, X } from 'lucide-react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
@@ -24,6 +24,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [phoneInput, setPhoneInput] = useState('');
   const [submissionState, setSubmissionState] =
     useState<SubmissionState>('idle');
+  const dialogRef = useRef<HTMLElement>(null);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
   const {
     formState: { errors },
     handleSubmit,
@@ -40,6 +43,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     mode: 'onBlur',
     resolver: zodResolver(contactFormSchema),
   });
+  const { ref: nameFieldRef, ...nameFieldProps } = register('name');
 
   const handleClose = useCallback(() => {
     reset();
@@ -57,21 +61,63 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         handleClose();
+        return;
+      }
+
+      if (event.key !== 'Tab') {
+        return;
+      }
+
+      const dialog = dialogRef.current;
+
+      if (!dialog) {
+        return;
+      }
+
+      const focusableElements = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input:not([type="hidden"]), select, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.hasAttribute('disabled'));
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (!firstElement || !lastElement) {
+        return;
+      }
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      }
+
+      if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
       }
     };
 
+    previouslyFocusedElementRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
     document.body.classList.add('body--modal-open');
     window.addEventListener('keydown', handleKeyDown);
+    window.setTimeout(() => {
+      nameInputRef.current?.focus();
+    }, 0);
 
     return () => {
       document.body.classList.remove('body--modal-open');
       window.removeEventListener('keydown', handleKeyDown);
+      previouslyFocusedElementRef.current?.focus();
     };
   }, [isOpen, handleClose]);
 
   if (!isOpen) {
     return null;
-  };
+  }
 
   const onSubmit: SubmitHandler<ContactFormValues> = async (values) => {
     setFormStatus(null);
@@ -114,6 +160,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   return (
     <div className="contact-modal" role="presentation" onMouseDown={handleClose}>
       <section
+        ref={dialogRef}
         className="contact-modal__dialog"
         role="dialog"
         aria-modal="true"
@@ -199,9 +246,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 placeholder="Ваше имя *"
                 autoComplete="name"
                 aria-invalid={Boolean(errors.name)}
-                {...register('name')}
+                aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                {...nameFieldProps}
+                ref={(element) => {
+                  nameFieldRef(element);
+                  nameInputRef.current = element;
+                }}
               />
-              <small className="contact-modal__error">
+              <small className="contact-modal__error" id="contact-name-error">
                 {errors.name?.message}
               </small>
             </label>
@@ -217,9 +269,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 placeholder="Email"
                 autoComplete="email"
                 aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? 'contact-email-error' : undefined}
                 {...register('email')}
               />
-              <small className="contact-modal__error">
+              <small className="contact-modal__error" id="contact-email-error">
                 {errors.email?.message}
               </small>
             </label>
@@ -237,6 +290,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 placeholder="+7 (999) 999-99-99"
                 autoComplete="tel"
                 aria-invalid={Boolean(errors.phone)}
+                aria-describedby={errors.phone ? 'contact-phone-error' : undefined}
                 value={phoneInput}
                 onChange={(event) => {
                   const nextPhoneValue = formatPhone(event.target.value);
@@ -248,7 +302,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   });
                 }}
               />
-              <small className="contact-modal__error">
+              <small className="contact-modal__error" id="contact-phone-error">
                 {errors.phone?.message}
               </small>
             </label>
@@ -263,9 +317,15 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 placeholder="Ваше сообщение *"
                 rows={7}
                 aria-invalid={Boolean(errors.message)}
+                aria-describedby={
+                  errors.message ? 'contact-message-error' : undefined
+                }
                 {...register('message')}
               />
-              <small className="contact-modal__error">
+              <small
+                className="contact-modal__error"
+                id="contact-message-error"
+              >
                 {errors.message?.message}
               </small>
             </label>
@@ -284,6 +344,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             <p
               className={`contact-modal__form-status contact-modal__form-status--${submissionState}`}
               aria-live="polite"
+              role={submissionState === 'error' ? 'alert' : 'status'}
             >
               {formStatus}
             </p>
