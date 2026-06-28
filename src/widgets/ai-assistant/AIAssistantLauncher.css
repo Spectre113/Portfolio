@@ -117,11 +117,11 @@
 .ai-assistant__panel {
   position: fixed;
   top: 88px;
-  right: 18px;
+  right: 15px;
   z-index: 31;
   display: grid;
   align-content: start;
-  width: min(460px, calc(100vw - 20px));
+  width: min(460px, calc(98vw - 20px));
   max-height: min(760px, calc(100dvh - 112px));
   gap: 16px;
   border: 1px solid
