@@ -53,7 +53,6 @@ export function MainLayout() {
         <div className="container site-header__inner">
           <NavLink className="brand" to="/" aria-label="На главную">
             <span className="brand__mark">&lt;/&gt;</span>
-            <span>Spectre</span>
           </NavLink>
 
           <button
