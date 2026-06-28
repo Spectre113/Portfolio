@@ -1,9 +1,4 @@
-import {
-  ArrowRight,
-  Download,
-  Mail,
-  Send,
-} from 'lucide-react';
+import { ArrowRight, Download, Mail, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
@@ -49,7 +44,7 @@ export function HeroSection({
           </p>
 
           <h1 className="hero-section__title">
-            Привет, я <span>Владимир</span>
+            Привет, я <span>Владимир Топорков</span>
           </h1>
 
           <p className="hero-section__text">
@@ -60,11 +55,22 @@ export function HeroSection({
 
           <div className="hero-section__actions">
             <Link className="hero-section__primary" to="/projects">
-              Смотреть проекты
+              Посмотрите мои проекты
               <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </Link>
+            <button
+              className="hero-section__secondary btn-reset"
+              type="button"
+              onClick={() => {
+                trackPortfolioEvent('contact_modal_open', { source: 'hero' });
+                onContactClick();
+              }}
+            >
+              Связаться со мной
+              <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
+            </button>
             <a
-              className="hero-section__secondary"
+              className="hero-section__resume"
               href={resumeUrl}
               download="Vladimir-Toporkov-Frontend-Developer.pdf"
               onClick={() =>
@@ -76,10 +82,17 @@ export function HeroSection({
             </a>
           </div>
 
-          <ul className="hero-section__socials list-reset" aria-label="Социальные ссылки">
+          <ul
+            className="hero-section__socials list-reset"
+            aria-label="Социальные ссылки"
+          >
             {socialLinks.map(({ href, icon: Icon, label }) => (
               <li key={label}>
-                <a className="hero-section__social-link" href={href} aria-label={label}>
+                <a
+                  className="hero-section__social-link"
+                  href={href}
+                  aria-label={label}
+                >
                   <Icon size={22} strokeWidth={2} aria-hidden="true" />
                 </a>
               </li>

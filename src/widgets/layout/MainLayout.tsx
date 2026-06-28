@@ -15,7 +15,7 @@ const navigation = [
 ];
 
 export type MainLayoutContext = {
-  openAIAssistant: () => void;
+  openAIAssistant: (source?: string) => void;
   openContactModal: () => void;
 };
 
@@ -28,11 +28,11 @@ export function MainLayout() {
     setIsAIAssistantOpen(false);
     setIsContactModalOpen(true);
   };
-  const openAIAssistant = () => {
+  const openAIAssistant = (source = 'hero_code') => {
     setIsContactModalOpen(false);
     setIsMobileMenuOpen(false);
     setIsAIAssistantOpen(true);
-    trackPortfolioEvent('ai_assistant_open', { source: 'hero_code' });
+    trackPortfolioEvent('ai_assistant_open', { source });
   };
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
   const toggleAIAssistant = () => {
@@ -113,6 +113,7 @@ export function MainLayout() {
               <span className="site-header__contact-icon" aria-hidden="true" />
             </button>
             <AIAssistantLauncher
+              className="site-header__assistant"
               isOpen={isAIAssistantOpen}
               onClose={() => setIsAIAssistantOpen(false)}
               onToggle={toggleAIAssistant}

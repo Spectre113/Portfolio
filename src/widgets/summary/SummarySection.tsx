@@ -1,4 +1,9 @@
-import { ArrowRight, BarChart3, Quote, UserRound } from 'lucide-react';
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  CheckCircle2,
+  Sparkles,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './SummarySection.css';
@@ -7,35 +12,32 @@ type SummarySectionProps = {
   onContactClick: () => void;
 };
 
-const stats = [
-  { label: 'Год опыта', value: '1+' },
-  { label: 'Проектов в портфолио', value: '6+' },
-  {
-    label: 'Фокус на качестве, деталях и стабильном результате',
-    value: '100%',
-    isWide: true,
-  },
+const highlights = [
+  '6 проектов: учебные, тестовые и pet',
+  'React, TypeScript, SPA и компонентная архитектура',
+  'REST API, формы, Zod и server state',
+  'AI-помощник, аналитика событий и адаптивный интерфейс',
 ];
 
 export function SummarySection({ onContactClick }: SummarySectionProps) {
   return (
     <section className="container summary-section">
-      <article className="summary-card summary-card--about">
+      <article className="summary-card summary-card--search">
         <div className="summary-card__heading">
           <span className="summary-card__icon" aria-hidden="true">
-            <UserRound size={22} strokeWidth={2.1} />
+            <BriefcaseBusiness size={22} strokeWidth={2.1} />
           </span>
-          <h2 className="summary-card__title">Обо мне</h2>
+          <h2 className="summary-card__title">Что ищу сейчас</h2>
         </div>
 
         <p className="summary-card__text">
-          Разрабатываю SPA с авторизацией, REST API и управлением server state.
-          Работаю с React Query, Zod и компонентной архитектурой, уделяя
-          внимание поддерживаемости и производительности.
+          Ищу frontend-стажировку или junior-позицию, где нужны React,
+          TypeScript, работа с API, аккуратный UI и готовность быстро расти в
+          команде.
         </p>
 
-        <Link className="summary-card__link" to="/about">
-          Подробнее обо мне
+        <Link className="summary-card__link" to="/projects">
+          Посмотрите мои проекты
           <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
         </Link>
 
@@ -47,37 +49,37 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
         </div>
       </article>
 
-      <article className="summary-card summary-card--stats">
+      <article className="summary-card summary-card--highlights">
         <div className="summary-card__heading">
           <span className="summary-card__icon" aria-hidden="true">
-            <BarChart3 size={22} strokeWidth={2.1} />
+            <CheckCircle2 size={22} strokeWidth={2.1} />
           </span>
-          <h2 className="summary-card__title">В цифрах</h2>
+          <h2 className="summary-card__title">Коротко по делу</h2>
         </div>
 
-        <dl className="summary-card__stats">
-          {stats.map((stat) => (
-            <div
-              className={`summary-card__stat${stat.isWide ? ' summary-card__stat--wide' : ''}`}
-              key={stat.label}
-            >
-              <dt>{stat.value}</dt>
-              <dd>{stat.label}</dd>
-            </div>
+        <ul className="summary-card__list list-reset">
+          {highlights.map((highlight) => (
+            <li key={highlight}>
+              <CheckCircle2 size={17} strokeWidth={2.2} aria-hidden="true" />
+              <span>{highlight}</span>
+            </li>
           ))}
-        </dl>
+        </ul>
       </article>
 
       <article className="summary-card summary-card--cta">
-        <Quote
+        <Sparkles
           className="summary-card__quote"
           size={36}
           strokeWidth={3}
           aria-hidden="true"
         />
         <h2 className="summary-card__cta-title">
-          Открыт к новым возможностям и интересным проектам
+          Есть подходящая позиция или проект?
         </h2>
+        <p className="summary-card__text">
+          Напишите мне - обсудим задачу, вакансию или формат стажировки.
+        </p>
         <button
           className="summary-card__button"
           type="button"

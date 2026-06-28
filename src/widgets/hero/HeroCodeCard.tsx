@@ -5,16 +5,17 @@ import { useTypewriterSequence } from './useTypewriterSequence.ts';
 import type { CodeToken } from './useTypewriterSequence.ts';
 
 type HeroCodeCardProps = {
+  analyticsSource?: string;
   onAssistantOpen: () => void;
   onContactClick: () => void;
   resumeUrl: string;
 };
 
 const lineActions = {
-  projectViews: 1,
-  resumeClicks: 2,
+  projectSectionVisits: 1,
+  resumeDownloads: 2,
   contactIntent: 3,
-  assistantQuestions: 4,
+  assistantOpens: 4,
 } as const;
 
 function getLineText(line: CodeToken[]) {
@@ -59,6 +60,7 @@ function renderLineContent({
 }
 
 export function HeroCodeCard({
+  analyticsSource = 'hero_code',
   onAssistantOpen,
   onContactClick,
   resumeUrl,
@@ -88,12 +90,17 @@ export function HeroCodeCard({
               line,
             });
 
-            if (index === lineActions.projectViews && hasVisibleCode) {
+            if (index === lineActions.projectSectionVisits && hasVisibleCode) {
               return (
                 <Link
                   aria-label="Открыть проекты"
                   className="hero-code__line hero-code__line--action"
                   key={index}
+                  onClick={() =>
+                    trackPortfolioEvent('projects_page_open', {
+                      source: analyticsSource,
+                    })
+                  }
                   to="/projects"
                 >
                   {lineContent}
@@ -101,7 +108,7 @@ export function HeroCodeCard({
               );
             }
 
-            if (index === lineActions.resumeClicks && hasVisibleCode) {
+            if (index === lineActions.resumeDownloads && hasVisibleCode) {
               return (
                 <a
                   aria-label="Скачать резюме"
@@ -111,7 +118,7 @@ export function HeroCodeCard({
                   key={index}
                   onClick={() =>
                     trackPortfolioEvent('resume_download', {
-                      source: 'hero_code',
+                      source: analyticsSource,
                     })
                   }
                 >
@@ -129,7 +136,7 @@ export function HeroCodeCard({
                   type="button"
                   onClick={() => {
                     trackPortfolioEvent('contact_modal_open', {
-                      source: 'hero_code',
+                      source: analyticsSource,
                     });
                     onContactClick();
                   }}
@@ -139,7 +146,7 @@ export function HeroCodeCard({
               );
             }
 
-            if (index === lineActions.assistantQuestions && hasVisibleCode) {
+            if (index === lineActions.assistantOpens && hasVisibleCode) {
               return (
                 <button
                   aria-label="Открыть AI-помощника"

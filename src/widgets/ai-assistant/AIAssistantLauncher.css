@@ -31,6 +31,45 @@
     transform var(--motion-fast);
 }
 
+.site-header__assistant .ai-assistant__trigger {
+  width: 71px;
+  grid-template-columns: 28px auto;
+  gap: 10px;
+  padding: 0 10px;
+  border-color: color-mix(
+    in srgb,
+    var(--color-accent) 72%,
+    var(--color-border)
+  );
+  background:
+    radial-gradient(
+      circle at 24px 50%,
+      color-mix(in srgb, var(--color-accent) 24%, transparent),
+      transparent 34%
+    ),
+    color-mix(in srgb, var(--color-surface) 88%, var(--color-accent));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 16%, transparent),
+    0 14px 34px color-mix(in srgb, var(--color-accent) 24%, transparent);
+  animation: ai-header-pulse 2600ms ease-in-out infinite;
+}
+
+.ai-assistant__label {
+  display: none;
+}
+
+.site-header__assistant .ai-assistant__label {
+  display: inline-grid;
+  position: relative;
+  min-width: 0;
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+  top: 1px;
+}
+
 .ai-assistant__trigger::after {
   position: absolute;
   inset: 8px;
@@ -53,6 +92,13 @@
   box-shadow: 0 12px 30px
     color-mix(in srgb, var(--color-accent) 18%, transparent);
   transform: translateY(-1px);
+}
+
+.site-header__assistant .ai-assistant__trigger:hover,
+.site-header__assistant .ai-assistant__trigger[aria-expanded='true'] {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-accent) 28%, transparent),
+    0 14px 38px color-mix(in srgb, var(--color-accent) 34%, transparent);
 }
 
 .ai-assistant__trigger:hover::after,
@@ -167,9 +213,25 @@
   right: 7px;
 }
 
+@keyframes ai-header-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-accent) 14%, transparent),
+      0 14px 34px color-mix(in srgb, var(--color-accent) 20%, transparent);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--color-accent) 13%, transparent),
+      0 14px 40px color-mix(in srgb, var(--color-accent) 32%, transparent);
+  }
+}
+
 @media (max-width: 430px) {
+  .site-header__assistant .ai-assistant__trigger,
   .ai-assistant__trigger {
-    width: 40px;
+    width: 70px;
     height: 40px;
   }
 
@@ -180,8 +242,9 @@
 }
 
 @media (max-width: 380px) {
+  .site-header__assistant .ai-assistant__trigger,
   .ai-assistant__trigger {
-    width: 36px;
+    width: 70px;
     height: 36px;
   }
 
@@ -192,6 +255,12 @@
 
   .ai-assistant__eye {
     top: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__assistant .ai-assistant__trigger {
+    animation: none;
   }
 }
 

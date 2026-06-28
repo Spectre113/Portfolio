@@ -19,7 +19,7 @@
   transition: var(--theme-transition);
 }
 
-.summary-card--about,
+.summary-card--search,
 .summary-card--cta {
   grid-template-rows: auto auto 1fr;
 }
@@ -152,58 +152,24 @@
   rotate: -28deg;
 }
 
-.summary-card__stats {
+.summary-card__list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
+  gap: 12px;
 }
 
-.summary-card__stat {
+.summary-card__list li {
   display: grid;
-  min-width: 0;
-  align-content: start;
-  gap: 8px;
-  padding: 16px 22px;
-}
-
-.summary-card__stat:nth-child(odd) {
-  border-right: 1px solid var(--color-border);
-}
-
-.summary-card__stat:nth-child(-n + 2) {
-  border-bottom: 1px solid var(--color-border);
-}
-
-.summary-card__stat--wide {
-  grid-column: 1 / -1;
-  min-height: 82px;
-}
-
-.summary-card__stat--wide,
-.summary-card__stat--wide:nth-child(odd) {
-  border-right: 0;
-}
-
-.summary-card__stat dt {
-  min-width: 0;
-  color: var(--color-accent);
-  font-size: clamp(24px, 2vw, 30px);
-  font-weight: 900;
-  line-height: 1.1;
-  white-space: nowrap;
-}
-
-.summary-card__stat dd {
-  min-width: 0;
-  max-width: 290px;
-  margin: 0;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
   color: var(--color-text-secondary);
-  font-size: 13px;
-  overflow-wrap: anywhere;
+  font-weight: 700;
   transition: color var(--theme-duration) var(--theme-easing);
+}
+
+.summary-card__list svg {
+  margin-top: 2px;
+  color: var(--color-accent);
 }
 
 .summary-card--cta {
@@ -286,8 +252,7 @@
 
 @media (max-width: 1450px) {
   .summary-card__link {
-    width: 70%;
-    font-size: 13px;
+    width: fit-content;
   }
 
   .summary-section {
@@ -330,23 +295,8 @@
     transform-origin: right bottom;
   }
 
-  .summary-card__stats {
-    grid-template-columns: 1fr;
-  }
-
-  .summary-card__stat--wide {
-    grid-column: auto;
-  }
-
-  .summary-card__stat,
-  .summary-card__stat:nth-child(odd),
-  .summary-card__stat:nth-child(-n + 2) {
-    border: 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .summary-card__stat:last-child {
-    border-bottom: 0;
+  .summary-card__list {
+    gap: 10px;
   }
 }
 

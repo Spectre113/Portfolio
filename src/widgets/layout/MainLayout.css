@@ -315,7 +315,7 @@
 @media (max-width: 640px) {
   .site-header__inner {
     min-height: 64px;
-    gap: 6px;
+    gap: 15px;
   }
 
   .brand {
@@ -324,7 +324,7 @@
   }
 
   .site-header__actions {
-    gap: 6px;
+    gap: 15px;
   }
 
   .site-header__burger {
@@ -389,14 +389,14 @@
   }
 
   .site-header__actions {
-    gap: 6px;
+    gap: 15px;
   }
 
   .site-header__inner {
-    gap: 6px;
+    gap: 15px;
   }
 
-  .brand span:last-child {
+  .brand span:not(.brand__mark) {
     display: none;
   }
 
@@ -436,11 +436,11 @@
 
 @media (max-width: 380px) {
   .site-header__inner {
-    gap: 5px;
+    gap: 12px;
   }
 
   .site-header__actions {
-    gap: 5px;
+    gap: 12px;
   }
 
   .site-header__burger {

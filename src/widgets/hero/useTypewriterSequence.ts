@@ -24,26 +24,26 @@ type TypewriterState = {
 const TYPE_SPEED = 30;
 const DELETE_SPEED = 18;
 const JOKE_PAUSE = 1000;
-const JOKE_TEXT = 'shipPrettyUI()';
+const JOKE_TEXT = 'decoratePortfolio()';
 
 const STATIC_LINES: CodeToken[][] = [
   [
     { text: 'const', tone: 'keyword' },
-    { text: ' userSignals ' },
+    { text: ' hiringSignals ' },
     { text: '= ', tone: 'operator' },
     { text: '{' },
   ],
   [
-    { text: '  projectViews', tone: 'property' },
+    { text: '  projectSectionVisits', tone: 'property' },
     { text: ': ' },
     { text: 'track' },
     { text: '(', tone: 'operator' },
-    { text: "'project_card_open'", tone: 'string' },
+    { text: "'projects_page_open'", tone: 'string' },
     { text: ')', tone: 'operator' },
     { text: ',' },
   ],
   [
-    { text: '  resumeClicks', tone: 'property' },
+    { text: '  resumeDownloads', tone: 'property' },
     { text: ': ' },
     { text: 'track' },
     { text: '(', tone: 'operator' },
@@ -56,16 +56,16 @@ const STATIC_LINES: CodeToken[][] = [
     { text: ': ' },
     { text: 'track' },
     { text: '(', tone: 'operator' },
-    { text: "'contact_open'", tone: 'string' },
+    { text: "'contact_modal_open'", tone: 'string' },
     { text: ')', tone: 'operator' },
     { text: ',' },
   ],
   [
-    { text: '  assistantQuestions', tone: 'property' },
+    { text: '  assistantOpens', tone: 'property' },
     { text: ': ' },
     { text: 'track' },
     { text: '(', tone: 'operator' },
-    { text: "'ai_prompt_submit'", tone: 'string' },
+    { text: "'ai_assistant_open'", tone: 'string' },
     { text: ')', tone: 'operator' },
     { text: ',' },
   ],
@@ -85,7 +85,7 @@ const STATIC_LINES: CodeToken[][] = [
   [],
   [
     { text: 'function', tone: 'keyword' },
-    { text: ' tuneExperience' },
+    { text: ' improvePortfolio' },
     { text: '(signals) ', tone: 'operator' },
     { text: '{' },
   ],
@@ -102,7 +102,7 @@ const JOKE_RETURN: CodeToken[] = [
 ];
 
 const CLEAN_RETURN: CodeToken[] = [
-  { text: 'improveUX' },
+  { text: 'prioritizeHiringFlow' },
   { text: '(', tone: 'operator' },
   { text: 'signals' },
   { text: ')', tone: 'operator' },

@@ -9,6 +9,7 @@ type PortfolioEvent =
   | 'contact_modal_open'
   | 'project_demo_open'
   | 'project_github_open'
+  | 'projects_page_open'
   | 'resume_download';
 
 type EventProperties = Record<string, string | number | boolean>;

@@ -309,6 +309,9 @@ export function AIAssistantLauncher({
           <span className="ai-assistant__eye ai-assistant__eye--left" />
           <span className="ai-assistant__eye ai-assistant__eye--right" />
         </span>
+        <span className="ai-assistant__label" aria-hidden="true">
+          AI
+        </span>
       </button>
 
       {isOpen && (
