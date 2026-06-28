@@ -24,7 +24,7 @@
 
 ## Стек
 
-- React 19
+- React
 - TypeScript
 - Vite
 - React Router
