@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
+import { useTranslation } from '../../shared/i18n/useTranslation.ts';
 import './SkillsSection.css';
 
 type SkillIcon =
@@ -50,6 +51,7 @@ const skills: Skill[] = [
 const MOBILE_VISIBLE_SKILLS = 6;
 
 export function SkillsSection() {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   const visibleSkills = skills.slice(0, MOBILE_VISIBLE_SKILLS);
   const extraSkills = skills.slice(MOBILE_VISIBLE_SKILLS);
@@ -61,11 +63,11 @@ export function SkillsSection() {
           <span className="skills-section__icon" aria-hidden="true">
             <Layers3 size={22} strokeWidth={2.2} />
           </span>
-          <h2 className="skills-section__title">Технологии и инструменты</h2>
+          <h2 className="skills-section__title">{t('skills.title')}</h2>
         </div>
 
         <Link className="skills-section__link" to="/skills">
-          Все навыки
+          {t('skills.more')}
           <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
         </Link>
       </header>
@@ -103,7 +105,7 @@ export function SkillsSection() {
         aria-controls="skills-extra"
         onClick={() => setIsExpanded((currentValue) => !currentValue)}
       >
-        {isExpanded ? 'Скрыть' : 'Показать все'}
+        {isExpanded ? t('skills.hide') : t('skills.showAll')}
       </button>
     </section>
   );

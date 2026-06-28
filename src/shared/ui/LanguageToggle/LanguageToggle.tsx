@@ -1,8 +1,10 @@
 import { Languages } from 'lucide-react';
+import { useTranslation } from '../../i18n/useTranslation.ts';
 import { useLanguage } from '../../language/useLanguage.ts';
 import './LanguageToggle.css';
 
 export function LanguageToggle() {
+  const { t } = useTranslation();
   const { language, toggleLanguage } = useLanguage();
   const isRussian = language === 'ru';
 
@@ -10,12 +12,8 @@ export function LanguageToggle() {
     <button
       className="language-toggle btn-reset"
       type="button"
-      aria-label={
-        isRussian
-          ? 'Switch portfolio language to English'
-          : 'Переключить портфолио на русский язык'
-      }
-      title={isRussian ? 'English' : 'Русский'}
+      aria-label={t('language.switchTo')}
+      title={t('language.title')}
       onClick={toggleLanguage}
     >
       <Languages className="language-toggle__icon" aria-hidden="true" />

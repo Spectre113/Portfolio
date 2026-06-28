@@ -12,6 +12,8 @@ import travelForgeCover from '../../assets/TravelForge.png';
 import vkTestCover from '../../assets/VK-test.png';
 import wWaveCover from '../../assets/W-wave.png';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
+import { useTranslation } from '../../shared/i18n/useTranslation.ts';
+import type { Language } from '../../shared/language/language-context.ts';
 import './ProjectsSection.css';
 
 const projectCovers: Record<string, string> = {
@@ -31,12 +33,33 @@ const PROJECTS_CAROUSEL_OPTIONS: EmblaOptionsType = {
   skipSnaps: true,
 };
 
-function formatCommitDate(date: string) {
+const projectDescriptionTranslations: Partial<
+  Record<Language, Record<string, string>>
+> = {
+  en: {
+    'avito-task':
+      'Seller dashboard with listings, cards, editing flows and AI suggestions for descriptions and pricing.',
+    portfolio:
+      'Personal portfolio site with modern architecture, themes, animations and a tidy data layer.',
+    travelforge:
+      'Trip planning app with budget controls, preferences, map view and TravelBot.',
+    'vk-marusya':
+      'Frontend movie SPA with search, detail cards, genres and a user profile area.',
+    'vk-test':
+      'VK test task: a cat gallery with favorites and infinite card loading.',
+    'w-wave':
+      'Static radio station site with responsive layout, interactions and BEM structure.',
+  },
+};
+
+function formatCommitDate(date: string, language: Language) {
   if (!date) {
-    return 'Дата коммита недоступна';
+    return language === 'ru'
+      ? 'Дата коммита недоступна'
+      : 'Commit date unavailable';
   }
 
-  return new Intl.DateTimeFormat('ru-RU', {
+  return new Intl.DateTimeFormat(language === 'ru' ? 'ru-RU' : 'en-US', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
@@ -44,6 +67,7 @@ function formatCommitDate(date: string) {
 }
 
 export function ProjectsSection() {
+  const { language, t } = useTranslation();
   const { data: projects = [], isError, isLoading } = useProjects();
   const autoScrollPlugins = useMemo(
     () => [
@@ -73,23 +97,21 @@ export function ProjectsSection() {
           <span className="projects-section__icon" aria-hidden="true">
             <FolderGit2 size={22} strokeWidth={2.1} />
           </span>
-          <h2 className="projects-section__title">Проекты</h2>
+          <h2 className="projects-section__title">{t('projects.title')}</h2>
         </div>
 
         <Link className="projects-section__all-link" to="/projects">
-          Подробнее о проектах
+          {t('projects.more')}
           <ExternalLink size={17} strokeWidth={2.2} aria-hidden="true" />
         </Link>
       </div>
 
       {isLoading && (
-        <p className="projects-section__state">Загружаю проекты из GitHub...</p>
+        <p className="projects-section__state">{t('projects.loading')}</p>
       )}
 
       {isError && (
-        <p className="projects-section__state">
-          GitHub сейчас не ответил, показываю локальные данные проектов.
-        </p>
+        <p className="projects-section__state">{t('projects.error')}</p>
       )}
 
       <div className="projects-section__viewport" ref={emblaRef}>
@@ -100,7 +122,7 @@ export function ProjectsSection() {
                 <img
                   className="project-card__cover"
                   src={projectCovers[project.slug]}
-                  alt={`Превью проекта ${project.title}`}
+                  alt={`${t('projects.altPreview')} ${project.title}`}
                   loading="lazy"
                 />
               </div>
@@ -108,7 +130,8 @@ export function ProjectsSection() {
               <div className="project-card__body">
                 <h3 className="project-card__title">{project.title}</h3>
                 <p className="project-card__description">
-                  {project.description}
+                  {projectDescriptionTranslations[language]?.[project.slug] ??
+                    project.description}
                 </p>
 
                 <ul className="project-card__stack list-reset">
@@ -121,7 +144,8 @@ export function ProjectsSection() {
 
                 <p className="project-card__meta">
                   <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
-                  Последний коммит: {formatCommitDate(project.pushedAt)}
+                  {t('projects.updated')}:{' '}
+                  {formatCommitDate(project.pushedAt, language)}
                 </p>
 
                 <div className="project-card__actions">
@@ -163,7 +187,9 @@ export function ProjectsSection() {
                     </a>
                   ) : (
                     <span className="project-card__status">
-                      {project.demoStatus ?? 'В разработке'}
+                      {project.demoStatus === 'Демо требует backend'
+                        ? t('projectStatus.backendRequired')
+                        : project.demoStatus ?? t('projectStatus.inProgress')}
                     </span>
                   )}
                 </div>

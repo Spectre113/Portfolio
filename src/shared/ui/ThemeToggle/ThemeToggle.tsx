@@ -1,7 +1,9 @@
+import { useTranslation } from '../../i18n/useTranslation.ts';
 import { useTheme } from '../../theme/useTheme.ts';
 import './ThemeToggle.css';
 
 export function ThemeToggle() {
+  const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -9,8 +11,8 @@ export function ThemeToggle() {
     <button
       className="theme-toggle btn-reset"
       type="button"
-      aria-label={isDark ? 'Включить светлую тему' : 'Включить темную тему'}
-      title={isDark ? 'Светлая тема' : 'Темная тема'}
+      aria-label={isDark ? t('theme.switchToLight') : t('theme.switchToDark')}
+      title={isDark ? t('theme.titleLight') : t('theme.titleDark')}
       onClick={toggleTheme}
     >
       <span className="theme-toggle__icon" aria-hidden="true">

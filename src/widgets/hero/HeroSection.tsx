@@ -2,6 +2,7 @@ import { ArrowRight, Download, Mail, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
+import { useTranslation } from '../../shared/i18n/useTranslation.ts';
 import { HeroCodeCard } from './HeroCodeCard.tsx';
 import './HeroSection.css';
 
@@ -30,28 +31,26 @@ type HeroSectionProps = {
 };
 
 export function HeroSection({ onContactClick }: HeroSectionProps) {
+  const { t } = useTranslation();
+
   return (
     <section className="hero-section">
       <div className="container hero-section__inner">
         <div className="hero-section__content">
           <p className="hero-section__eyebrow">
             <span className="hero-section__status" aria-hidden="true" />
-            Frontend Developer
+            {t('hero.eyebrow')}
           </p>
 
           <h1 className="hero-section__title">
-            Привет, я <span>Владимир Топорков</span>
+            {t('hero.title')} <span>{t('hero.titleName')}</span>
           </h1>
 
-          <p className="hero-section__text">
-            Frontend-разработчик на React и TypeScript. Разрабатываю SPA с
-            авторизацией, REST API и управлением server state, уделяя внимание
-            поддерживаемости, производительности и предсказуемому UX.
-          </p>
+          <p className="hero-section__text">{t('hero.description')}</p>
 
           <div className="hero-section__actions">
             <Link className="hero-section__primary" to="/projects">
-              Посмотрите мои проекты
+              {t('hero.projects')}
               <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </Link>
             <button
@@ -62,7 +61,7 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
                 onContactClick();
               }}
             >
-              Связаться со мной
+              {t('hero.contact')}
               <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </button>
             <a
@@ -73,14 +72,14 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
                 trackPortfolioEvent('resume_download', { source: 'hero' })
               }
             >
-              Скачать резюме
+              {t('hero.resume')}
               <Download size={18} strokeWidth={2.2} aria-hidden="true" />
             </a>
           </div>
 
           <ul
             className="hero-section__socials list-reset"
-            aria-label="Социальные ссылки"
+            aria-label={t('hero.ariaSocials')}
           >
             {socialLinks.map(({ href, icon: Icon, label }) => (
               <li key={label}>

@@ -5,14 +5,15 @@ import { ContactModal } from '../contact-modal/ContactModal.tsx';
 import { LanguageToggle } from '../../shared/ui/LanguageToggle/LanguageToggle.tsx';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
+import { useTranslation } from '../../shared/i18n/useTranslation.ts';
 import './MainLayout.css';
 
 const navigation = [
-  { label: 'Главная', to: '/' },
-  { label: 'Проекты', to: '/projects' },
-  { label: 'Обо мне', to: '/about' },
-  { label: 'Навыки', to: '/skills' },
-];
+  { labelKey: 'nav.home', to: '/' },
+  { labelKey: 'nav.projects', to: '/projects' },
+  { labelKey: 'nav.about', to: '/about' },
+  { labelKey: 'nav.skills', to: '/skills' },
+] as const;
 
 export type MainLayoutContext = {
   openAIAssistant: (source?: string) => void;
@@ -21,6 +22,7 @@ export type MainLayoutContext = {
 
 export function MainLayout() {
   const location = useLocation();
+  const { t } = useTranslation();
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,7 +53,7 @@ export function MainLayout() {
     <div className="app-shell">
       <header className="site-header">
         <div className="container site-header__inner">
-          <NavLink className="brand" to="/" aria-label="На главную">
+          <NavLink className="brand" to="/" aria-label={t('header.homeAria')}>
             <span className="brand__mark">&lt;/&gt;</span>
           </NavLink>
 
@@ -60,7 +62,9 @@ export function MainLayout() {
             type="button"
             aria-expanded={isMobileMenuOpen}
             aria-controls="site-navigation"
-            aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+            aria-label={
+              isMobileMenuOpen ? t('common.closeMenu') : t('common.openMenu')
+            }
             onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
           >
             <span />
@@ -71,9 +75,9 @@ export function MainLayout() {
           <nav
             className={`site-nav${isMobileMenuOpen ? ' site-nav--open' : ''}`}
             id="site-navigation"
-            aria-label="Основная навигация"
+            aria-label={t('header.navAria')}
           >
-            <div className="site-nav__utility" aria-label="Настройки сайта">
+            <div className="site-nav__utility" aria-label={t('common.settings')}>
               <LanguageToggle />
               <ThemeToggle />
             </div>
@@ -89,7 +93,7 @@ export function MainLayout() {
                 onClick={closeMobileMenu}
                 to={item.to}
               >
-                {item.label}
+                {t(item.labelKey)}
               </NavLink>
             ))}
           </nav>
@@ -108,7 +112,7 @@ export function MainLayout() {
               }}
             >
               <span className="site-header__contact-text">
-                Связаться со мной
+                {t('header.contact')}
               </span>
               <span className="site-header__contact-icon" aria-hidden="true" />
             </button>
@@ -131,9 +135,7 @@ export function MainLayout() {
       </main>
 
       <footer className="site-footer">
-        <p className="site-footer__copyright">
-          © 2026 Spectre. Все права защищены.
-        </p>
+        <p className="site-footer__copyright">{t('footer.copyright')}</p>
       </footer>
 
       <ContactModal

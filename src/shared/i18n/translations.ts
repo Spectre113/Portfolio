@@ -1,0 +1,93 @@
+import type { Language } from '../language/language-context.ts';
+
+const ru = {
+  'common.closeMenu': 'Закрыть меню',
+  'common.openMenu': 'Открыть меню',
+  'common.settings': 'Настройки сайта',
+  'footer.copyright': '© 2026 Spectre. Все права защищены.',
+  'header.contact': 'Связаться со мной',
+  'header.homeAria': 'На главную',
+  'header.navAria': 'Основная навигация',
+  'hero.ariaSocials': 'Социальные ссылки',
+  'hero.contact': 'Связаться со мной',
+  'hero.description':
+    'Frontend-разработчик на React и TypeScript. Разрабатываю SPA с авторизацией, REST API и управлением server state, уделяя внимание поддерживаемости, производительности и предсказуемому UX.',
+  'hero.eyebrow': 'Frontend Developer',
+  'hero.projects': 'Посмотрите мои проекты',
+  'hero.resume': 'Скачать резюме',
+  'hero.title': 'Привет, я',
+  'hero.titleName': 'Владимир Топорков',
+  'language.switchTo': 'Переключить портфолио на английский язык',
+  'language.title': 'English',
+  'nav.about': 'Обо мне',
+  'nav.home': 'Главная',
+  'nav.projects': 'Проекты',
+  'nav.skills': 'Навыки',
+  'projects.altPreview': 'Превью проекта',
+  'projects.error':
+    'GitHub сейчас не ответил, показываю локальные данные проектов.',
+  'projects.loading': 'Загружаю проекты из GitHub...',
+  'projects.more': 'Подробнее о проектах',
+  'projects.title': 'Проекты',
+  'projects.updated': 'Последний коммит',
+  'projectStatus.backendRequired': 'Демо требует backend',
+  'projectStatus.inProgress': 'В разработке',
+  'skills.more': 'Все навыки',
+  'skills.showAll': 'Показать все',
+  'skills.title': 'Технологии и инструменты',
+  'skills.hide': 'Скрыть',
+  'theme.switchToDark': 'Включить темную тему',
+  'theme.switchToLight': 'Включить светлую тему',
+  'theme.titleDark': 'Темная тема',
+  'theme.titleLight': 'Светлая тема',
+} as const;
+
+type TranslationDictionary = Record<keyof typeof ru, string>;
+
+const en = {
+  'common.closeMenu': 'Close menu',
+  'common.openMenu': 'Open menu',
+  'common.settings': 'Site settings',
+  'footer.copyright': '© 2026 Spectre. All rights reserved.',
+  'header.contact': 'Contact me',
+  'header.homeAria': 'Go to home page',
+  'header.navAria': 'Primary navigation',
+  'hero.ariaSocials': 'Social links',
+  'hero.contact': 'Contact me',
+  'hero.description':
+    'Frontend developer building React and TypeScript SPAs with auth flows, REST APIs and server state, focused on maintainable UI, performance and predictable UX.',
+  'hero.eyebrow': 'Frontend Developer',
+  'hero.projects': 'View projects',
+  'hero.resume': 'Download CV',
+  'hero.title': 'Hi, I am',
+  'hero.titleName': 'Vladimir Toporkov',
+  'language.switchTo': 'Switch portfolio language to Russian',
+  'language.title': 'Русский',
+  'nav.about': 'About',
+  'nav.home': 'Home',
+  'nav.projects': 'Projects',
+  'nav.skills': 'Skills',
+  'projects.altPreview': 'Preview of',
+  'projects.error': 'GitHub did not respond, showing local project data.',
+  'projects.loading': 'Loading GitHub projects...',
+  'projects.more': 'More projects',
+  'projects.title': 'Projects',
+  'projects.updated': 'Last commit',
+  'projectStatus.backendRequired': 'Backend required',
+  'projectStatus.inProgress': 'In progress',
+  'skills.more': 'All skills',
+  'skills.showAll': 'Show all',
+  'skills.title': 'Tech and tools',
+  'skills.hide': 'Hide',
+  'theme.switchToDark': 'Switch to dark theme',
+  'theme.switchToLight': 'Switch to light theme',
+  'theme.titleDark': 'Dark theme',
+  'theme.titleLight': 'Light theme',
+} as const satisfies TranslationDictionary;
+
+export const translations = {
+  ru,
+  en,
+} as const satisfies Record<Language, TranslationDictionary>;
+
+export type TranslationKey = keyof typeof ru;

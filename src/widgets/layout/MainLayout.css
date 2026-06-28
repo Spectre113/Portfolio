@@ -87,6 +87,9 @@
 
 .site-nav__link {
   position: relative;
+  display: inline-flex;
+  min-width: 92px;
+  justify-content: center;
   padding: 24px 14px 22px;
   color: var(--color-text-secondary);
   font-weight: 600;
@@ -185,6 +188,7 @@
 
 .site-header__contact {
   display: inline-flex;
+  width: 202px;
   min-height: 44px;
   align-items: center;
   justify-content: center;
@@ -289,6 +293,7 @@
 
   .site-nav__link {
     width: max-content;
+    min-width: 0;
     border-radius: var(--radius-sm);
     padding: 12px 14px;
   }
@@ -333,6 +338,7 @@
   }
 
   .site-header__contact {
+    width: 140px;
     min-height: 44px;
     max-width: 140px;
     padding: 0 12px;

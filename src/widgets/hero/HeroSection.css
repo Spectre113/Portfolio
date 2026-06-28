@@ -84,9 +84,14 @@
 }
 
 .hero-section__primary {
+  min-width: 276px;
   background: var(--color-accent);
   color: var(--color-button-text);
   box-shadow: var(--color-shadow);
+}
+
+.hero-section__secondary {
+  min-width: 226px;
 }
 
 .hero-section__secondary,
@@ -97,6 +102,7 @@
 }
 
 .hero-section__resume {
+  min-width: 172px;
   min-height: 44px;
   padding: 0 18px;
   color: var(--color-text-secondary);
@@ -244,6 +250,7 @@
   .hero-section__secondary,
   .hero-section__resume {
     width: 100%;
+    min-width: 0;
     font-size: 15px;
     padding: 10px 14px;
   }
