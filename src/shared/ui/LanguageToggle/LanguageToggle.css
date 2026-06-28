@@ -1,0 +1,105 @@
+.language-toggle {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 72px;
+  height: 44px;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 3px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  box-shadow: var(--color-shadow);
+  transition:
+    background-color var(--theme-duration) var(--theme-easing),
+    border-color var(--theme-duration) var(--theme-easing),
+    box-shadow var(--theme-duration) var(--theme-easing),
+    color var(--theme-duration) var(--theme-easing),
+    transform var(--motion-fast);
+}
+
+.language-toggle:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.language-toggle__icon {
+  display: none;
+}
+
+.language-toggle__option {
+  display: inline-grid;
+  min-width: 0;
+  height: 36px;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  transition:
+    background-color var(--theme-duration) var(--theme-easing),
+    color var(--theme-duration) var(--theme-easing);
+}
+
+.language-toggle__option--active {
+  background: var(--color-accent);
+  color: var(--color-button-text);
+}
+
+@media (max-width: 760px) {
+  .language-toggle {
+    order: 1;
+    width: 54px;
+    grid-template-columns: 16px 1fr;
+    gap: 4px;
+    justify-items: center;
+    padding: 0 8px;
+  }
+
+  .language-toggle__icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    color: var(--color-accent);
+  }
+
+  .language-toggle__option {
+    display: none;
+    height: auto;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-text);
+  }
+
+  .language-toggle__option--active {
+    display: inline-grid;
+  }
+}
+
+@media (max-width: 430px) {
+  .language-toggle {
+    width: 50px;
+    height: 40px;
+    padding: 0 7px;
+  }
+}
+
+@media (max-width: 380px) {
+  .language-toggle {
+    width: 46px;
+    height: 36px;
+    grid-template-columns: 14px 1fr;
+    gap: 3px;
+    padding: 0 6px;
+  }
+
+  .language-toggle__icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .language-toggle__option {
+    font-size: 11px;
+  }
+}

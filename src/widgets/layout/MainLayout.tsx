@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AIAssistantLauncher } from '../ai-assistant/AIAssistantLauncher.tsx';
 import { ContactModal } from '../contact-modal/ContactModal.tsx';
+import { LanguageToggle } from '../../shared/ui/LanguageToggle/LanguageToggle.tsx';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './MainLayout.css';
@@ -73,6 +74,18 @@ export function MainLayout() {
             id="site-navigation"
             aria-label="Основная навигация"
           >
+            <div className="site-nav__utility" aria-label="Настройки сайта">
+              <LanguageToggle />
+              <ThemeToggle />
+              <AIAssistantLauncher
+                className="site-nav__assistant"
+                panelId="ai-assistant-panel-mobile"
+                isOpen={isAIAssistantOpen}
+                onClose={() => setIsAIAssistantOpen(false)}
+                onToggle={toggleAIAssistant}
+              />
+            </div>
+
             {navigation.map((item) => (
               <NavLink
                 className={({ isActive }) =>
@@ -90,7 +103,16 @@ export function MainLayout() {
           </nav>
 
           <div className="site-header__actions">
-            <ThemeToggle />
+            <div className="site-header__utility-actions">
+              <LanguageToggle />
+              <ThemeToggle />
+              <AIAssistantLauncher
+                panelId="ai-assistant-panel-desktop"
+                isOpen={isAIAssistantOpen}
+                onClose={() => setIsAIAssistantOpen(false)}
+                onToggle={toggleAIAssistant}
+              />
+            </div>
             <button
               className="site-header__contact btn-reset"
               type="button"
@@ -104,11 +126,6 @@ export function MainLayout() {
               </span>
               <span className="site-header__contact-icon" aria-hidden="true" />
             </button>
-            <AIAssistantLauncher
-              isOpen={isAIAssistantOpen}
-              onClose={() => setIsAIAssistantOpen(false)}
-              onToggle={toggleAIAssistant}
-            />
           </div>
         </div>
       </header>

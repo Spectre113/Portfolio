@@ -141,10 +141,14 @@ function buildAssistantResponse(input: string): AssistantResponse {
 }
 
 export function AIAssistantLauncher({
+  className = '',
+  panelId = 'ai-assistant-panel',
   isOpen,
   onClose,
   onToggle,
 }: {
+  className?: string;
+  panelId?: string;
   isOpen: boolean;
   onClose: () => void;
   onToggle: () => void;
@@ -291,13 +295,13 @@ export function AIAssistantLauncher({
   };
 
   return (
-    <div className="ai-assistant">
+    <div className={`ai-assistant${className ? ` ${className}` : ''}`}>
       <button
         ref={triggerRef}
         className="ai-assistant__trigger btn-reset"
         type="button"
         aria-expanded={isOpen}
-        aria-controls="ai-assistant-panel"
+        aria-controls={panelId}
         aria-label={isOpen ? 'Закрыть AI-помощника' : 'Открыть AI-помощника'}
         onClick={onToggle}
       >
@@ -319,7 +323,7 @@ export function AIAssistantLauncher({
           <section
             ref={panelRef}
             className="ai-assistant__panel ai-assistant__panel--open"
-            id="ai-assistant-panel"
+            id={panelId}
             role="dialog"
             aria-modal="true"
             aria-label="AI-помощник по портфолио"
