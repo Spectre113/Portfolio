@@ -115,7 +115,7 @@
 
 .projects-page__toolbar {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) auto auto;
+  grid-template-columns: minmax(320px, 1fr) auto;
   gap: 18px;
   align-items: center;
 }
@@ -220,22 +220,6 @@
 
 .projects-page__filter:hover {
   transform: translateY(-1px);
-}
-
-.projects-page__sort {
-  display: inline-flex;
-  min-height: 42px;
-  align-items: center;
-  gap: 9px;
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 0 14px;
-  color: var(--color-text-secondary);
-  font-size: 13px;
-  font-weight: 800;
-  background: color-mix(in srgb, var(--color-surface) 70%, transparent);
-  transition: var(--theme-transition);
-  white-space: nowrap;
 }
 
 .projects-page__grid-section {
@@ -552,10 +536,6 @@
 
   .projects-page__filters {
     justify-content: flex-start;
-  }
-
-  .projects-page__sort {
-    width: fit-content;
   }
 
   .projects-page__grid {

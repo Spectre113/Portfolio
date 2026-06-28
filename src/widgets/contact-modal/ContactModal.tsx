@@ -75,7 +75,7 @@ const contactModalCopy = {
   },
 } satisfies Record<Language, Record<string, string>>;
 
-const contactErrorCopy = {
+const contactErrorCopy: Record<Language, Record<string, string>> = {
   ru: {
     'Сообщение должно быть не короче 10 символов':
       'Сообщение должно быть не короче 10 символов',
@@ -94,7 +94,7 @@ const contactErrorCopy = {
     'Укажите имя': 'Enter your name',
     'Укажите телефон полностью': 'Enter the full phone number',
   },
-} satisfies Record<Language, Record<string, string>>;
+};
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const { language } = useTranslation();

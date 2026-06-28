@@ -23,13 +23,12 @@ const ru = {
   'common.closeMenu': 'Закрыть меню',
   'common.openMenu': 'Открыть меню',
   'common.settings': 'Настройки сайта',
-  'footer.copyright': '© 2026 Spectre. Все права защищены.',
+  'footer.copyright': '© 2026 Владимир Топорков. Все права защищены.',
   'header.contact': 'Связаться со мной',
   'header.homeAria': 'На главную',
   'header.navAria': 'Основная навигация',
   'hero.ariaSocials': 'Социальные ссылки',
-  'hero.codeAria':
-    'Пример кода с безопасным браузерным контекстом посетителя',
+  'hero.codeAria': 'Пример кода с безопасным браузерным контекстом посетителя',
   'hero.contact': 'Связаться со мной',
   'hero.description':
     'Frontend-разработчик на React и TypeScript. Разрабатываю SPA с авторизацией, REST API и управлением server state, уделяя внимание поддерживаемости, производительности и предсказуемому UX.',
@@ -71,7 +70,6 @@ const ru = {
   'projectsPage.searchPlaceholder':
     'Поиск по проектам: Zod, формы, server state, авторизация...',
   'projectsPage.showDetails': 'Показать подробнее',
-  'projectsPage.sortManual': 'Сортировка: вручную',
   'projectStatus.backendRequired': 'Демо требует backend',
   'projectStatus.inProgress': 'В разработке',
   'skills.more': 'Все навыки',
@@ -95,8 +93,7 @@ const ru = {
   'summary.highlight1': '6 проектов: учебные, тестовые и pet',
   'summary.highlight2': 'React, TypeScript, SPA и компонентная архитектура',
   'summary.highlight3': 'REST API, формы, Zod и server state',
-  'summary.highlight4':
-    'AI-помощник, аналитика событий и адаптивный интерфейс',
+  'summary.highlight4': 'AI-помощник, аналитика событий и адаптивный интерфейс',
   'summary.highlightsTitle': 'Коротко по делу',
   'summary.projects': 'Посмотрите мои проекты',
   'summary.searchText':
@@ -133,7 +130,7 @@ const en = {
   'common.closeMenu': 'Close menu',
   'common.openMenu': 'Open menu',
   'common.settings': 'Site settings',
-  'footer.copyright': '© 2026 Spectre. All rights reserved.',
+  'footer.copyright': '© 2026 Vladimir Toporkov. All rights reserved.',
   'header.contact': 'Contact me',
   'header.homeAria': 'Go to home page',
   'header.navAria': 'Primary navigation',
@@ -179,7 +176,6 @@ const en = {
   'projectsPage.searchPlaceholder':
     'Search projects: Zod, forms, server state, auth...',
   'projectsPage.showDetails': 'Show details',
-  'projectsPage.sortManual': 'Sort: manual',
   'projectStatus.backendRequired': 'Backend required',
   'projectStatus.inProgress': 'In progress',
   'skills.more': 'All skills',

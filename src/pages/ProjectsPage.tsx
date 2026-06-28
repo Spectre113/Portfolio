@@ -5,7 +5,6 @@ import {
   GitBranch,
   GitCommit,
   Search,
-  SlidersHorizontal,
   Sparkles,
   X,
 } from 'lucide-react';
@@ -339,11 +338,6 @@ export function ProjectsPage() {
               {t(filter.labelKey)}
             </button>
           ))}
-        </div>
-
-        <div className="projects-page__sort" aria-hidden="true">
-          <SlidersHorizontal size={18} strokeWidth={2.1} />
-          {t('projectsPage.sortManual')}
         </div>
       </section>
 
