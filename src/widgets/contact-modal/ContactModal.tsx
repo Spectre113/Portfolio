@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock, Mail, Send, X } from 'lucide-react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
 import {
   contactFormSchema,
@@ -151,6 +152,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       setPhoneInput('');
       setSubmissionState('success');
       setFormStatus('Сообщение отправлено. Спасибо, я скоро отвечу.');
+      trackPortfolioEvent('contact_form_submit');
     } catch {
       setSubmissionState('error');
       setFormStatus('Не удалось отправить сообщение. Попробуйте позже или напишите в Telegram.');

@@ -3,6 +3,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AIAssistantLauncher } from '../ai-assistant/AIAssistantLauncher.tsx';
 import { ContactModal } from '../contact-modal/ContactModal.tsx';
 import { ThemeToggle } from '../../shared/ui/ThemeToggle/ThemeToggle.tsx';
+import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './MainLayout.css';
 
 const navigation = [
@@ -30,12 +31,19 @@ export function MainLayout() {
     setIsContactModalOpen(false);
     setIsMobileMenuOpen(false);
     setIsAIAssistantOpen(true);
+    trackPortfolioEvent('ai_assistant_open', { source: 'hero_code' });
   };
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
   const toggleAIAssistant = () => {
     setIsContactModalOpen(false);
     setIsMobileMenuOpen(false);
-    setIsAIAssistantOpen((isOpen) => !isOpen);
+    setIsAIAssistantOpen((isOpen) => {
+      if (!isOpen) {
+        trackPortfolioEvent('ai_assistant_open', { source: 'header' });
+      }
+
+      return !isOpen;
+    });
   };
 
   return (
@@ -86,7 +94,10 @@ export function MainLayout() {
             <button
               className="site-header__contact btn-reset"
               type="button"
-              onClick={openContactModal}
+              onClick={() => {
+                trackPortfolioEvent('contact_modal_open', { source: 'header' });
+                openContactModal();
+              }}
             >
               <span className="site-header__contact-text">
                 Связаться со мной

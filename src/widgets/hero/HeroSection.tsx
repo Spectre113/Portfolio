@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
+import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import { HeroCodeCard } from './HeroCodeCard.tsx';
 import './HeroSection.css';
 
@@ -66,6 +67,9 @@ export function HeroSection({
               className="hero-section__secondary"
               href={resumeUrl}
               download="Vladimir-Toporkov-Frontend-Developer.pdf"
+              onClick={() =>
+                trackPortfolioEvent('resume_download', { source: 'hero' })
+              }
             >
               Скачать резюме
               <Download size={18} strokeWidth={2.2} aria-hidden="true" />

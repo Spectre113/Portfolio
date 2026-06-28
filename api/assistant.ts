@@ -43,11 +43,11 @@ const AssistantResponseSchema = z.object({
 type AssistantResponse = z.infer<typeof AssistantResponseSchema>;
 
 class HttpError extends Error {
-  constructor(
-    public statusCode: number,
-    message: string,
-  ) {
+  statusCode: number;
+
+  constructor(statusCode: number, message: string) {
     super(message);
+    this.statusCode = statusCode;
   }
 }
 

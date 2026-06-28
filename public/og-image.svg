@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Владимир Топорков - Frontend Developer</title>
+  <desc id="desc">Open Graph превью для сайта-портфолио frontend-разработчика.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050816" />
+      <stop offset="0.55" stop-color="#111827" />
+      <stop offset="1" stop-color="#17202e" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38f2a3" />
+      <stop offset="1" stop-color="#00c2ff" />
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#38f2a3" opacity="0.28" />
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.7" />
+  <circle cx="1010" cy="100" r="220" fill="#38f2a3" opacity="0.1" />
+  <circle cx="170" cy="550" r="210" fill="#00c2ff" opacity="0.08" />
+  <rect x="82" y="78" width="1036" height="474" rx="34" fill="#0b1120" opacity="0.78" stroke="#38f2a3" stroke-opacity="0.24" />
+  <text x="126" y="168" fill="#38f2a3" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="800">Frontend Developer</text>
+  <text x="126" y="277" fill="#f3f4f6" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="900">Владимир Топорков</text>
+  <text x="126" y="350" fill="#d1d5db" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="650">React • TypeScript • SPA • API • UX</text>
+  <rect x="126" y="414" width="348" height="64" rx="16" fill="url(#accent)" />
+  <text x="158" y="456" fill="#04110b" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900">Portfolio + AI assistant</text>
+</svg>

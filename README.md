@@ -8,6 +8,7 @@
 - Адаптивный интерфейс со светлой и темной темой
 - Каталог проектов с фильтрами, поиском, подробными карточками, GitHub-ссылками и демо
 - AI-помощник по портфолио через Vercel serverless endpoint и Groq API
+- SEO meta, Open Graph preview, sitemap, robots.txt и Vercel Analytics
 - Интерактивный hero-блок в стиле редактора кода
 - Контактная модалка с валидацией, форматированием телефона и отправкой через Formspree
 - Данные проектов из GitHub API с локальным fallback
@@ -26,6 +27,7 @@
 - Lucide React
 - Embla Carousel
 - Vercel Functions
+- Vercel Analytics
 - Groq API
 - Formspree
 
@@ -77,6 +79,8 @@ GROQ_MODEL=llama-3.1-8b-instant
 Опционально:
 
 - `GROQ_MODEL`
+
+После смены домена обновите canonical URL, `og:url`, `robots.txt` и `sitemap.xml`.
 
 ## О проекте
 

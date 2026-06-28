@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './HeroCodeCard.css';
 import { useTypewriterSequence } from './useTypewriterSequence.ts';
 import type { CodeToken } from './useTypewriterSequence.ts';
@@ -108,6 +109,11 @@ export function HeroCodeCard({
                   download="Vladimir-Toporkov-Frontend-Developer.pdf"
                   href={resumeUrl}
                   key={index}
+                  onClick={() =>
+                    trackPortfolioEvent('resume_download', {
+                      source: 'hero_code',
+                    })
+                  }
                 >
                   {lineContent}
                 </a>
@@ -121,7 +127,12 @@ export function HeroCodeCard({
                   className="hero-code__line hero-code__line--action btn-reset"
                   key={index}
                   type="button"
-                  onClick={onContactClick}
+                  onClick={() => {
+                    trackPortfolioEvent('contact_modal_open', {
+                      source: 'hero_code',
+                    });
+                    onContactClick();
+                  }}
                 >
                   {lineContent}
                 </button>

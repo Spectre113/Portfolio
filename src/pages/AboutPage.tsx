@@ -24,6 +24,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import avatarImage from '../assets/avatar.png';
+import { trackPortfolioEvent } from '../shared/analytics/trackEvent.ts';
 import { GitHubIcon } from '../shared/ui/BrandIcon/BrandIcon.tsx';
 import './AboutPage.css';
 
@@ -510,11 +511,22 @@ export function AboutPage() {
               className="about-now__button"
               href={resumeUrl}
               download="Vladimir-Toporkov-Frontend-Developer.pdf"
+              onClick={() =>
+                trackPortfolioEvent('resume_download', { source: 'about' })
+              }
             >
               Скачать резюме
               <Download size={18} strokeWidth={2.2} aria-hidden="true" />
             </a>
-            <a className="about-now__telegram" href="https://t.me/Spectre113">
+            <a
+              className="about-now__telegram"
+              href="https://t.me/Spectre113"
+              onClick={() =>
+                trackPortfolioEvent('contact_modal_open', {
+                  source: 'about_telegram',
+                })
+              }
+            >
               Связаться со мной в Telegram
               <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </a>

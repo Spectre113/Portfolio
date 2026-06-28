@@ -1,4 +1,5 @@
 import { ArrowRight, BarChart3, Quote, UserRound } from 'lucide-react';
+import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './SummarySection.css';
 
 type SummarySectionProps = {
@@ -79,7 +80,10 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
         <button
           className="summary-card__button"
           type="button"
-          onClick={onContactClick}
+          onClick={() => {
+            trackPortfolioEvent('contact_modal_open', { source: 'summary' });
+            onContactClick();
+          }}
         >
           Связаться со мной
           <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />

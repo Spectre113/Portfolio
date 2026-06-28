@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio-delta-umber-48.vercel.app/sitemap.xml

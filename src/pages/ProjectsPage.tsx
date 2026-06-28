@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useProjects } from '../entities/project/hooks/useProjects.ts';
 import type { Project } from '../entities/project/model/project.schema.ts';
+import { trackPortfolioEvent } from '../shared/analytics/trackEvent.ts';
 import avitoCover from '../assets/Avito-test.png';
 import marusyaCover from '../assets/Marusya.png';
 import portfolioCover from '../assets/Portfolio.png';
@@ -371,6 +372,12 @@ function ProjectCard({
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
+              onClick={() =>
+                trackPortfolioEvent('project_github_open', {
+                  project: project.slug,
+                  source: 'projects_page',
+                })
+              }
             >
               <GitBranch size={17} strokeWidth={2.1} aria-hidden="true" />
               GitHub
@@ -382,6 +389,12 @@ function ProjectCard({
                 href={project.demoUrl}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() =>
+                  trackPortfolioEvent('project_demo_open', {
+                    project: project.slug,
+                    source: 'projects_page',
+                  })
+                }
               >
                 <ExternalLink size={17} strokeWidth={2.1} aria-hidden="true" />
                 Demo

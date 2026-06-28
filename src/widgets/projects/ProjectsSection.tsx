@@ -10,6 +10,7 @@ import portfolioCover from '../../assets/Portfolio.png';
 import travelForgeCover from '../../assets/TravelForge.png';
 import vkTestCover from '../../assets/VK-test.png';
 import wWaveCover from '../../assets/W-wave.png';
+import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './ProjectsSection.css';
 
 const projectCovers: Record<string, string> = {
@@ -128,6 +129,12 @@ export function ProjectsSection() {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() =>
+                      trackPortfolioEvent('project_github_open', {
+                        project: project.slug,
+                        source: 'home',
+                      })
+                    }
                   >
                     <GitBranch size={17} strokeWidth={2.1} aria-hidden="true" />
                     GitHub
@@ -139,6 +146,12 @@ export function ProjectsSection() {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={() =>
+                        trackPortfolioEvent('project_demo_open', {
+                          project: project.slug,
+                          source: 'home',
+                        })
+                      }
                     >
                       <ExternalLink
                         size={17}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Bot, CheckCircle2, Send, Sparkles, X } from 'lucide-react';
+import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import './AIAssistantLauncher.css';
 
 type AssistantResponse = {
@@ -270,15 +271,20 @@ export function AIAssistantLauncher({
     }
 
     setIsThinking(true);
+    trackPortfolioEvent('ai_assistant_submit', {
+      inputLength: trimmedInput.length,
+    });
 
     try {
       const assistantResponse = await requestAssistantResponse(trimmedInput);
 
       setResponse(assistantResponse);
       setResponseSource('ai');
+      trackPortfolioEvent('ai_assistant_success');
     } catch {
       setResponse(buildAssistantResponse(trimmedInput));
       setResponseSource('fallback');
+      trackPortfolioEvent('ai_assistant_fallback');
     } finally {
       setIsThinking(false);
     }
