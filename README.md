@@ -1,8 +1,8 @@
 # Portfolio
 
-Персональный сайт-портфолио frontend-разработчика [Владимира Топоркова](https://github.com/Spectre113).
+Персональный сайт портфолио frontend-разработчика. Проект сделан как полноценное React-приложение, а не статичная визитка: здесь есть страницы, проекты, навыки, контакты, интерактивные элементы и AI-помощник, который сопоставляет требования вакансии с реальными кейсами из портфолио.
 
-**Live:** [portfolio-delta-umber-48.vercel.app](https://portfolio-delta-umber-48.vercel.app/)  
+**Live:** [https://vtoporkov.vercel.app/](https://vtoporkov.vercel.app/)  
 **Репозиторий:** [github.com/Spectre113/Portfolio](https://github.com/Spectre113/Portfolio)
 
 Проект сделан как полноценное React-приложение, а не статичная визитка: здесь есть страницы, проекты, навыки, контакты, интерактивные элементы и AI-помощник, который сопоставляет требования вакансии с реальными кейсами из портфолио.
@@ -72,13 +72,13 @@ GROQ_MODEL=llama-3.1-8b-instant
 
 ## Скрипты
 
-| Команда | Описание |
-| --- | --- |
-| `npm run dev` | Запуск dev-сервера Vite |
-| `npm run build` | Сборка production-версии |
+| Команда           | Описание                            |
+| ----------------- | ----------------------------------- |
+| `npm run dev`     | Запуск dev-сервера Vite             |
+| `npm run build`   | Сборка production-версии            |
 | `npm run preview` | Локальный preview production-сборки |
-| `npm run lint` | Запуск ESLint |
-| `npm run test` | Запуск тестов Vitest |
+| `npm run lint`    | Запуск ESLint                       |
+| `npm run test`    | Запуск тестов Vitest                |
 
 ## Структура проекта
 
@@ -102,11 +102,11 @@ GROQ_MODEL=llama-3.1-8b-instant
 
 Production-переменные в Vercel Dashboard:
 
-| Переменная | Обязательна | Описание |
-| --- | --- | --- |
-| `VITE_FORMSPREE_ENDPOINT` | да | Endpoint Formspree для контактной формы |
-| `GROQ_API_KEY` | да | API-ключ Groq для AI-помощника |
-| `GROQ_MODEL` | нет | Модель Groq (по умолчанию `llama-3.1-8b-instant`) |
+| Переменная                | Обязательна | Описание                                          |
+| ------------------------- | ----------- | ------------------------------------------------- |
+| `VITE_FORMSPREE_ENDPOINT` | да          | Endpoint Formspree для контактной формы           |
+| `GROQ_API_KEY`            | да          | API-ключ Groq для AI-помощника                    |
+| `GROQ_MODEL`              | нет         | Модель Groq (по умолчанию `llama-3.1-8b-instant`) |
 
 ### GitHub Pages (альтернатива)
 
