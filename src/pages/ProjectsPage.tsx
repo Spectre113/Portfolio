@@ -17,6 +17,7 @@ import portfolioCover from '../assets/Portfolio.png';
 import travelForgeCover from '../assets/TravelForge.png';
 import vkTestCover from '../assets/VK-test.png';
 import wWaveCover from '../assets/W-wave.png';
+import { filterProjects } from './project-search.ts';
 import './ProjectsPage.css';
 
 type ProjectFilter =
@@ -150,47 +151,22 @@ function formatCommitDate(date: string) {
   }).format(new Date(date));
 }
 
-function getProjectSearchText(project: Project) {
-  const details = projectDetails[project.slug];
-
-  return [
-    project.title,
-    project.description,
-    project.repositoryName,
-    project.stack.join(' '),
-    details?.role,
-    details?.scope,
-    details?.longDescription,
-    details?.highlights.join(' '),
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase();
-}
-
 export function ProjectsPage() {
   const { data: projects = [], isError, isLoading } = useProjects();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
   const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const visibleProjects = useMemo(() => {
-    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
-    const filteredProjects =
-      activeFilter === 'all'
-        ? projects
-        : projects.filter((project) =>
-            projectDetails[project.slug]?.category.includes(activeFilter),
-          );
-
-    if (!normalizedSearchQuery) {
-      return filteredProjects;
-    }
-
-    return filteredProjects.filter((project) =>
-      getProjectSearchText(project).includes(normalizedSearchQuery),
-    );
-  }, [activeFilter, projects, searchQuery]);
+  const visibleProjects = useMemo(
+    () =>
+      filterProjects({
+        activeFilter,
+        detailsBySlug: projectDetails,
+        projects,
+        searchQuery,
+      }),
+    [activeFilter, projects, searchQuery],
+  );
 
   const toggleProject = (slug: string) => {
     setExpandedProjects((currentProjects) =>

@@ -54,6 +54,7 @@ GROQ_MODEL=llama-3.1-8b-instant
 - `npm run build` - сборка production-версии
 - `npm run preview` - локальный preview production-сборки
 - `npm run lint` - запуск ESLint
+- `npm run test` - запуск тестов
 
 ## Структура проекта
 
