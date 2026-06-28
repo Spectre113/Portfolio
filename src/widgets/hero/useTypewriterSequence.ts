@@ -21,74 +21,62 @@ type TypewriterState = {
   cleanCharacters: number;
 };
 
+type EditableContextField = 'language' | 'theme';
+
+type ContextUpdateState =
+  | {
+      field: null;
+      phase: 'idle';
+      characters: 0;
+      fromValue: '';
+      toValue: '';
+    }
+  | {
+      field: EditableContextField;
+      phase: 'deleting' | 'typing';
+      characters: number;
+      fromValue: string;
+      toValue: string;
+    };
+
+type VisitorContext = {
+  language: string;
+  device: 'mobile' | 'tablet' | 'desktop';
+  theme: 'light' | 'dark';
+  motion: 'allowed' | 'reduced';
+  timezone: string;
+  online: boolean;
+};
+
 const TYPE_SPEED = 30;
 const DELETE_SPEED = 18;
 const JOKE_PAUSE = 1000;
-const JOKE_TEXT = 'decoratePortfolio()';
+const CONTEXT_LINE_INDEX_BY_FIELD: Record<EditableContextField, number> = {
+  language: 1,
+  theme: 3,
+};
+const EMPTY_UPDATE_STATE: ContextUpdateState = {
+  field: null,
+  phase: 'idle',
+  characters: 0,
+  fromValue: '',
+  toValue: '',
+};
 
-const STATIC_LINES: CodeToken[][] = [
-  [
-    { text: 'const', tone: 'keyword' },
-    { text: ' hiringSignals ' },
-    { text: '= ', tone: 'operator' },
-    { text: '{' },
-  ],
-  [
-    { text: '  projectSectionVisits', tone: 'property' },
-    { text: ': ' },
-    { text: 'track' },
-    { text: '(', tone: 'operator' },
-    { text: "'projects_page_open'", tone: 'string' },
-    { text: ')', tone: 'operator' },
-    { text: ',' },
-  ],
-  [
-    { text: '  resumeDownloads', tone: 'property' },
-    { text: ': ' },
-    { text: 'track' },
-    { text: '(', tone: 'operator' },
-    { text: "'resume_download'", tone: 'string' },
-    { text: ')', tone: 'operator' },
-    { text: ',' },
-  ],
-  [
-    { text: '  contactIntent', tone: 'property' },
-    { text: ': ' },
-    { text: 'track' },
-    { text: '(', tone: 'operator' },
-    { text: "'contact_modal_open'", tone: 'string' },
-    { text: ')', tone: 'operator' },
-    { text: ',' },
-  ],
-  [
-    { text: '  assistantOpens', tone: 'property' },
-    { text: ': ' },
-    { text: 'track' },
-    { text: '(', tone: 'operator' },
-    { text: "'ai_assistant_open'", tone: 'string' },
-    { text: ')', tone: 'operator' },
-    { text: ',' },
-  ],
-  [
-    { text: '  respectPrivacy', tone: 'property' },
-    { text: ': ' },
-    { text: 'true', tone: 'keyword' },
-    { text: ',' },
-  ],
-  [
-    { text: '  collectPersonalData', tone: 'property' },
-    { text: ': ' },
-    { text: 'false', tone: 'keyword' },
-    { text: ',' },
-  ],
-  [{ text: '};' }],
-  [],
-  [
-    { text: 'function', tone: 'keyword' },
-    { text: ' improvePortfolio' },
-    { text: '(signals) ', tone: 'operator' },
-    { text: '{' },
-  ],
+const JOKE_RETURN: CodeToken[] = [
+  { text: 'hireImmediately' },
+  { text: '(', tone: 'operator' },
+  { text: 'context' },
+  { text: ')', tone: 'operator' },
+  { text: ';' },
+];
+
+const CLEAN_RETURN: CodeToken[] = [
+  { text: 'adaptExperience' },
+  { text: '(', tone: 'operator' },
+  { text: 'context' },
+  { text: ')', tone: 'operator' },
+  { text: ';' },
 ];
 
 const RETURN_PREFIX: CodeToken[] = [
@@ -96,27 +84,51 @@ const RETURN_PREFIX: CodeToken[] = [
   { text: ' ' },
 ];
 
-const JOKE_RETURN: CodeToken[] = [
-  { text: JOKE_TEXT },
-  { text: ';' },
-];
-
-const CLEAN_RETURN: CodeToken[] = [
-  { text: 'prioritizeHiringFlow' },
-  { text: '(', tone: 'operator' },
-  { text: 'signals' },
-  { text: ')', tone: 'operator' },
-  { text: ';' },
-];
-
 const CLOSING_LINE: CodeToken[] = [{ text: '}' }];
 
-const JOKE_LINES = [...STATIC_LINES, [...RETURN_PREFIX, ...JOKE_RETURN]];
-const CLEAN_LINES = [
-  ...STATIC_LINES,
-  [...RETURN_PREFIX, ...CLEAN_RETURN],
-  CLOSING_LINE,
-];
+function createStringToken(value: string): CodeToken {
+  return { text: `'${value}'`, tone: 'string' };
+}
+
+function createContextLine(property: string, value: CodeToken): CodeToken[] {
+  return [
+    { text: `  ${property}`, tone: 'property' },
+    { text: ': ' },
+    value,
+    { text: ',' },
+  ];
+}
+
+function createStaticLines(context: VisitorContext): CodeToken[][] {
+  return [
+    [
+      { text: 'const', tone: 'keyword' },
+      { text: ' visitorContext ' },
+      { text: '= ', tone: 'operator' },
+      { text: '{' },
+    ],
+    createContextLine('language', createStringToken(context.language)),
+    createContextLine('device', createStringToken(context.device)),
+    createContextLine('theme', createStringToken(context.theme)),
+    createContextLine('motion', createStringToken(context.motion)),
+    createContextLine('timezone', createStringToken(context.timezone)),
+    [
+      { text: '  online', tone: 'property' },
+      { text: ': ' },
+      { text: String(context.online), tone: 'keyword' },
+      { text: ',' },
+    ],
+    createContextLine('privacy', createStringToken('no personal data')),
+    [{ text: '};' }],
+    [],
+    [
+      { text: 'function', tone: 'keyword' },
+      { text: ' adaptPortfolio' },
+      { text: '(context) ', tone: 'operator' },
+      { text: '{' },
+    ],
+  ];
+}
 
 function getLineLength(line: CodeToken[]) {
   return line.reduce((total, token) => total + token.text.length, 0);
@@ -154,6 +166,100 @@ function revealLines(lines: CodeToken[][], visibleCharacters: number) {
   });
 }
 
+function getDeviceType(width: number): VisitorContext['device'] {
+  if (width < 640) {
+    return 'mobile';
+  }
+
+  if (width < 1100) {
+    return 'tablet';
+  }
+
+  return 'desktop';
+}
+
+function getPreferredTheme() {
+  const theme = document.documentElement.dataset.theme;
+
+  if (theme === 'dark' || theme === 'light') {
+    return theme;
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+}
+
+function getSiteLanguage() {
+  const language = document.documentElement.dataset.language;
+
+  if (language === 'ru' || language === 'en') {
+    return language;
+  }
+
+  return document.documentElement.lang || navigator.language || 'unknown';
+}
+
+function getVisitorContext(): VisitorContext {
+  if (typeof window === 'undefined') {
+    return {
+      language: 'unknown',
+      device: 'desktop',
+      theme: 'dark',
+      motion: 'allowed',
+      timezone: 'unknown',
+      online: true,
+    };
+  }
+
+  return {
+    language: getSiteLanguage(),
+    device: getDeviceType(window.innerWidth),
+    theme: getPreferredTheme(),
+    motion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'reduced'
+      : 'allowed',
+    timezone:
+      Intl.DateTimeFormat().resolvedOptions().timeZone || 'local timezone',
+    online: navigator.onLine,
+  };
+}
+
+function useVisitorContext() {
+  const [context, setContext] = useState(getVisitorContext);
+
+  useEffect(() => {
+    const syncContext = () => setContext(getVisitorContext());
+    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const observer =
+      typeof MutationObserver === 'undefined'
+        ? null
+        : new MutationObserver(syncContext);
+
+    window.addEventListener('resize', syncContext);
+    window.addEventListener('online', syncContext);
+    window.addEventListener('offline', syncContext);
+    colorSchemeQuery.addEventListener('change', syncContext);
+    motionQuery.addEventListener('change', syncContext);
+    observer?.observe(document.documentElement, {
+      attributeFilter: ['data-language', 'data-theme', 'lang'],
+      attributes: true,
+    });
+
+    return () => {
+      window.removeEventListener('resize', syncContext);
+      window.removeEventListener('online', syncContext);
+      window.removeEventListener('offline', syncContext);
+      colorSchemeQuery.removeEventListener('change', syncContext);
+      motionQuery.removeEventListener('change', syncContext);
+      observer?.disconnect();
+    };
+  }, []);
+
+  return context;
+}
+
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
     if (typeof window === 'undefined') {
@@ -180,20 +286,138 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
-const jokeLength = getLinesLength(JOKE_LINES);
 const jokeReturnLength = getLineLength(JOKE_RETURN);
 const cleanReturnLength = getLineLength(CLEAN_RETURN);
-const returnLineIndex = STATIC_LINES.length;
-const closingLineIndex = STATIC_LINES.length + 1;
 
 export function useTypewriterSequence() {
+  const context = useVisitorContext();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [displayedContext, setDisplayedContext] = useState(context);
+  const [contextUpdate, setContextUpdate] =
+    useState<ContextUpdateState>(EMPTY_UPDATE_STATE);
   const [state, setState] = useState<TypewriterState>({
     phase: 'typingJoke',
     introCharacters: 0,
     jokeCharacters: jokeReturnLength,
     cleanCharacters: 0,
   });
+
+  const renderedContext = useMemo(() => {
+    if (contextUpdate.field === null) {
+      return displayedContext;
+    }
+
+    const visibleValue =
+      contextUpdate.phase === 'deleting'
+        ? contextUpdate.fromValue.slice(0, contextUpdate.characters)
+        : contextUpdate.toValue.slice(0, contextUpdate.characters);
+
+    return {
+      ...displayedContext,
+      [contextUpdate.field]: visibleValue,
+    };
+  }, [contextUpdate, displayedContext]);
+
+  const staticLines = useMemo(
+    () => createStaticLines(renderedContext),
+    [renderedContext],
+  );
+  const jokeLines = useMemo(
+    () => [...staticLines, [...RETURN_PREFIX, ...JOKE_RETURN]],
+    [staticLines],
+  );
+  const cleanLines = useMemo(
+    () => [...staticLines, [...RETURN_PREFIX, ...CLEAN_RETURN], CLOSING_LINE],
+    [staticLines],
+  );
+  const jokeLength = useMemo(() => getLinesLength(jokeLines), [jokeLines]);
+  const returnLineIndex = staticLines.length;
+  const closingLineIndex = staticLines.length + 1;
+
+  useEffect(() => {
+    if (prefersReducedMotion || state.phase !== 'complete') {
+      setDisplayedContext(context);
+      setContextUpdate(EMPTY_UPDATE_STATE);
+      return;
+    }
+
+    if (contextUpdate.field !== null) {
+      return;
+    }
+
+    const changedField = (['language', 'theme'] as const).find(
+      (field) => displayedContext[field] !== context[field],
+    );
+
+    if (!changedField) {
+      setDisplayedContext(context);
+      return;
+    }
+
+    setContextUpdate({
+      field: changedField,
+      phase: 'deleting',
+      characters: displayedContext[changedField].length,
+      fromValue: displayedContext[changedField],
+      toValue: context[changedField],
+    });
+  }, [
+    context,
+    contextUpdate.field,
+    displayedContext,
+    prefersReducedMotion,
+    state.phase,
+  ]);
+
+  useEffect(() => {
+    if (contextUpdate.field === null) {
+      return;
+    }
+
+    const delay =
+      contextUpdate.phase === 'deleting' ? DELETE_SPEED : TYPE_SPEED;
+
+    const timeout = window.setTimeout(() => {
+      setContextUpdate((currentUpdate) => {
+        if (currentUpdate.field === null) {
+          return currentUpdate;
+        }
+
+        if (currentUpdate.phase === 'deleting') {
+          if (currentUpdate.characters > 0) {
+            return {
+              ...currentUpdate,
+              characters: currentUpdate.characters - 1,
+            };
+          }
+
+          return {
+            ...currentUpdate,
+            phase: 'typing',
+            characters: 0,
+          };
+        }
+
+        if (currentUpdate.characters < currentUpdate.toValue.length) {
+          return {
+            ...currentUpdate,
+            characters: currentUpdate.characters + 1,
+          };
+        }
+
+        setDisplayedContext((currentContext) => ({
+          ...currentContext,
+          [currentUpdate.field]: currentUpdate.toValue,
+        }));
+
+        return EMPTY_UPDATE_STATE;
+      });
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [contextUpdate]);
 
   useEffect(() => {
     if (prefersReducedMotion || state.phase === 'complete') {
@@ -271,31 +495,35 @@ export function useTypewriterSequence() {
     return () => {
       window.clearTimeout(timeout);
     };
-  }, [prefersReducedMotion, state]);
+  }, [jokeLength, prefersReducedMotion, state]);
 
   const lines = useMemo(() => {
+    if (contextUpdate.field !== null) {
+      return cleanLines;
+    }
+
     if (prefersReducedMotion || state.phase === 'complete') {
-      return CLEAN_LINES;
+      return cleanLines;
     }
 
     if (state.phase === 'typingJoke') {
-      return revealLines(JOKE_LINES, state.introCharacters);
+      return revealLines(jokeLines, state.introCharacters);
     }
 
     if (state.phase === 'pauseJoke') {
-      return JOKE_LINES;
+      return jokeLines;
     }
 
     if (state.phase === 'deletingJoke') {
       return [
-        ...STATIC_LINES,
+        ...staticLines,
         [...RETURN_PREFIX, ...revealTokens(JOKE_RETURN, state.jokeCharacters)],
       ];
     }
 
     if (state.phase === 'typingClean') {
       return [
-        ...STATIC_LINES,
+        ...staticLines,
         [
           ...RETURN_PREFIX,
           ...revealTokens(CLEAN_RETURN, state.cleanCharacters),
@@ -303,18 +531,30 @@ export function useTypewriterSequence() {
       ];
     }
 
-    return CLEAN_LINES;
-  }, [prefersReducedMotion, state]);
+    return cleanLines;
+  }, [
+    cleanLines,
+    contextUpdate.field,
+    jokeLines,
+    prefersReducedMotion,
+    state,
+    staticLines,
+  ]);
 
   const cursorLineIndex = getCursorLineIndex({
+    closingLineIndex,
+    contextUpdateField: contextUpdate.field,
     lines,
     phase: prefersReducedMotion ? 'complete' : state.phase,
+    returnLineIndex,
   });
 
   return {
     cursorLineIndex,
     lines,
-    isAnimating: !prefersReducedMotion && state.phase !== 'complete',
+    isAnimating:
+      !prefersReducedMotion &&
+      (state.phase !== 'complete' || contextUpdate.field !== null),
   };
 }
 
@@ -331,12 +571,22 @@ function getPhaseDelay(phase: TypewriterPhase) {
 }
 
 function getCursorLineIndex({
+  closingLineIndex,
+  contextUpdateField,
   lines,
   phase,
+  returnLineIndex,
 }: {
+  closingLineIndex: number;
+  contextUpdateField: EditableContextField | null;
   lines: CodeToken[][];
   phase: TypewriterPhase;
+  returnLineIndex: number;
 }) {
+  if (contextUpdateField !== null) {
+    return CONTEXT_LINE_INDEX_BY_FIELD[contextUpdateField];
+  }
+
   if (
     phase === 'pauseJoke' ||
     phase === 'deletingJoke' ||
