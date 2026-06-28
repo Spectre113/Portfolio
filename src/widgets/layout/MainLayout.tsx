@@ -77,13 +77,6 @@ export function MainLayout() {
             <div className="site-nav__utility" aria-label="Настройки сайта">
               <LanguageToggle />
               <ThemeToggle />
-              <AIAssistantLauncher
-                className="site-nav__assistant"
-                panelId="ai-assistant-panel-mobile"
-                isOpen={isAIAssistantOpen}
-                onClose={() => setIsAIAssistantOpen(false)}
-                onToggle={toggleAIAssistant}
-              />
             </div>
 
             {navigation.map((item) => (
@@ -106,12 +99,6 @@ export function MainLayout() {
             <div className="site-header__utility-actions">
               <LanguageToggle />
               <ThemeToggle />
-              <AIAssistantLauncher
-                panelId="ai-assistant-panel-desktop"
-                isOpen={isAIAssistantOpen}
-                onClose={() => setIsAIAssistantOpen(false)}
-                onToggle={toggleAIAssistant}
-              />
             </div>
             <button
               className="site-header__contact btn-reset"
@@ -126,6 +113,11 @@ export function MainLayout() {
               </span>
               <span className="site-header__contact-icon" aria-hidden="true" />
             </button>
+            <AIAssistantLauncher
+              isOpen={isAIAssistantOpen}
+              onClose={() => setIsAIAssistantOpen(false)}
+              onToggle={toggleAIAssistant}
+            />
           </div>
         </div>
       </header>

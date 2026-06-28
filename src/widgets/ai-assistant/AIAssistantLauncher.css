@@ -532,7 +532,7 @@
 
 @media (max-width: 640px) {
   .ai-assistant__trigger {
-    width: 40px;
+    width: 42px;
     height: 40px;
   }
 }
@@ -543,8 +543,8 @@
   }
 
   .ai-assistant__trigger {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 40px;
   }
 
   .ai-assistant__panel {
