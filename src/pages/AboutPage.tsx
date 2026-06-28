@@ -17,13 +17,40 @@ import {
   WandSparkles,
   Workflow,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, RefObject } from 'react';
 import avatarImage from '../assets/avatar.png';
+import { useTranslation } from '../shared/i18n/useTranslation.ts';
+import type { Language } from '../shared/language/language-context.ts';
 import { GitHubIcon } from '../shared/ui/BrandIcon/BrandIcon.tsx';
 import './AboutPage.css';
 
-const values = [
+type IconTextItem = {
+  icon: LucideIcon;
+  label: string;
+  text: string;
+};
+
+type InterestItem = {
+  icon: LucideIcon;
+  label: string;
+};
+
+type TimelineItem = {
+  period: string;
+  title: string;
+  text: string;
+};
+
+type AboutContent = {
+  aiWorkflow: IconTextItem[];
+  interests: InterestItem[];
+  timeline: TimelineItem[];
+  values: IconTextItem[];
+};
+
+const valuesRu: IconTextItem[] = [
   {
     icon: Target,
     label: 'Ориентирован на качество',
@@ -56,7 +83,7 @@ const values = [
   },
 ];
 
-const interests = [
+const interestsRu: InterestItem[] = [
   {
     icon: Activity,
     label: 'Системы реального времени',
@@ -71,7 +98,7 @@ const interests = [
   },
 ];
 
-const timeline = [
+const timelineRu: TimelineItem[] = [
   {
     period: 'До 2024',
     title: 'Первые шаги',
@@ -94,7 +121,7 @@ const timeline = [
   },
 ];
 
-const aiWorkflow = [
+const aiWorkflowRu: IconTextItem[] = [
   {
     icon: Bot,
     label: 'Идеи и варианты решений',
@@ -116,6 +143,115 @@ const aiWorkflow = [
     text: 'Доверяю AI повторяемые задачи, но ответственность за качество, UX и поддержку оставляю за собой.',
   },
 ];
+
+const valuesEn: IconTextItem[] = [
+  {
+    icon: Target,
+    label: 'Quality-oriented',
+    text: 'I do not leave an interface at "good enough": I check details, edge cases and behavior across states.',
+  },
+  {
+    icon: LayoutGrid,
+    label: 'Thinking one step ahead',
+    text: 'I design components and data so the code is easier to extend, test and maintain.',
+  },
+  {
+    icon: Braces,
+    label: 'User-centered',
+    text: 'I look at UI through user scenarios: what they see, where they can fail and how quickly they get a result.',
+  },
+  {
+    icon: Rocket,
+    label: 'Writing clear code',
+    text: 'I prefer explicit structures, typing and separated responsibilities over magic that is risky to touch.',
+  },
+  {
+    icon: Gauge,
+    label: 'Growing systematically',
+    text: 'I learn tools to solve real tasks better and bring value faster, not just to tick a box.',
+  },
+  {
+    icon: Workflow,
+    label: 'Listening to context',
+    text: 'I try to understand the task, constraints and team expectations before writing a solution.',
+  },
+];
+
+const interestsEn: InterestItem[] = [
+  {
+    icon: Activity,
+    label: 'Real-time systems',
+  },
+  {
+    icon: Dumbbell,
+    label: 'Training',
+  },
+  {
+    icon: Music2,
+    label: 'Playing piano',
+  },
+];
+
+const timelineEn: TimelineItem[] = [
+  {
+    period: 'Before 2024',
+    title: 'First steps',
+    text: 'I studied the basics of HTML, CSS and JavaScript, built my first static projects and gradually learned how web development works.',
+  },
+  {
+    period: '2025',
+    title: 'React and TypeScript',
+    text: 'I started learning React and TypeScript systematically, moving UI logic into components and working with typed frontend code.',
+  },
+  {
+    period: 'Late 2025',
+    title: 'React pet project',
+    text: 'I moved on to building a React pet project: thinking through architecture, state, API interaction and user scenarios.',
+  },
+  {
+    period: '2026 and beyond',
+    title: 'Growth and practice',
+    text: 'I keep growing in frontend: server state, data validation, performance, accessibility and interface quality.',
+  },
+];
+
+const aiWorkflowEn: IconTextItem[] = [
+  {
+    icon: Bot,
+    label: 'Ideas and solution options',
+    text: 'I use AI as a thinking partner to test several directions faster and choose the clearest one.',
+  },
+  {
+    icon: MessageSquareCode,
+    label: 'Component drafts',
+    text: 'I can sketch a structure with AI, but I finalize architecture, types and behavior myself.',
+  },
+  {
+    icon: Workflow,
+    label: 'Refactoring and readability',
+    text: 'I ask AI to highlight weak spots, then decide what to improve and why.',
+  },
+  {
+    icon: WandSparkles,
+    label: 'Routine acceleration',
+    text: 'I delegate repetitive tasks to AI, while keeping quality, UX and maintainability under my control.',
+  },
+];
+
+const aboutContentByLanguage = {
+  ru: {
+    aiWorkflow: aiWorkflowRu,
+    interests: interestsRu,
+    timeline: timelineRu,
+    values: valuesRu,
+  },
+  en: {
+    aiWorkflow: aiWorkflowEn,
+    interests: interestsEn,
+    timeline: timelineEn,
+    values: valuesEn,
+  },
+} satisfies Record<Language, AboutContent>;
 
 type TimelineRevealState = {
   characters: number;
@@ -152,7 +288,7 @@ function usePrefersReducedMotion() {
 }
 
 function useTimelineReveal(
-  items: typeof timeline,
+  items: TimelineItem[],
   sectionRef: RefObject<HTMLElement | null>,
 ) {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -265,6 +401,9 @@ function useTimelineReveal(
 }
 
 export function AboutPage() {
+  const { language, t } = useTranslation();
+  const { aiWorkflow, interests, timeline, values } =
+    aboutContentByLanguage[language];
   const [isMoreOpen, setIsMoreOpen] = useState(true);
   const timelineSectionRef = useRef<HTMLElement | null>(null);
   const timelineReveal = useTimelineReveal(timeline, timelineSectionRef);
@@ -274,20 +413,15 @@ export function AboutPage() {
       <section className="container about-page__hero">
         <p className="about-page__eyebrow">
           <span aria-hidden="true" />
-          Обо мне
+          {t('about.eyebrow')}
         </p>
 
         <div className="about-page__content">
           <h1 className="about-page__title">
-            Обо <span>мне</span>
+            {t('about.titleStart')} <span>{t('about.titleAccent')}</span>
           </h1>
 
-          <p className="about-page__lead">
-            Я frontend-разработчик, который превращает сложную логику в
-            понятные, аккуратные и поддерживаемые интерфейсы. Мне важно не
-            просто сверстать экран, а сделать так, чтобы продуктом было удобно
-            пользоваться и дальше развивать его без боли.
-          </p>
+          <p className="about-page__lead">{t('about.lead')}</p>
 
           <div
             className={`about-page__more ${isMoreOpen ? 'about-page__more--open' : ''}`}
@@ -298,20 +432,20 @@ export function AboutPage() {
               aria-expanded={isMoreOpen}
               onClick={() => setIsMoreOpen((currentValue) => !currentValue)}
             >
-              {isMoreOpen ? 'Скрыть подробности' : 'Показать подробнее'}
+              {isMoreOpen ? t('about.hideDetails') : t('about.showDetails')}
             </button>
             <div className="about-page__more-content">
               <div className="about-page__more-inner">
                 <div className="about-page__person">
                   <div>
-                    <h2 className="about-page__name">Владимир Топорков</h2>
-                    <p className="about-page__role">Frontend Developer</p>
+                    <h2 className="about-page__name">{t('about.name')}</h2>
+                    <p className="about-page__role">{t('about.role')}</p>
                   </div>
 
                   <ul className="about-page__contacts list-reset">
                     <li>
                       <MapPin size={18} strokeWidth={2} aria-hidden="true" />
-                      Россия, Иннополис
+                      {t('about.location')}
                     </li>
                     <li>
                       <Mail size={18} strokeWidth={2} aria-hidden="true" />
@@ -328,7 +462,7 @@ export function AboutPage() {
                   </ul>
                 </div>
                 <div className="about-page__outside">
-                  <p>Вне кода:</p>
+                  <p>{t('about.outsideCode')}</p>
                   <ul className="about-page__interests list-reset">
                     {interests.map(({ icon: Icon, label }) => (
                       <li key={label}>
@@ -346,14 +480,14 @@ export function AboutPage() {
         <article className="about-profile">
           <div className="about-profile__info">
             <div>
-              <h2 className="about-profile__name">Владимир Топорков</h2>
-              <p className="about-profile__role">Frontend Developer</p>
+              <h2 className="about-profile__name">{t('about.name')}</h2>
+              <p className="about-profile__role">{t('about.role')}</p>
             </div>
 
             <ul className="about-profile__contacts list-reset">
               <li>
                 <MapPin size={18} strokeWidth={2} aria-hidden="true" />
-                Россия, Иннополис
+                {t('about.location')}
               </li>
               <li>
                 <Mail size={18} strokeWidth={2} aria-hidden="true" />
@@ -370,12 +504,15 @@ export function AboutPage() {
             </ul>
           </div>
 
-          <div className="about-profile__avatar" aria-label="Аватар Владимира">
+          <div
+            className="about-profile__avatar"
+            aria-label={t('about.avatarAria')}
+          >
             <img src={avatarImage} alt="" aria-hidden="true" />
           </div>
 
           <div className="about-profile__footer">
-            <p>Вне кода:</p>
+            <p>{t('about.outsideCode')}</p>
             <ul className="about-profile__interests list-reset">
               {interests.map(({ icon: Icon, label }) => (
                 <li key={label}>
@@ -393,7 +530,7 @@ export function AboutPage() {
           <span className="about-page__value-icon" aria-hidden="true">
             <Blocks size={22} strokeWidth={2.1} />
           </span>
-          <h2>Мой подход к разработке</h2>
+          <h2>{t('about.valuesTitle')}</h2>
         </div>
 
         <div className="about-values__body">
@@ -415,12 +552,8 @@ export function AboutPage() {
                 <Cpu size={22} strokeWidth={2.1} />
               </span>
               <div>
-                <h3>AI в рабочем процессе</h3>
-                <p>
-                  AI для меня - это ассистент для ускорения рутины и поиска
-                  идей, а не замена пониманию задачи, архитектуры и качества
-                  результата.
-                </p>
+                <h3>{t('about.aiTitle')}</h3>
+                <p>{t('about.aiIntro')}</p>
               </div>
             </div>
 
@@ -436,10 +569,7 @@ export function AboutPage() {
               ))}
             </ul>
 
-            <p className="about-ai__note">
-              AI помогает двигаться быстрее, но ответственность за архитектуру,
-              логику, UX и финальный код всегда остается на мне.
-            </p>
+            <p className="about-ai__note">{t('about.aiNote')}</p>
           </div>
         </div>
       </section>
@@ -457,7 +587,7 @@ export function AboutPage() {
           <span className="about-path__icon" aria-hidden="true">
             <Activity size={22} strokeWidth={2.1} />
           </span>
-          <h2 className="about-path__title">Мой путь во frontend</h2>
+          <h2 className="about-path__title">{t('about.pathTitle')}</h2>
         </div>
 
         <ol className="about-path__timeline list-reset">

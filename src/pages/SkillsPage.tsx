@@ -21,7 +21,10 @@ import {
   Server,
   TestTube2,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import type { CSSProperties } from 'react';
+import { useTranslation } from '../shared/i18n/useTranslation.ts';
+import type { Language } from '../shared/language/language-context.ts';
 import './SkillsPage.css';
 
 const runtimeEvents = [
@@ -62,7 +65,34 @@ const runtimeEvents = [
   },
 ];
 
-const directionCards = [
+type DirectionCard = {
+  brand?: 'react' | 'typescript';
+  icon: LucideIcon;
+  points: string[];
+  text: string;
+  title: string;
+};
+
+type TextCard = {
+  icon: LucideIcon;
+  text: string;
+  title: string;
+};
+
+type WorkflowColumn = {
+  icon: LucideIcon;
+  points: string[];
+  title: string;
+};
+
+type SkillsContent = {
+  directionCards: DirectionCard[];
+  growthCards: TextCard[];
+  taskCards: TextCard[];
+  workflowColumns: WorkflowColumn[];
+};
+
+const directionCardsRu: DirectionCard[] = [
   {
     brand: 'react',
     icon: Code2,
@@ -122,7 +152,7 @@ const directionCards = [
   },
 ];
 
-const taskCards = [
+const taskCardsRu: TextCard[] = [
   {
     icon: Route,
     title: 'SPA и маршрутизация',
@@ -155,7 +185,7 @@ const taskCards = [
   },
 ];
 
-const workflowColumns = [
+const workflowColumnsRu: WorkflowColumn[] = [
   {
     icon: MonitorSmartphone,
     title: 'Интерфейс',
@@ -188,7 +218,7 @@ const workflowColumns = [
   },
 ];
 
-const growthCards = [
+const growthCardsRu: TextCard[] = [
   {
     icon: TestTube2,
     title: 'Тестирование',
@@ -211,39 +241,206 @@ const growthCards = [
   },
 ];
 
+const directionCardsEn: DirectionCard[] = [
+  {
+    brand: 'react',
+    icon: Code2,
+    title: 'React and component architecture',
+    text: 'I build UI from isolated components so logic, state and visuals can evolve without constant rewrites.',
+    points: [
+      'component composition',
+      'hooks and state',
+      'separated responsibilities',
+      'reusable UI patterns',
+    ],
+  },
+  {
+    brand: 'typescript',
+    icon: Braces,
+    title: 'TypeScript and typing',
+    text: 'I use types as a project support tool: fewer implicit contracts, easier refactoring and clearer data handling.',
+    points: [
+      'types for API and models',
+      'safe props and hooks',
+      'data contracts',
+      'typed UI scenarios',
+    ],
+  },
+  {
+    icon: Server,
+    title: 'API, data and server state',
+    text: 'I connect REST APIs and handle loading, errors and updates so the UI stays predictable for the user.',
+    points: [
+      'React Query / TanStack',
+      'loading and error states',
+      'data caching',
+      'response normalization',
+    ],
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Validation and reliability',
+    text: 'I validate external data at the application boundary so the UI does not depend on assumptions about server responses.',
+    points: [
+      'Zod schemas',
+      'graceful fallback',
+      'explicit errors',
+      'empty state protection',
+    ],
+  },
+  {
+    icon: MonitorSmartphone,
+    title: 'Responsive UI and UX',
+    text: 'I make interfaces that work across screens, preserve user flows and do not force people to guess what happened.',
+    points: [
+      'mobile-first checks',
+      'accessible states',
+      'clear hierarchy',
+      'careful animation',
+    ],
+  },
+];
+
+const taskCardsEn: TextCard[] = [
+  {
+    icon: Route,
+    title: 'SPA and routing',
+    text: 'I assemble pages and user flows so navigation is clear and the project structure does not turn into chaos.',
+  },
+  {
+    icon: KeyRound,
+    title: 'Auth and access',
+    text: 'I think through user state, protected flows and UI behavior for different access levels.',
+  },
+  {
+    icon: Database,
+    title: 'API work',
+    text: 'I connect data, handle errors and sync UI with server state without unnecessary rerenders.',
+  },
+  {
+    icon: FileCode2,
+    title: 'Forms and validation',
+    text: 'I build forms with clear feedback, stable validation and no layout jumps when errors appear.',
+  },
+  {
+    icon: Search,
+    title: 'Filtering and search',
+    text: 'I build list interfaces: filters, search, empty states and context preservation.',
+  },
+  {
+    icon: Blocks,
+    title: 'UI states',
+    text: 'I work through loading, empty, error and success states so the app does not look broken between requests.',
+  },
+];
+
+const workflowColumnsEn: WorkflowColumn[] = [
+  {
+    icon: MonitorSmartphone,
+    title: 'Interface',
+    points: [
+      'split screens into components',
+      'keep visual hierarchy',
+      'check responsiveness',
+      'add clear feedback',
+    ],
+  },
+  {
+    icon: Database,
+    title: 'Data',
+    points: [
+      'connect APIs',
+      'validate responses with Zod',
+      'handle loading and error',
+      'sync server state',
+    ],
+  },
+  {
+    icon: GitBranch,
+    title: 'Maintainability',
+    points: [
+      'extract reusable logic',
+      'keep module structure',
+      'write predictable hooks',
+      'leave room for growth',
+    ],
+  },
+];
+
+const growthCardsEn: TextCard[] = [
+  {
+    icon: TestTube2,
+    title: 'Testing',
+    text: 'I want to cover critical scenarios more confidently and test UI behavior, not only build success.',
+  },
+  {
+    icon: Activity,
+    title: 'Accessibility',
+    text: 'I build the habit of looking wider: keyboard, focus, contrast, semantics and clear states.',
+  },
+  {
+    icon: Gauge,
+    title: 'Performance',
+    text: 'I learn where optimizations are truly useful and where simple architecture and clean data flow matter more.',
+  },
+  {
+    icon: Sparkles,
+    title: 'AI-assisted workflow',
+    text: 'I use AI to speed up routine work and generate options, while keeping architecture decisions and quality on my side.',
+  },
+];
+
+const skillsContentByLanguage = {
+  ru: {
+    directionCards: directionCardsRu,
+    growthCards: growthCardsRu,
+    taskCards: taskCardsRu,
+    workflowColumns: workflowColumnsRu,
+  },
+  en: {
+    directionCards: directionCardsEn,
+    growthCards: growthCardsEn,
+    taskCards: taskCardsEn,
+    workflowColumns: workflowColumnsEn,
+  },
+} satisfies Record<Language, SkillsContent>;
+
 export function SkillsPage() {
+  const { language, t } = useTranslation();
+  const {
+    directionCards,
+    growthCards,
+    taskCards,
+    workflowColumns,
+  } = skillsContentByLanguage[language];
+
   return (
     <main className="skills-page">
       <section className="container skills-page__hero">
         <div className="skills-page__content">
           <p className="skills-page__eyebrow">
             <span aria-hidden="true" />
-            Навыки
+            {t('nav.skills')}
           </p>
 
           <h1 className="skills-page__title">
-            Навыки <span>в работе</span>
+            {t('nav.skills')} <span>{t('skillsPage.heroAccent')}</span>
           </h1>
 
-          <p className="skills-page__lead">
-            Для меня frontend начинается не с набора технологий, а с понятной
-            системы: компонентная архитектура, типобезопасные данные, аккуратная
-            работа с API и интерфейс, который предсказуемо ведет себя в разных
-            состояниях.
-          </p>
+          <p className="skills-page__lead">{t('skillsPage.heroLead')}</p>
 
           <ul className="skills-page__highlights list-reset">
             <li>
               <GitBranch size={22} strokeWidth={2.1} aria-hidden="true" />
-              Архитектура компонентов
+              {t('skillsPage.heroHighlight1')}
             </li>
             <li>
               <Layers3 size={22} strokeWidth={2.1} aria-hidden="true" />
-              Данные, API и server state
+              {t('skillsPage.heroHighlight2')}
             </li>
             <li>
               <Sparkles size={22} strokeWidth={2.1} aria-hidden="true" />
-              Стабильный UX без шума
+              {t('skillsPage.heroHighlight3')}
             </li>
           </ul>
         </div>
@@ -251,8 +448,12 @@ export function SkillsPage() {
         <SkillFlowAnimation />
       </section>
 
-      <SkillsDirectionsSection />
-      <SkillsPracticeSection />
+      <SkillsDirectionsSection directionCards={directionCards} />
+      <SkillsPracticeSection
+        growthCards={growthCards}
+        taskCards={taskCards}
+        workflowColumns={workflowColumns}
+      />
     </main>
   );
 }
@@ -327,14 +528,20 @@ function SkillFlowAnimation() {
   );
 }
 
-function SkillsDirectionsSection() {
+function SkillsDirectionsSection({
+  directionCards,
+}: {
+  directionCards: DirectionCard[];
+}) {
+  const { t } = useTranslation();
+
   return (
     <section className="container skills-panel skills-directions">
       <div className="skills-panel__header">
         <span className="skills-panel__icon" aria-hidden="true">
           <Layers3 size={22} strokeWidth={2.1} />
         </span>
-        <h2>Ключевые направления</h2>
+        <h2>{t('skillsPage.directionsTitle')}</h2>
       </div>
 
       <div className="skills-directions__grid">
@@ -387,7 +594,17 @@ function SkillBrandIcon({ brand }: { brand: 'react' | 'typescript' }) {
   );
 }
 
-function SkillsPracticeSection() {
+function SkillsPracticeSection({
+  growthCards,
+  taskCards,
+  workflowColumns,
+}: {
+  growthCards: TextCard[];
+  taskCards: TextCard[];
+  workflowColumns: WorkflowColumn[];
+}) {
+  const { t } = useTranslation();
+
   return (
     <section className="container skills-practice">
       <article className="skills-panel skills-workflow">
@@ -395,7 +612,7 @@ function SkillsPracticeSection() {
           <span className="skills-panel__icon" aria-hidden="true">
             <GitBranch size={22} strokeWidth={2.1} />
           </span>
-          <h2>Как применяю навыки</h2>
+          <h2>{t('skillsPage.practiceTitle')}</h2>
         </div>
 
         <div className="skills-workflow__columns">
@@ -420,7 +637,7 @@ function SkillsPracticeSection() {
           <span className="skills-panel__icon" aria-hidden="true">
             <Route size={22} strokeWidth={2.1} />
           </span>
-          <h2>Какие задачи закрываю</h2>
+          <h2>{t('skillsPage.tasksTitle')}</h2>
         </div>
 
         <div className="skills-task-grid">
@@ -439,7 +656,7 @@ function SkillsPracticeSection() {
           <span className="skills-panel__icon" aria-hidden="true">
             <Sparkles size={22} strokeWidth={2.1} />
           </span>
-          <h2>Сейчас развиваю</h2>
+          <h2>{t('skillsPage.growthTitle')}</h2>
         </div>
 
         <div className="skills-growth__grid">

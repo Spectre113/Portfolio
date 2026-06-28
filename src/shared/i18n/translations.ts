@@ -1,6 +1,25 @@
 import type { Language } from '../language/language-context.ts';
 
 const ru = {
+  'about.aiIntro':
+    'AI для меня - это ассистент для ускорения рутины и поиска идей, а не замена пониманию задачи, архитектуры и качества результата.',
+  'about.aiNote':
+    'AI помогает двигаться быстрее, но ответственность за архитектуру, логику, UX и финальный код всегда остается на мне.',
+  'about.aiTitle': 'AI в рабочем процессе',
+  'about.avatarAria': 'Аватар Владимира',
+  'about.eyebrow': 'Обо мне',
+  'about.hideDetails': 'Скрыть подробности',
+  'about.lead':
+    'Я frontend-разработчик, который превращает сложную логику в понятные, аккуратные и поддерживаемые интерфейсы. Мне важно не просто сверстать экран, а сделать так, чтобы продуктом было удобно пользоваться и дальше развивать его без боли.',
+  'about.location': 'Россия, Иннополис',
+  'about.name': 'Владимир Топорков',
+  'about.outsideCode': 'Вне кода:',
+  'about.pathTitle': 'Мой путь во frontend',
+  'about.role': 'Frontend Developer',
+  'about.showDetails': 'Показать подробнее',
+  'about.titleAccent': 'мне',
+  'about.titleStart': 'Обо',
+  'about.valuesTitle': 'Мой подход к разработке',
   'common.closeMenu': 'Закрыть меню',
   'common.openMenu': 'Открыть меню',
   'common.settings': 'Настройки сайта',
@@ -9,6 +28,8 @@ const ru = {
   'header.homeAria': 'На главную',
   'header.navAria': 'Основная навигация',
   'hero.ariaSocials': 'Социальные ссылки',
+  'hero.codeAria':
+    'Пример кода с безопасным браузерным контекстом посетителя',
   'hero.contact': 'Связаться со мной',
   'hero.description':
     'Frontend-разработчик на React и TypeScript. Разрабатываю SPA с авторизацией, REST API и управлением server state, уделяя внимание поддерживаемости, производительности и предсказуемому UX.',
@@ -30,12 +51,57 @@ const ru = {
   'projects.more': 'Подробнее о проектах',
   'projects.title': 'Проекты',
   'projects.updated': 'Последний коммит',
+  'projectsFilter.all': 'Все',
+  'projectsFilter.frontend': 'Frontend',
+  'projectsFilter.pet': 'Pet-проекты',
+  'projectsFilter.react': 'React',
+  'projectsFilter.test': 'Тестовые',
+  'projectsFilter.typescript': 'TypeScript',
+  'projectsPage.clearSearch': 'Очистить поиск',
+  'projectsPage.empty':
+    'По этому запросу проектов не нашлось. Попробуйте другой стек или сбросьте фильтр.',
+  'projectsPage.error':
+    'GitHub сейчас не ответил, поэтому показываю локальные описания.',
+  'projectsPage.filterAria': 'Фильтр проектов',
+  'projectsPage.hideDetails': 'Скрыть детали',
+  'projectsPage.lead':
+    'Здесь собраны учебные работы, тестовые задания и pet-проекты, в которых виден мой подход к frontend-разработке: архитектура, работа с данными, состояния интерфейса и внимание к деталям.',
+  'projectsPage.loading': 'Загружаю данные проектов...',
+  'projectsPage.searchAria': 'Поиск по проектам',
+  'projectsPage.searchPlaceholder':
+    'Поиск по проектам: Zod, формы, server state, авторизация...',
+  'projectsPage.showDetails': 'Показать подробнее',
+  'projectsPage.sortManual': 'Сортировка: вручную',
   'projectStatus.backendRequired': 'Демо требует backend',
   'projectStatus.inProgress': 'В разработке',
   'skills.more': 'Все навыки',
   'skills.showAll': 'Показать все',
   'skills.title': 'Технологии и инструменты',
   'skills.hide': 'Скрыть',
+  'skillsPage.directionsTitle': 'Ключевые направления',
+  'skillsPage.growthTitle': 'Сейчас развиваю',
+  'skillsPage.heroAccent': 'в работе',
+  'skillsPage.heroHighlight1': 'Архитектура компонентов',
+  'skillsPage.heroHighlight2': 'Данные, API и server state',
+  'skillsPage.heroHighlight3': 'Стабильный UX без шума',
+  'skillsPage.heroLead':
+    'Для меня frontend начинается не с набора технологий, а с понятной системы: компонентная архитектура, типобезопасные данные, аккуратная работа с API и интерфейс, который предсказуемо ведет себя в разных состояниях.',
+  'skillsPage.practiceTitle': 'Как применяю навыки',
+  'skillsPage.tasksTitle': 'Какие задачи закрываю',
+  'summary.ctaButton': 'Связаться со мной',
+  'summary.ctaText':
+    'Напишите мне - обсудим задачу, вакансию или формат стажировки.',
+  'summary.ctaTitle': 'Есть подходящая позиция или проект?',
+  'summary.highlight1': '6 проектов: учебные, тестовые и pet',
+  'summary.highlight2': 'React, TypeScript, SPA и компонентная архитектура',
+  'summary.highlight3': 'REST API, формы, Zod и server state',
+  'summary.highlight4':
+    'AI-помощник, аналитика событий и адаптивный интерфейс',
+  'summary.highlightsTitle': 'Коротко по делу',
+  'summary.projects': 'Посмотрите мои проекты',
+  'summary.searchText':
+    'Ищу frontend-стажировку или junior-позицию, где нужны React, TypeScript, работа с API, аккуратный UI и готовность быстро расти в команде.',
+  'summary.searchTitle': 'Что ищу сейчас',
   'theme.switchToDark': 'Включить темную тему',
   'theme.switchToLight': 'Включить светлую тему',
   'theme.titleDark': 'Темная тема',
@@ -45,6 +111,25 @@ const ru = {
 type TranslationDictionary = Record<keyof typeof ru, string>;
 
 const en = {
+  'about.aiIntro':
+    'For me, AI is an assistant for speeding up routine work and exploring ideas, not a replacement for understanding the task, architecture and result quality.',
+  'about.aiNote':
+    'AI helps me move faster, but responsibility for architecture, logic, UX and final code stays with me.',
+  'about.aiTitle': 'AI in my workflow',
+  'about.avatarAria': 'Vladimir avatar',
+  'about.eyebrow': 'About me',
+  'about.hideDetails': 'Hide details',
+  'about.lead':
+    'I am a frontend developer who turns complex logic into clear, tidy and maintainable interfaces. I care about more than building a screen: the product should be comfortable to use and easy to evolve.',
+  'about.location': 'Russia, Innopolis',
+  'about.name': 'Vladimir Toporkov',
+  'about.outsideCode': 'Outside code:',
+  'about.pathTitle': 'My frontend path',
+  'about.role': 'Frontend Developer',
+  'about.showDetails': 'Show details',
+  'about.titleAccent': 'me',
+  'about.titleStart': 'About',
+  'about.valuesTitle': 'My development approach',
   'common.closeMenu': 'Close menu',
   'common.openMenu': 'Open menu',
   'common.settings': 'Site settings',
@@ -53,6 +138,7 @@ const en = {
   'header.homeAria': 'Go to home page',
   'header.navAria': 'Primary navigation',
   'hero.ariaSocials': 'Social links',
+  'hero.codeAria': 'Code preview with safe visitor browser context',
   'hero.contact': 'Contact me',
   'hero.description':
     'Frontend developer building React and TypeScript SPAs with auth flows, REST APIs and server state, focused on maintainable UI, performance and predictable UX.',
@@ -73,12 +159,56 @@ const en = {
   'projects.more': 'More projects',
   'projects.title': 'Projects',
   'projects.updated': 'Last commit',
+  'projectsFilter.all': 'All',
+  'projectsFilter.frontend': 'Frontend',
+  'projectsFilter.pet': 'Pet projects',
+  'projectsFilter.react': 'React',
+  'projectsFilter.test': 'Test tasks',
+  'projectsFilter.typescript': 'TypeScript',
+  'projectsPage.clearSearch': 'Clear search',
+  'projectsPage.empty':
+    'No projects matched this query. Try another stack or reset the filter.',
+  'projectsPage.error':
+    'GitHub did not respond, so local project descriptions are shown.',
+  'projectsPage.filterAria': 'Project filter',
+  'projectsPage.hideDetails': 'Hide details',
+  'projectsPage.lead':
+    'This page collects learning work, test tasks and pet projects that show my frontend approach: architecture, data flow, UI states and attention to detail.',
+  'projectsPage.loading': 'Loading project data...',
+  'projectsPage.searchAria': 'Search projects',
+  'projectsPage.searchPlaceholder':
+    'Search projects: Zod, forms, server state, auth...',
+  'projectsPage.showDetails': 'Show details',
+  'projectsPage.sortManual': 'Sort: manual',
   'projectStatus.backendRequired': 'Backend required',
   'projectStatus.inProgress': 'In progress',
   'skills.more': 'All skills',
   'skills.showAll': 'Show all',
   'skills.title': 'Tech and tools',
   'skills.hide': 'Hide',
+  'skillsPage.directionsTitle': 'Key directions',
+  'skillsPage.growthTitle': 'Currently improving',
+  'skillsPage.heroAccent': 'in practice',
+  'skillsPage.heroHighlight1': 'Component architecture',
+  'skillsPage.heroHighlight2': 'Data, API and server state',
+  'skillsPage.heroHighlight3': 'Stable UX without noise',
+  'skillsPage.heroLead':
+    'For me, frontend starts not with a list of technologies, but with a clear system: component architecture, type-safe data, careful API work and UI that behaves predictably across states.',
+  'skillsPage.practiceTitle': 'How I apply skills',
+  'skillsPage.tasksTitle': 'Tasks I can cover',
+  'summary.ctaButton': 'Contact me',
+  'summary.ctaText':
+    'Send me a message - we can discuss a task, vacancy or internship format.',
+  'summary.ctaTitle': 'Have a suitable role or project?',
+  'summary.highlight1': '6 projects: learning, test tasks and pet projects',
+  'summary.highlight2': 'React, TypeScript, SPA and component architecture',
+  'summary.highlight3': 'REST API, forms, Zod and server state',
+  'summary.highlight4': 'AI assistant, event analytics and responsive UI',
+  'summary.highlightsTitle': 'In short',
+  'summary.projects': 'View projects',
+  'summary.searchText':
+    'I am looking for a frontend internship or junior role with React, TypeScript, API work, tidy UI and room to grow quickly in a team.',
+  'summary.searchTitle': 'What I am looking for',
   'theme.switchToDark': 'Switch to dark theme',
   'theme.switchToLight': 'Switch to light theme',
   'theme.titleDark': 'Dark theme',

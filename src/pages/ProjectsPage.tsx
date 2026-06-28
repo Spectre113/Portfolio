@@ -19,6 +19,9 @@ import travelForgeCover from '../assets/TravelForge.png';
 import vkTestCover from '../assets/VK-test.png';
 import wWaveCover from '../assets/W-wave.png';
 import { filterProjects } from './project-search.ts';
+import { useTranslation } from '../shared/i18n/useTranslation.ts';
+import type { TranslationKey } from '../shared/i18n/translations.ts';
+import type { Language } from '../shared/language/language-context.ts';
 import './ProjectsPage.css';
 
 type ProjectFilter =
@@ -38,7 +41,7 @@ type ProjectPageDetails = {
   scope: string;
 };
 
-const projectDetails: Record<string, ProjectPageDetails> = {
+const projectDetailsRu: Record<string, ProjectPageDetails> = {
   'vk-marusya': {
     category: ['frontend', 'react', 'typescript', 'pet'],
     cover: marusyaCover,
@@ -131,21 +134,119 @@ const projectDetails: Record<string, ProjectPageDetails> = {
   },
 };
 
-const filters: Array<{ id: ProjectFilter; label: string }> = [
-  { id: 'all', label: 'Все' },
-  { id: 'frontend', label: 'Frontend' },
-  { id: 'react', label: 'React' },
-  { id: 'typescript', label: 'TypeScript' },
-  { id: 'test', label: 'Тестовые' },
-  { id: 'pet', label: 'Pet-проекты' },
+const projectDetailsEn: Record<string, ProjectPageDetails> = {
+  'vk-marusya': {
+    category: ['frontend', 'react', 'typescript', 'pet'],
+    cover: marusyaCover,
+    role: 'Frontend SPA, personal project',
+    scope:
+      'Built the client side: pages, routing, auth, favorites, server state and API contract validation.',
+    longDescription:
+      'A movie search app with detail pages, genres and a user account area. I focused on type safety, predictable loading and error states, a separated API layer, UI logic, and stable favorites/user state behavior.',
+    highlights: [
+      'movie search with debounce',
+      'auth and protected flows',
+      'TanStack Query for server state',
+      'Zod for input validation',
+    ],
+  },
+  portfolio: {
+    category: ['frontend', 'react', 'typescript', 'pet'],
+    cover: portfolioCover,
+    role: 'Personal portfolio site',
+    scope:
+      'Building the portfolio architecture, pages, themes, data layer, animations and contact form.',
+    longDescription:
+      'The portfolio is built as a living frontend project, not a static business card: routing, themes, Zod contracts, React Query, animations, responsive layout and Formspree contact flow. The project keeps growing with separate pages and deeper case studies.',
+    highlights: [
+      'React 19 + TypeScript',
+      'dark and light themes',
+      'animations with reduced motion',
+      'contact form via Formspree',
+    ],
+  },
+  'avito-task': {
+    category: ['frontend', 'react', 'typescript', 'test'],
+    cover: avitoCover,
+    role: 'Test task, frontend part',
+    scope:
+      'The server side is not mine; my part is the seller dashboard, forms, routes, API work and AI suggestions.',
+    longDescription:
+      'Seller dashboard with listings, listing details, editing, filters, sorting, pagination and AI suggestions for description and price. A key part is the edit form with dynamic fields, validation, drafts and careful UI state handling.',
+    highlights: [
+      'React Hook Form + Zod',
+      'TanStack Query',
+      'AI suggestions via Ollama',
+      'search, filters and pagination',
+    ],
+  },
+  'vk-test': {
+    category: ['frontend', 'react', 'typescript', 'test'],
+    cover: vkTestCover,
+    role: 'Test task',
+    scope:
+      'Built a cat gallery UI with favorites and infinite card loading through an external API.',
+    longDescription:
+      'A cat-themed Pinterest-style project: card list, favorites, client-side favorite storage and infinite scroll. The main focus was predictable list behavior, preserving user choices and clean data loading.',
+    highlights: [
+      'TheCatAPI',
+      'client-side favorites',
+      'infinite scroll',
+      'responsive UI',
+    ],
+  },
+  'w-wave': {
+    category: ['frontend'],
+    cover: wWaveCover,
+    role: 'Learning frontend project',
+    scope:
+      'Built a static radio station site with responsive layout, interactive elements and BEM structure.',
+    longDescription:
+      'A learning project on a pure frontend stack: responsive layout, interactive elements, forms, sliders and a tidy class structure. It is a good example of base HTML/CSS/JavaScript work without a heavy framework.',
+    highlights: [
+      'HTML/CSS/JavaScript',
+      'BEM',
+      'responsive layout',
+      'forms and interactions',
+    ],
+  },
+  travelforge: {
+    category: ['frontend', 'react', 'typescript', 'pet'],
+    cover: travelForgeCover,
+    role: 'Learning full-stack project, frontend contribution',
+    scope:
+      'I worked on the frontend part; backend and infrastructure are outside my implementation scope.',
+    longDescription:
+      'Trip planning interface with budget, destinations, preferences, map and TravelBot. On the frontend side, the key work is destination selection, data display, API interaction and visual organization of a complex user flow.',
+    highlights: [
+      'React + TypeScript',
+      'maps and routes',
+      'REST API integration',
+      'TravelBot UI',
+    ],
+  },
+};
+
+const projectDetailsByLanguage = {
+  ru: projectDetailsRu,
+  en: projectDetailsEn,
+} satisfies Record<Language, Record<string, ProjectPageDetails>>;
+
+const filters: Array<{ id: ProjectFilter; labelKey: TranslationKey }> = [
+  { id: 'all', labelKey: 'projectsFilter.all' },
+  { id: 'frontend', labelKey: 'projectsFilter.frontend' },
+  { id: 'react', labelKey: 'projectsFilter.react' },
+  { id: 'typescript', labelKey: 'projectsFilter.typescript' },
+  { id: 'test', labelKey: 'projectsFilter.test' },
+  { id: 'pet', labelKey: 'projectsFilter.pet' },
 ];
 
-function formatCommitDate(date: string) {
+function formatCommitDate(date: string, language: Language) {
   if (!date) {
-    return 'дата недоступна';
+    return language === 'ru' ? 'дата недоступна' : 'date unavailable';
   }
 
-  return new Intl.DateTimeFormat('ru-RU', {
+  return new Intl.DateTimeFormat(language === 'ru' ? 'ru-RU' : 'en-US', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
@@ -153,10 +254,12 @@ function formatCommitDate(date: string) {
 }
 
 export function ProjectsPage() {
+  const { language, t } = useTranslation();
   const { data: projects = [], isError, isLoading } = useProjects();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('all');
   const [expandedProjects, setExpandedProjects] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const projectDetails = projectDetailsByLanguage[language];
 
   const visibleProjects = useMemo(
     () =>
@@ -166,7 +269,7 @@ export function ProjectsPage() {
         projects,
         searchQuery,
       }),
-    [activeFilter, projects, searchQuery],
+    [activeFilter, projectDetails, projects, searchQuery],
   );
 
   const toggleProject = (slug: string) => {
@@ -183,16 +286,12 @@ export function ProjectsPage() {
         <div className="projects-page__hero-content">
           <p className="projects-page__eyebrow">
             <span aria-hidden="true" />
-            Проекты
+            {t('projects.title')}
           </p>
 
-          <h1 className="projects-page__title">Проекты</h1>
+          <h1 className="projects-page__title">{t('projects.title')}</h1>
 
-          <p className="projects-page__lead">
-            Здесь собраны учебные работы, тестовые задания и pet-проекты, в
-            которых виден мой подход к frontend-разработке: архитектура, работа
-            с данными, состояния интерфейса и внимание к деталям.
-          </p>
+          <p className="projects-page__lead">{t('projectsPage.lead')}</p>
         </div>
 
         <div className="projects-page__hero-card" aria-hidden="true">
@@ -206,15 +305,15 @@ export function ProjectsPage() {
           <Search size={20} strokeWidth={2.1} aria-hidden="true" />
           <input
             value={searchQuery}
-            placeholder="Поиск по проектам: Zod, формы, server state, авторизация..."
-            aria-label="Поиск по проектам"
+            placeholder={t('projectsPage.searchPlaceholder')}
+            aria-label={t('projectsPage.searchAria')}
             onChange={(event) => setSearchQuery(event.target.value)}
           />
           {searchQuery && (
             <button
               className="projects-page__search-clear btn-reset"
               type="button"
-              aria-label="Очистить поиск"
+              aria-label={t('projectsPage.clearSearch')}
               onClick={() => setSearchQuery('')}
             >
               <X size={16} strokeWidth={2.3} aria-hidden="true" />
@@ -222,7 +321,10 @@ export function ProjectsPage() {
           )}
         </label>
 
-        <div className="projects-page__filters" aria-label="Фильтр проектов">
+        <div
+          className="projects-page__filters"
+          aria-label={t('projectsPage.filterAria')}
+        >
           {filters.map((filter) => (
             <button
               className={
@@ -234,44 +336,42 @@ export function ProjectsPage() {
               type="button"
               onClick={() => setActiveFilter(filter.id)}
             >
-              {filter.label}
+              {t(filter.labelKey)}
             </button>
           ))}
         </div>
 
         <div className="projects-page__sort" aria-hidden="true">
           <SlidersHorizontal size={18} strokeWidth={2.1} />
-          Сортировка: вручную
+          {t('projectsPage.sortManual')}
         </div>
       </section>
 
       <section className="container projects-page__grid-section">
         {isLoading && (
-          <p className="projects-page__state">Загружаю данные проектов...</p>
+          <p className="projects-page__state">{t('projectsPage.loading')}</p>
         )}
 
         {isError && (
-          <p className="projects-page__state">
-            GitHub сейчас не ответил, поэтому показываю локальные описания.
-          </p>
+          <p className="projects-page__state">{t('projectsPage.error')}</p>
         )}
 
         <div className="projects-page__grid">
           {visibleProjects.map((project) => (
             <ProjectCard
+              details={projectDetails[project.slug]}
               isExpanded={expandedProjects.includes(project.slug)}
               key={project.slug}
-              project={project}
+              language={language}
               onToggle={() => toggleProject(project.slug)}
+              project={project}
+              t={t}
             />
           ))}
         </div>
 
         {!isLoading && visibleProjects.length === 0 && (
-          <p className="projects-page__state">
-            По этому запросу проектов не нашлось. Попробуйте другой стек или
-            сбросьте фильтр.
-          </p>
+          <p className="projects-page__state">{t('projectsPage.empty')}</p>
         )}
       </section>
     </main>
@@ -279,15 +379,20 @@ export function ProjectsPage() {
 }
 
 function ProjectCard({
+  details,
   isExpanded,
+  language,
   onToggle,
   project,
+  t,
 }: {
+  details?: ProjectPageDetails;
   isExpanded: boolean;
+  language: Language;
   onToggle: () => void;
   project: Project;
+  t: (key: TranslationKey) => string;
 }) {
-  const details = projectDetails[project.slug];
   const description = details?.longDescription ?? project.description;
   const shortDescription =
     description.length > 210
@@ -300,7 +405,7 @@ function ProjectCard({
         <img
           className="projects-page-card__cover"
           src={details?.cover}
-          alt={`Превью проекта ${project.title}`}
+          alt={`${t('projects.altPreview')} ${project.title}`}
           loading="lazy"
         />
       </div>
@@ -329,7 +434,9 @@ function ProjectCard({
               aria-expanded={isExpanded}
               onClick={onToggle}
             >
-              {isExpanded ? 'Скрыть детали' : 'Показать подробнее'}
+              {isExpanded
+                ? t('projectsPage.hideDetails')
+                : t('projectsPage.showDetails')}
             </button>
           )}
         </div>
@@ -363,7 +470,8 @@ function ProjectCard({
         <div className="projects-page-card__footer">
           <p className="projects-page-card__meta">
             <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
-            Последний коммит: {formatCommitDate(project.pushedAt)}
+            {t('projects.updated')}:{' '}
+            {formatCommitDate(project.pushedAt, language)}
           </p>
 
           <div className="projects-page-card__actions">
@@ -401,7 +509,9 @@ function ProjectCard({
               </a>
             ) : (
               <span className="projects-page-card__status">
-                {project.demoStatus ?? 'В разработке'}
+                {project.demoStatus === 'Демо требует backend'
+                  ? t('projectStatus.backendRequired')
+                  : project.demoStatus ?? t('projectStatus.inProgress')}
               </span>
             )}
           </div>

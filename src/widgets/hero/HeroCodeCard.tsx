@@ -1,6 +1,7 @@
-import './HeroCodeCard.css';
+import { useTranslation } from '../../shared/i18n/useTranslation.ts';
 import { useTypewriterSequence } from './useTypewriterSequence.ts';
 import type { CodeToken } from './useTypewriterSequence.ts';
+import './HeroCodeCard.css';
 
 function renderLineContent({
   cursorLineIndex,
@@ -40,12 +41,13 @@ function renderLineContent({
 }
 
 export function HeroCodeCard() {
+  const { t } = useTranslation();
   const { cursorLineIndex, isAnimating, lines } = useTypewriterSequence();
 
   return (
     <div
       className="hero-code"
-      aria-label="Пример кода с безопасным браузерным контекстом посетителя"
+      aria-label={t('hero.codeAria')}
     >
       <div className="hero-code__toolbar" aria-hidden="true">
         <span className="hero-code__dot hero-code__dot--red" />

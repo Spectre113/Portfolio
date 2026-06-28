@@ -6,20 +6,24 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
+import { useTranslation } from '../../shared/i18n/useTranslation.ts';
+import type { TranslationKey } from '../../shared/i18n/translations.ts';
 import './SummarySection.css';
 
 type SummarySectionProps = {
   onContactClick: () => void;
 };
 
-const highlights = [
-  '6 проектов: учебные, тестовые и pet',
-  'React, TypeScript, SPA и компонентная архитектура',
-  'REST API, формы, Zod и server state',
-  'AI-помощник, аналитика событий и адаптивный интерфейс',
+const highlights: TranslationKey[] = [
+  'summary.highlight1',
+  'summary.highlight2',
+  'summary.highlight3',
+  'summary.highlight4',
 ];
 
 export function SummarySection({ onContactClick }: SummarySectionProps) {
+  const { t } = useTranslation();
+
   return (
     <section className="container summary-section">
       <article className="summary-card summary-card--search">
@@ -27,17 +31,13 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
           <span className="summary-card__icon" aria-hidden="true">
             <BriefcaseBusiness size={22} strokeWidth={2.1} />
           </span>
-          <h2 className="summary-card__title">Что ищу сейчас</h2>
+          <h2 className="summary-card__title">{t('summary.searchTitle')}</h2>
         </div>
 
-        <p className="summary-card__text">
-          Ищу frontend-стажировку или junior-позицию, где нужны React,
-          TypeScript, работа с API, аккуратный UI и готовность быстро расти в
-          команде.
-        </p>
+        <p className="summary-card__text">{t('summary.searchText')}</p>
 
         <Link className="summary-card__link" to="/projects">
-          Посмотрите мои проекты
+          {t('summary.projects')}
           <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
         </Link>
 
@@ -54,14 +54,16 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
           <span className="summary-card__icon" aria-hidden="true">
             <CheckCircle2 size={22} strokeWidth={2.1} />
           </span>
-          <h2 className="summary-card__title">Коротко по делу</h2>
+          <h2 className="summary-card__title">
+            {t('summary.highlightsTitle')}
+          </h2>
         </div>
 
         <ul className="summary-card__list list-reset">
           {highlights.map((highlight) => (
             <li key={highlight}>
               <CheckCircle2 size={17} strokeWidth={2.2} aria-hidden="true" />
-              <span>{highlight}</span>
+              <span>{t(highlight)}</span>
             </li>
           ))}
         </ul>
@@ -75,11 +77,9 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
           aria-hidden="true"
         />
         <h2 className="summary-card__cta-title">
-          Есть подходящая позиция или проект?
+          {t('summary.ctaTitle')}
         </h2>
-        <p className="summary-card__text">
-          Напишите мне - обсудим задачу, вакансию или формат стажировки.
-        </p>
+        <p className="summary-card__text">{t('summary.ctaText')}</p>
         <button
           className="summary-card__button"
           type="button"
@@ -88,7 +88,7 @@ export function SummarySection({ onContactClick }: SummarySectionProps) {
             onContactClick();
           }}
         >
-          Связаться со мной
+          {t('summary.ctaButton')}
           <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
         </button>
       </article>
