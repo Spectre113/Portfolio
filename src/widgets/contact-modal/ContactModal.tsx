@@ -3,6 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock, Mail, Send, X } from 'lucide-react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
+import { useTranslation } from '../../shared/i18n/useTranslation.ts';
+import type { Language } from '../../shared/language/language-context.ts';
 import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
 import {
   contactFormSchema,
@@ -20,7 +22,84 @@ type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
 
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
+const contactModalCopy = {
+  ru: {
+    asideText:
+      'Есть проект, идея или вопрос? Напишите, отвечу как только увижу ваше сообщение.',
+    asideTitle: 'Напишите мне',
+    asideTitleAccent: 'я на связи!',
+    close: 'Закрыть модальное окно',
+    email: 'Email',
+    heading: 'Сообщение',
+    message: 'Сообщение',
+    messagePlaceholder: 'Ваше сообщение *',
+    name: 'Ваше имя',
+    namePlaceholder: 'Ваше имя *',
+    notice: 'Никаких спам-рассылок. Только личное общение.',
+    phone: 'Телефон',
+    phonePlaceholder: '+7 (999) 999-99-99',
+    statusEndpoint:
+      'Форма готова, но endpoint Formspree ещё не добавлен.',
+    statusError:
+      'Не удалось отправить сообщение. Попробуйте позже или напишите в Telegram.',
+    statusSuccess: 'Сообщение отправлено. Спасибо, я скоро отвечу.',
+    subject: 'Сообщение с портфолио от',
+    submit: 'Отправить сообщение',
+    submitting: 'Отправляю...',
+    subtitle: 'Расскажите о проекте или задайте вопрос',
+  },
+  en: {
+    asideText:
+      'Have a project, idea or question? Send a message, and I will reply as soon as I see it.',
+    asideTitle: 'Message me',
+    asideTitleAccent: 'I am available',
+    close: 'Close contact dialog',
+    email: 'Email',
+    heading: 'Message',
+    message: 'Message',
+    messagePlaceholder: 'Your message *',
+    name: 'Your name',
+    namePlaceholder: 'Your name *',
+    notice: 'No spam or mailing lists. Just direct communication.',
+    phone: 'Phone',
+    phonePlaceholder: '+7 (999) 999-99-99',
+    statusEndpoint:
+      'The form is ready, but the Formspree endpoint is not added yet.',
+    statusError:
+      'Could not send the message. Please try again later or text me on Telegram.',
+    statusSuccess: 'Message sent. Thank you, I will reply soon.',
+    subject: 'Portfolio message from',
+    submit: 'Send message',
+    submitting: 'Sending...',
+    subtitle: 'Tell me about a project or ask a question',
+  },
+} satisfies Record<Language, Record<string, string>>;
+
+const contactErrorCopy = {
+  ru: {
+    'Сообщение должно быть не короче 10 символов':
+      'Сообщение должно быть не короче 10 символов',
+    'Укажите email или телефон, чтобы я мог ответить':
+      'Укажите email или телефон, чтобы я мог ответить',
+    'Укажите корректный email': 'Укажите корректный email',
+    'Укажите имя': 'Укажите имя',
+    'Укажите телефон полностью': 'Укажите телефон полностью',
+  },
+  en: {
+    'Сообщение должно быть не короче 10 символов':
+      'Message must be at least 10 characters long',
+    'Укажите email или телефон, чтобы я мог ответить':
+      'Add an email or phone number so I can reply',
+    'Укажите корректный email': 'Enter a valid email',
+    'Укажите имя': 'Enter your name',
+    'Укажите телефон полностью': 'Enter the full phone number',
+  },
+} satisfies Record<Language, Record<string, string>>;
+
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const { language } = useTranslation();
+  const copy = contactModalCopy[language];
+  const errorCopy = contactErrorCopy[language];
   const [formStatus, setFormStatus] = useState<string | null>(null);
   const [phoneInput, setPhoneInput] = useState('');
   const [submissionState, setSubmissionState] =
@@ -125,7 +204,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
     if (!FORMSPREE_ENDPOINT) {
       setSubmissionState('error');
-      setFormStatus('Форма готова, но endpoint Formspree ещё не добавлен.');
+      setFormStatus(copy.statusEndpoint);
       return;
     }
 
@@ -135,7 +214,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         body: JSON.stringify({
           ...values,
-          _subject: `Сообщение с портфолио от ${values.name}`,
+          _subject: `${copy.subject} ${values.name}`,
         }),
         headers: {
           Accept: 'application/json',
@@ -151,13 +230,16 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
       reset();
       setPhoneInput('');
       setSubmissionState('success');
-      setFormStatus('Сообщение отправлено. Спасибо, я скоро отвечу.');
+      setFormStatus(copy.statusSuccess);
       trackPortfolioEvent('contact_form_submit');
     } catch {
       setSubmissionState('error');
-      setFormStatus('Не удалось отправить сообщение. Попробуйте позже или напишите в Telegram.');
+      setFormStatus(copy.statusError);
     }
   };
+
+  const getErrorMessage = (message?: string) =>
+    message ? (errorCopy[message] ?? message) : '';
 
   return (
     <div className="contact-modal" role="presentation" onMouseDown={handleClose}>
@@ -172,7 +254,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         <button
           className="contact-modal__close btn-reset"
           type="button"
-          aria-label="Закрыть модальное окно"
+          aria-label={copy.close}
           onClick={handleClose}
         >
           <X size={24} strokeWidth={2} aria-hidden="true" />
@@ -185,12 +267,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
           <div className="contact-modal__intro">
             <h2 className="contact-modal__aside-title">
-              Напишите мне <span>я на связи!</span>
+              {copy.asideTitle} <span>{copy.asideTitleAccent}</span>
             </h2>
-            <p>
-              Есть проект, идея или вопрос? Напишите, отвечу как только увижу
-              ваше сообщение.
-            </p>
+            <p>{copy.asideText}</p>
           </div>
 
           <ul className="contact-modal__links list-reset">
@@ -232,8 +311,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
         <div className="contact-modal__content">
           <div className="contact-modal__heading">
-            <h2 id="contact-modal-title">Сообщение</h2>
-            <p>Расскажите о проекте или задайте вопрос</p>
+            <h2 id="contact-modal-title">{copy.heading}</h2>
+            <p>{copy.subtitle}</p>
           </div>
 
           <form className="contact-modal__form" onSubmit={handleSubmit(onSubmit)}>
@@ -242,10 +321,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 errors.name ? ' contact-modal__field--invalid' : ''
               }`}
             >
-              <span>Ваше имя</span>
+              <span>{copy.name}</span>
               <input
                 type="text"
-                placeholder="Ваше имя *"
+                placeholder={copy.namePlaceholder}
                 autoComplete="name"
                 aria-invalid={Boolean(errors.name)}
                 aria-describedby={errors.name ? 'contact-name-error' : undefined}
@@ -256,7 +335,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 }}
               />
               <small className="contact-modal__error" id="contact-name-error">
-                {errors.name?.message}
+                {getErrorMessage(errors.name?.message)}
               </small>
             </label>
 
@@ -265,17 +344,17 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 errors.email ? ' contact-modal__field--invalid' : ''
               }`}
             >
-              <span>Email</span>
+              <span>{copy.email}</span>
               <input
                 type="email"
-                placeholder="Email"
+                placeholder={copy.email}
                 autoComplete="email"
                 aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? 'contact-email-error' : undefined}
                 {...register('email')}
               />
               <small className="contact-modal__error" id="contact-email-error">
-                {errors.email?.message}
+                {getErrorMessage(errors.email?.message)}
               </small>
             </label>
 
@@ -284,12 +363,12 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 errors.phone ? ' contact-modal__field--invalid' : ''
               }`}
             >
-              <span>Телефон</span>
+              <span>{copy.phone}</span>
               <input type="hidden" {...register('phone')} />
               <input
                 type="tel"
                 inputMode="tel"
-                placeholder="+7 (999) 999-99-99"
+                placeholder={copy.phonePlaceholder}
                 autoComplete="tel"
                 aria-invalid={Boolean(errors.phone)}
                 aria-describedby={errors.phone ? 'contact-phone-error' : undefined}
@@ -305,7 +384,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 }}
               />
               <small className="contact-modal__error" id="contact-phone-error">
-                {errors.phone?.message}
+                {getErrorMessage(errors.phone?.message)}
               </small>
             </label>
 
@@ -314,9 +393,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 errors.message ? ' contact-modal__field--invalid' : ''
               }`}
             >
-              <span>Сообщение</span>
+              <span>{copy.message}</span>
               <textarea
-                placeholder="Ваше сообщение *"
+                placeholder={copy.messagePlaceholder}
                 rows={7}
                 aria-invalid={Boolean(errors.message)}
                 aria-describedby={
@@ -328,7 +407,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 className="contact-modal__error"
                 id="contact-message-error"
               >
-                {errors.message?.message}
+                {getErrorMessage(errors.message?.message)}
               </small>
             </label>
 
@@ -339,8 +418,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             >
               <Send size={20} strokeWidth={2} aria-hidden="true" />
               {submissionState === 'submitting'
-                ? 'Отправляю...'
-                : 'Отправить сообщение'}
+                ? copy.submitting
+                : copy.submit}
             </button>
 
             <p
@@ -354,7 +433,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
           <p className="contact-modal__notice">
             <Lock size={14} strokeWidth={2.2} aria-hidden="true" />
-            Никаких спам-рассылок. Только личное общение.
+            {copy.notice}
           </p>
         </div>
       </section>

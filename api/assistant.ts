@@ -29,8 +29,11 @@ type RateLimitEntry = {
 
 const rateLimitStore = new Map<string, RateLimitEntry>();
 
+const LanguageSchema = z.enum(['ru', 'en']);
+
 const AssistantRequestSchema = z.object({
   input: z.string().trim().min(1).max(MAX_INPUT_LENGTH),
+  language: LanguageSchema.default('ru'),
 });
 
 const AssistantResponseSchema = z.object({
@@ -41,6 +44,7 @@ const AssistantResponseSchema = z.object({
 });
 
 type AssistantResponse = z.infer<typeof AssistantResponseSchema>;
+type AssistantLanguage = z.infer<typeof LanguageSchema>;
 
 class HttpError extends Error {
   statusCode: number;
@@ -55,6 +59,8 @@ const portfolioContext = `
 Владелец портфолио: Владимир Топорков, frontend-разработчик.
 Фокус: React, TypeScript, SPA, REST API, TanStack Query, Zod, React Hook Form, React Router, адаптивная верстка, темы, UX-состояния, поддерживаемая архитектура.
 
+Основной стек портфолио и проектов: React, TypeScript, Vite, React Router, TanStack Query, Zod, React Hook Form, REST API, Formspree, GitHub API fallback, адаптивная верстка, light/dark theme, event analytics, serverless AI endpoint.
+
 Проекты:
 1. VK Маруся: SPA для поиска фильмов, жанров и личного кабинета. Есть авторизация, защищенные сценарии, REST API, TanStack Query, Zod, loading/error-состояния, избранное.
 2. Portfolio: персональный сайт на React/TypeScript/Vite. Есть маршруты, темы, анимации, contact form, data layer, Zod-контракты, GitHub API fallback.
@@ -66,14 +72,20 @@ const portfolioContext = `
 Честные зоны роста: тестирование, accessibility, производительность на сложных сценариях, production-процессы в команде.
 `;
 
-const systemInstruction = `
+function buildSystemInstruction(language: AssistantLanguage) {
+  const languageRule =
+    language === 'en'
+      ? 'Write in English, concise and confident.'
+      : 'Пиши по-русски, коротко и уверенно.';
+
+  return `
 Ты AI-помощник на сайте портфолио Владимира. Отвечай рекрутеру или посетителю сайта.
-Твоя задача: сопоставить вопрос или текст вакансии с реальными навыками и проектами из контекста.
+Твоя задача: сопоставить вопрос, текст вакансии или запрос про стек проекта с реальными навыками и проектами из контекста.
 
 Правила:
 - Не выдумывай коммерческий опыт, технологии или достижения.
 - Если требование не подтверждено контекстом, мягко обозначь это как зону роста.
-- Пиши по-русски, коротко и уверенно.
+- ${languageRule}
 - Верни только JSON без markdown.
 - JSON должен иметь поля: title, summary, bullets, projects.
 - bullets: 2-4 пункта.
@@ -82,6 +94,7 @@ const systemInstruction = `
 Контекст портфолио:
 ${portfolioContext}
 `;
+}
 
 function parseRequestBody(body: unknown) {
   if (typeof body === 'string') {
@@ -185,7 +198,10 @@ function parseGroqText(data: unknown) {
   return response.choices[0].message.content.trim();
 }
 
-async function requestAssistantResponse(input: string): Promise<AssistantResponse> {
+async function requestAssistantResponse(
+  input: string,
+  language: AssistantLanguage,
+): Promise<AssistantResponse> {
   const apiKey = process.env.GROQ_API_KEY;
 
   if (!apiKey) {
@@ -198,11 +214,14 @@ async function requestAssistantResponse(input: string): Promise<AssistantRespons
       messages: [
         {
           role: 'system',
-          content: systemInstruction,
+          content: buildSystemInstruction(language),
         },
         {
           role: 'user',
-          content: `Вопрос или описание вакансии:\n${input}`,
+          content:
+            language === 'en'
+              ? `Question or vacancy description:\n${input}`
+              : `Вопрос или описание вакансии:\n${input}`,
         },
       ],
       model: GROQ_MODEL,
@@ -243,8 +262,8 @@ export default async function handler(
     assertRateLimit(getClientId(request));
 
     const body = parseRequestBody(request.body);
-    const { input } = AssistantRequestSchema.parse(body);
-    const assistantResponse = await requestAssistantResponse(input);
+    const { input, language } = AssistantRequestSchema.parse(body);
+    const assistantResponse = await requestAssistantResponse(input, language);
 
     response.status(200).json(assistantResponse);
   } catch (error) {
