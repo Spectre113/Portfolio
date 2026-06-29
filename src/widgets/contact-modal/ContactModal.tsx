@@ -5,7 +5,10 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import { useTranslation } from '../../shared/i18n/useTranslation.ts';
 import type { Language } from '../../shared/language/language-context.ts';
-import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
+import {
+  GitHubIcon,
+  LinkedInIcon,
+} from '../../shared/ui/BrandIcon/BrandIcon.tsx';
 import {
   contactFormSchema,
   formatPhone,
@@ -274,7 +277,11 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
           <ul className="contact-modal__links list-reset">
             <li>
-              <a href="https://t.me/Spectre113">
+              <a
+                href="https://t.me/Spectre113"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <span className="contact-modal__link-icon" aria-hidden="true">
                   <Send size={21} strokeWidth={2} />
                 </span>
@@ -296,13 +303,32 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </a>
             </li>
             <li>
-              <a href="https://github.com/Spectre113">
+              <a
+                href="https://github.com/Spectre113"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <span className="contact-modal__link-icon" aria-hidden="true">
                   <GitHubIcon />
                 </span>
                 <span>
                   GitHub
                   <strong>github.com/Spectre113</strong>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/vladimir-toporkov-0554763a9/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span className="contact-modal__link-icon" aria-hidden="true">
+                  <LinkedInIcon />
+                </span>
+                <span>
+                  LinkedIn
+                  <strong>vladimir-toporkov</strong>
                 </span>
               </a>
             </li>

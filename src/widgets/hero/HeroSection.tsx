@@ -1,6 +1,9 @@
 import { ArrowRight, Download, Mail, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { GitHubIcon } from '../../shared/ui/BrandIcon/BrandIcon.tsx';
+import {
+  GitHubIcon,
+  LinkedInIcon,
+} from '../../shared/ui/BrandIcon/BrandIcon.tsx';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import { useTranslation } from '../../shared/i18n/useTranslation.ts';
 import { HeroCodeCard } from './HeroCodeCard.tsx';
@@ -16,6 +19,11 @@ const socialLinks = [
     label: 'Telegram',
     href: 'https://t.me/Spectre113',
     icon: Send,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/vladimir-toporkov-0554763a9/',
+    icon: LinkedInIcon,
   },
   {
     label: 'Email',
@@ -81,17 +89,23 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
             className="hero-section__socials list-reset"
             aria-label={t('hero.ariaSocials')}
           >
-            {socialLinks.map(({ href, icon: Icon, label }) => (
-              <li key={label}>
-                <a
-                  className="hero-section__social-link"
-                  href={href}
-                  aria-label={label}
-                >
-                  <Icon size={22} strokeWidth={2} aria-hidden="true" />
-                </a>
-              </li>
-            ))}
+            {socialLinks.map(({ href, icon: Icon, label }) => {
+              const isExternalLink = href.startsWith('http');
+
+              return (
+                <li key={label}>
+                  <a
+                    className="hero-section__social-link"
+                    href={href}
+                    aria-label={label}
+                    rel={isExternalLink ? 'noreferrer' : undefined}
+                    target={isExternalLink ? '_blank' : undefined}
+                  >
+                    <Icon size={22} strokeWidth={2} aria-hidden="true" />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
 

@@ -16,3 +16,18 @@ export function GitHubIcon({ className }: BrandIconProps) {
     </svg>
   );
 }
+
+export function LinkedInIcon({ className }: BrandIconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      width="22"
+      height="22"
+      aria-hidden="true"
+      fill="currentColor"
+    >
+      <path d="M6.94 8.99H3.56v10.85h3.38V8.99ZM7.16 5.64c0-1.08-.82-1.9-2.01-1.9-1.18 0-1.95.82-1.95 1.9 0 1.05.75 1.9 1.91 1.9h.02c1.21 0 2.03-.85 2.03-1.9ZM20.8 13.62c0-3.32-1.77-4.86-4.13-4.86-1.9 0-2.75 1.05-3.23 1.78V8.99h-3.38c.04 1.02 0 10.85 0 10.85h3.38v-6.06c0-.32.02-.65.12-.88.26-.65.86-1.32 1.86-1.32 1.31 0 1.84 1 1.84 2.46v5.8h3.38v-6.22h.16Z" />
+    </svg>
+  );
+}
