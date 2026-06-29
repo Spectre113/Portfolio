@@ -32,14 +32,25 @@ const socialLinks = [
   },
 ];
 
-const resumeUrl = `${import.meta.env.BASE_URL}resume-vladimir-toporkov.pdf`;
+const resumeFiles = {
+  en: {
+    downloadName: 'Vladimir-Toporkov-Frontend-Developer-CV.pdf',
+    fileName: 'resume-vladimir-toporkov-en.pdf',
+  },
+  ru: {
+    downloadName: 'Vladimir-Toporkov-Frontend-Developer.pdf',
+    fileName: 'resume-vladimir-toporkov.pdf',
+  },
+} as const;
 
 type HeroSectionProps = {
   onContactClick: () => void;
 };
 
 export function HeroSection({ onContactClick }: HeroSectionProps) {
-  const { t } = useTranslation();
+  const { language, t } = useTranslation();
+  const resumeFile = resumeFiles[language];
+  const resumeUrl = `${import.meta.env.BASE_URL}${resumeFile.fileName}`;
 
   return (
     <section className="hero-section">
@@ -75,7 +86,7 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
             <a
               className="hero-section__resume"
               href={resumeUrl}
-              download="Vladimir-Toporkov-Frontend-Developer.pdf"
+              download={resumeFile.downloadName}
               onClick={() =>
                 trackPortfolioEvent('resume_download', { source: 'hero' })
               }
