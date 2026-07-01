@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* LIGHT THEME */
   --color-bg: #f5f7fb;
@@ -11,7 +19,8 @@
   --color-accent-hover: #5b4df5;
   --color-button-text: #ffffff;
   --color-shadow: 0 10px 30px rgba(109, 94, 252, 0.08);
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--color-accent) 32%, transparent);
+  --focus-ring: 0 0 0 3px
+    color-mix(in srgb, var(--color-accent) 32%, transparent);
   --color-header-bg: rgba(245, 247, 251, 0.84);
   --gradient-accent: linear-gradient(135deg, #6d5efc 0%, #8b7cff 100%);
   --hero-code-bg: linear-gradient(
@@ -54,7 +63,8 @@
   --color-accent-hover: #24d88f;
   --color-button-text: #04110b;
   --color-shadow: 0 0 30px rgba(56, 242, 163, 0.12);
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--color-accent) 36%, transparent);
+  --focus-ring: 0 0 0 3px
+    color-mix(in srgb, var(--color-accent) 36%, transparent);
   --color-header-bg: rgba(5, 8, 22, 0.82);
   --gradient-accent: linear-gradient(135deg, #38f2a3 0%, #00c2ff 100%);
   --hero-code-bg: linear-gradient(145deg, #08101f 0%, #0d1629 100%);
