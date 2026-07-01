@@ -5,12 +5,12 @@ import AutoScroll from 'embla-carousel-auto-scroll';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ExternalLink, FolderGit2, GitBranch, GitCommit } from 'lucide-react';
 import { useProjects } from '../../entities/project/hooks/useProjects.ts';
-import avitoCover from '../../assets/Avito-test.png';
-import marusyaCover from '../../assets/Marusya.png';
-import portfolioCover from '../../assets/Portfolio.png';
-import travelForgeCover from '../../assets/TravelForge.png';
-import vkTestCover from '../../assets/VK-test.png';
-import wWaveCover from '../../assets/W-wave.png';
+import avitoCover from '../../assets/Avito-test.webp';
+import marusyaCover from '../../assets/Marusya.webp';
+import portfolioCover from '../../assets/Portfolio.webp';
+import travelForgeCover from '../../assets/TravelForge.webp';
+import vkTestCover from '../../assets/VK-test.webp';
+import wWaveCover from '../../assets/W-wave.webp';
 import { trackPortfolioEvent } from '../../shared/analytics/trackEvent.ts';
 import { useTranslation } from '../../shared/i18n/useTranslation.ts';
 import type { Language } from '../../shared/language/language-context.ts';
@@ -123,6 +123,9 @@ export function ProjectsSection() {
                   className="project-card__cover"
                   src={projectCovers[project.slug]}
                   alt={`${t('projects.altPreview')} ${project.title}`}
+                  width="640"
+                  height="360"
+                  decoding="async"
                   loading="lazy"
                 />
               </div>
@@ -152,6 +155,7 @@ export function ProjectsSection() {
                   <a
                     className="project-card__action"
                     href={project.githubUrl}
+                    aria-label={`GitHub repository for ${project.title}`}
                     target="_blank"
                     rel="noreferrer"
                     onClick={() =>
@@ -169,6 +173,7 @@ export function ProjectsSection() {
                     <a
                       className="project-card__action project-card__action--primary"
                       href={project.demoUrl}
+                      aria-label={`Demo for ${project.title}`}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() =>
@@ -189,7 +194,7 @@ export function ProjectsSection() {
                     <span className="project-card__status">
                       {project.demoStatus === 'Демо требует backend'
                         ? t('projectStatus.backendRequired')
-                        : project.demoStatus ?? t('projectStatus.inProgress')}
+                        : (project.demoStatus ?? t('projectStatus.inProgress'))}
                     </span>
                   )}
                 </div>

@@ -106,6 +106,7 @@ export function MainLayout() {
             <button
               className="site-header__contact btn-reset"
               type="button"
+              aria-label={t('header.contact')}
               onClick={() => {
                 trackPortfolioEvent('contact_modal_open', { source: 'header' });
                 openContactModal();

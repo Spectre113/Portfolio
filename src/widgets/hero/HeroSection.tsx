@@ -11,7 +11,7 @@ import './HeroSection.css';
 
 const socialLinks = [
   {
-    label: 'GitHub',
+    label: 'GitHub profile',
     href: 'https://github.com/Spectre113',
     icon: GitHubIcon,
   },
