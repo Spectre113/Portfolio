@@ -69,7 +69,7 @@ const rawProjectMeta = [
     stack: ['TravelBot', 'Budget UI', 'REST API', 'Map'],
     featured: false,
     order: 6,
-    demoUrl: 'http://travelforge.213-165-209-28.nip.io/',
+    demoStatus: 'Демо недоступно',
     lastCommitAt: '2026-04-20T07:28:46Z',
   },
 ] satisfies ProjectMeta[];

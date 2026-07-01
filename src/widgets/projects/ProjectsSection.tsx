@@ -52,6 +52,21 @@ const projectDescriptionTranslations: Partial<
   },
 };
 
+const projectTitleTranslations: Partial<
+  Record<Language, Record<string, string>>
+> = {
+  en: {
+    'vk-marusya': 'VK Marusya',
+  },
+};
+
+function getProjectTitle(
+  project: { slug: string; title: string },
+  language: Language,
+) {
+  return projectTitleTranslations[language]?.[project.slug] ?? project.title;
+}
+
 function formatCommitDate(date: string, language: Language) {
   if (!date) {
     return language === 'ru'
@@ -116,91 +131,103 @@ export function ProjectsSection() {
 
       <div className="projects-section__viewport" ref={emblaRef}>
         <div className="projects-section__track">
-          {projects.map((project) => (
-            <article className="project-card" key={project.slug}>
-              <div className="project-card__cover-wrap">
-                <img
-                  className="project-card__cover"
-                  src={projectCovers[project.slug]}
-                  alt={`${t('projects.altPreview')} ${project.title}`}
-                  width="640"
-                  height="360"
-                  decoding="async"
-                  loading="lazy"
-                />
-              </div>
+          {projects.map((project) => {
+            const projectTitle = getProjectTitle(project, language);
 
-              <div className="project-card__body">
-                <h3 className="project-card__title">{project.title}</h3>
-                <p className="project-card__description">
-                  {projectDescriptionTranslations[language]?.[project.slug] ??
-                    project.description}
-                </p>
+            return (
+              <article className="project-card" key={project.slug}>
+                <div className="project-card__cover-wrap">
+                  <img
+                    className="project-card__cover"
+                    src={projectCovers[project.slug]}
+                    alt={`${t('projects.altPreview')} ${projectTitle}`}
+                    width="640"
+                    height="360"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                </div>
 
-                <ul className="project-card__stack list-reset">
-                  {project.stack.map((technology) => (
-                    <li className="project-card__tag" key={technology}>
-                      {technology}
-                    </li>
-                  ))}
-                </ul>
+                <div className="project-card__body">
+                  <h3 className="project-card__title">{projectTitle}</h3>
 
-                <p className="project-card__meta">
-                  <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
-                  {t('projects.updated')}:{' '}
-                  {formatCommitDate(project.pushedAt, language)}
-                </p>
+                  <p className="project-card__description">
+                    {projectDescriptionTranslations[language]?.[project.slug] ??
+                      project.description}
+                  </p>
 
-                <div className="project-card__actions">
-                  <a
-                    className="project-card__action"
-                    href={project.githubUrl}
-                    aria-label={`GitHub repository for ${project.title}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() =>
-                      trackPortfolioEvent('project_github_open', {
-                        project: project.slug,
-                        source: 'home',
-                      })
-                    }
-                  >
-                    <GitBranch size={17} strokeWidth={2.1} aria-hidden="true" />
-                    GitHub
-                  </a>
+                  <ul className="project-card__stack list-reset">
+                    {project.stack.map((technology) => (
+                      <li className="project-card__tag" key={technology}>
+                        {technology}
+                      </li>
+                    ))}
+                  </ul>
 
-                  {project.demoUrl ? (
+                  <p className="project-card__meta">
+                    <GitCommit size={16} strokeWidth={2.1} aria-hidden="true" />
+                    {t('projects.updated')}:{' '}
+                    {formatCommitDate(project.pushedAt, language)}
+                  </p>
+
+                  <div className="project-card__actions">
                     <a
-                      className="project-card__action project-card__action--primary"
-                      href={project.demoUrl}
-                      aria-label={`Demo for ${project.title}`}
+                      className="project-card__action"
+                      href={project.githubUrl}
+                      aria-label={`GitHub repository for ${projectTitle}`}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() =>
-                        trackPortfolioEvent('project_demo_open', {
+                        trackPortfolioEvent('project_github_open', {
                           project: project.slug,
                           source: 'home',
                         })
                       }
                     >
-                      <ExternalLink
+                      <GitBranch
                         size={17}
                         strokeWidth={2.1}
                         aria-hidden="true"
                       />
-                      Demo
+                      GitHub
                     </a>
-                  ) : (
-                    <span className="project-card__status">
-                      {project.demoStatus === 'Демо требует backend'
-                        ? t('projectStatus.backendRequired')
-                        : (project.demoStatus ?? t('projectStatus.inProgress'))}
-                    </span>
-                  )}
+
+                    {project.demoUrl ? (
+                      <a
+                        className="project-card__action project-card__action--primary"
+                        href={project.demoUrl}
+                        aria-label={`Demo for ${projectTitle}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() =>
+                          trackPortfolioEvent('project_demo_open', {
+                            project: project.slug,
+                            source: 'home',
+                          })
+                        }
+                      >
+                        <ExternalLink
+                          size={17}
+                          strokeWidth={2.1}
+                          aria-hidden="true"
+                        />
+                        Demo
+                      </a>
+                    ) : (
+                      <span className="project-card__status">
+                        {project.demoStatus === 'Демо требует backend'
+                          ? t('projectStatus.backendRequired')
+                          : project.demoStatus === 'Демо недоступно'
+                            ? t('projectStatus.unavailable')
+                          : (project.demoStatus ??
+                            t('projectStatus.inProgress'))}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

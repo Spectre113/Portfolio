@@ -231,6 +231,14 @@ const projectDetailsByLanguage = {
   en: projectDetailsEn,
 } satisfies Record<Language, Record<string, ProjectPageDetails>>;
 
+const projectTitleTranslations: Partial<
+  Record<Language, Record<string, string>>
+> = {
+  en: {
+    'vk-marusya': 'VK Marusya',
+  },
+};
+
 const filters: Array<{ id: ProjectFilter; labelKey: TranslationKey }> = [
   { id: 'all', labelKey: 'projectsFilter.all' },
   { id: 'frontend', labelKey: 'projectsFilter.frontend' },
@@ -250,6 +258,13 @@ function formatCommitDate(date: string, language: Language) {
     month: 'short',
     year: 'numeric',
   }).format(new Date(date));
+}
+
+function getProjectTitle(
+  project: { slug: string; title: string },
+  language: Language,
+) {
+  return projectTitleTranslations[language]?.[project.slug] ?? project.title;
 }
 
 export function ProjectsPage() {
@@ -392,6 +407,7 @@ function ProjectCard({
     description.length > 210
       ? `${description.slice(0, 210).trim()}...`
       : description;
+  const projectTitle = getProjectTitle(project, language);
 
   return (
     <article className="projects-page-card">
@@ -399,7 +415,7 @@ function ProjectCard({
         <img
           className="projects-page-card__cover"
           src={details?.cover}
-          alt={`${t('projects.altPreview')} ${project.title}`}
+          alt={`${t('projects.altPreview')} ${projectTitle}`}
           width="640"
           height="360"
           decoding="async"
@@ -411,7 +427,7 @@ function ProjectCard({
         <div className="projects-page-card__heading">
           <div>
             <p className="projects-page-card__role">{details?.role}</p>
-            <h2>{project.title}</h2>
+            <h2>{projectTitle}</h2>
           </div>
           {project.featured && (
             <span className="projects-page-card__badge">
@@ -475,7 +491,7 @@ function ProjectCard({
             <a
               className="projects-page-card__action"
               href={project.githubUrl}
-              aria-label={`GitHub repository for ${project.title}`}
+              aria-label={`GitHub repository for ${projectTitle}`}
               target="_blank"
               rel="noreferrer"
               onClick={() =>
@@ -493,7 +509,7 @@ function ProjectCard({
               <a
                 className="projects-page-card__action projects-page-card__action--primary"
                 href={project.demoUrl}
-                aria-label={`Demo for ${project.title}`}
+                aria-label={`Demo for ${projectTitle}`}
                 target="_blank"
                 rel="noreferrer"
                 onClick={() =>
@@ -510,6 +526,8 @@ function ProjectCard({
               <span className="projects-page-card__status">
                 {project.demoStatus === 'Демо требует backend'
                   ? t('projectStatus.backendRequired')
+                  : project.demoStatus === 'Демо недоступно'
+                    ? t('projectStatus.unavailable')
                   : (project.demoStatus ?? t('projectStatus.inProgress'))}
               </span>
             )}
